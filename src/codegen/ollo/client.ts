@@ -1,23 +1,35 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as olloClaimTxRegistry from "./claim/tx.registry";
-import * as olloLiquidityTxRegistry from "./liquidity/tx.registry";
-import * as olloLoanTxRegistry from "./loan/tx.registry";
-import * as olloOnsTxRegistry from "./ons/tx.registry";
-import * as olloOracleTxRegistry from "./oracle/tx.registry";
-import * as olloClaimTxAmino from "./claim/tx.amino";
-import * as olloLiquidityTxAmino from "./liquidity/tx.amino";
-import * as olloLoanTxAmino from "./loan/tx.amino";
-import * as olloOnsTxAmino from "./ons/tx.amino";
-import * as olloOracleTxAmino from "./oracle/tx.amino";
-export const olloAminoConverters = { ...olloClaimTxAmino.AminoConverter,
-  ...olloLiquidityTxAmino.AminoConverter,
-  ...olloLoanTxAmino.AminoConverter,
-  ...olloOnsTxAmino.AminoConverter,
-  ...olloOracleTxAmino.AminoConverter
+import * as olloClaimV1TxRegistry from "./claim/v1/tx.registry";
+import * as olloFarmingV1TxRegistry from "./farming/v1/tx.registry";
+import * as olloGrantsV1TxRegistry from "./grants/v1/tx.registry";
+import * as olloLiquidityV1TxRegistry from "./liquidity/v1/tx.registry";
+import * as olloLoanV1TxRegistry from "./loan/v1/tx.registry";
+import * as olloNftV1TxRegistry from "./nft/v1/tx.registry";
+import * as olloOnsV1TxRegistry from "./ons/v1/tx.registry";
+import * as olloReserveV1TxRegistry from "./reserve/v1/tx.registry";
+import * as olloTokenV1TxRegistry from "./token/v1/tx.registry";
+import * as olloClaimV1TxAmino from "./claim/v1/tx.amino";
+import * as olloFarmingV1TxAmino from "./farming/v1/tx.amino";
+import * as olloGrantsV1TxAmino from "./grants/v1/tx.amino";
+import * as olloLiquidityV1TxAmino from "./liquidity/v1/tx.amino";
+import * as olloLoanV1TxAmino from "./loan/v1/tx.amino";
+import * as olloNftV1TxAmino from "./nft/v1/tx.amino";
+import * as olloOnsV1TxAmino from "./ons/v1/tx.amino";
+import * as olloReserveV1TxAmino from "./reserve/v1/tx.amino";
+import * as olloTokenV1TxAmino from "./token/v1/tx.amino";
+export const olloAminoConverters = { ...olloClaimV1TxAmino.AminoConverter,
+  ...olloFarmingV1TxAmino.AminoConverter,
+  ...olloGrantsV1TxAmino.AminoConverter,
+  ...olloLiquidityV1TxAmino.AminoConverter,
+  ...olloLoanV1TxAmino.AminoConverter,
+  ...olloNftV1TxAmino.AminoConverter,
+  ...olloOnsV1TxAmino.AminoConverter,
+  ...olloReserveV1TxAmino.AminoConverter,
+  ...olloTokenV1TxAmino.AminoConverter
 };
-export const olloProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...olloClaimTxRegistry.registry, ...olloLiquidityTxRegistry.registry, ...olloLoanTxRegistry.registry, ...olloOnsTxRegistry.registry, ...olloOracleTxRegistry.registry];
+export const olloProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...olloClaimV1TxRegistry.registry, ...olloFarmingV1TxRegistry.registry, ...olloGrantsV1TxRegistry.registry, ...olloLiquidityV1TxRegistry.registry, ...olloLoanV1TxRegistry.registry, ...olloNftV1TxRegistry.registry, ...olloOnsV1TxRegistry.registry, ...olloReserveV1TxRegistry.registry, ...olloTokenV1TxRegistry.registry];
 export const getSigningOlloClientOptions = ({
   defaultTypes = defaultRegistryTypes
 }: {

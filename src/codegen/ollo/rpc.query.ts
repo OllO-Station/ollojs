@@ -65,14 +65,39 @@ export const createRPCQueryClient = async ({
       }
     },
     ollo: {
-      claim: (await import("./claim/query.rpc.Query")).createRpcQueryExtension(client),
-      inflation: (await import("./inflation/query.rpc.Query")).createRpcQueryExtension(client),
-      liquidity: (await import("./liquidity/query.rpc.Query")).createRpcQueryExtension(client),
-      loan: (await import("./loan/query.rpc.Query")).createRpcQueryExtension(client),
-      market: (await import("./market/query.rpc.Query")).createRpcQueryExtension(client),
-      ons: (await import("./ons/query.rpc.Query")).createRpcQueryExtension(client),
-      oracle: (await import("./oracle/query.rpc.Query")).createRpcQueryExtension(client),
-      reserve: (await import("./reserve/query.rpc.Query")).createRpcQueryExtension(client)
+      claim: {
+        v1: (await import("./claim/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      farming: {
+        v1: (await import("./farming/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      grants: {
+        v1: (await import("./grants/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      liquidity: {
+        v1: (await import("./liquidity/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      loan: {
+        v1: (await import("./loan/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      market: {
+        v1: (await import("./market/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      mint: {
+        v1: (await import("./mint/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      nft: {
+        v1: (await import("./nft/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      ons: {
+        v1: (await import("./ons/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      reserve: {
+        v1: (await import("./reserve/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      token: {
+        v1: (await import("./token/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      }
     }
   };
 };

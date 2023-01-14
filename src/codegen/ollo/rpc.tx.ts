@@ -47,10 +47,32 @@ export const createRPCMsgClient = async ({
     }
   },
   ollo: {
-    claim: new (await import("./claim/tx.rpc.msg")).MsgClientImpl(rpc),
-    liquidity: new (await import("./liquidity/tx.rpc.msg")).MsgClientImpl(rpc),
-    loan: new (await import("./loan/tx.rpc.msg")).MsgClientImpl(rpc),
-    ons: new (await import("./ons/tx.rpc.msg")).MsgClientImpl(rpc),
-    oracle: new (await import("./oracle/tx.rpc.msg")).MsgClientImpl(rpc)
+    claim: {
+      v1: new (await import("./claim/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    farming: {
+      v1: new (await import("./farming/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    grants: {
+      v1: new (await import("./grants/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    liquidity: {
+      v1: new (await import("./liquidity/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    loan: {
+      v1: new (await import("./loan/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    nft: {
+      v1: new (await import("./nft/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    ons: {
+      v1: new (await import("./ons/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    reserve: {
+      v1: new (await import("./reserve/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    token: {
+      v1: new (await import("./token/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    }
   }
 });

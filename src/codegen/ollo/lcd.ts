@@ -96,30 +96,61 @@ export const createLCDClient = async ({
       }
     },
     ollo: {
-      claim: new (await import("./claim/query.lcd")).LCDQueryClient({
-        requestClient
-      }),
-      inflation: new (await import("./inflation/query.lcd")).LCDQueryClient({
-        requestClient
-      }),
-      liquidity: new (await import("./liquidity/query.lcd")).LCDQueryClient({
-        requestClient
-      }),
-      loan: new (await import("./loan/query.lcd")).LCDQueryClient({
-        requestClient
-      }),
-      market: new (await import("./market/query.lcd")).LCDQueryClient({
-        requestClient
-      }),
-      ons: new (await import("./ons/query.lcd")).LCDQueryClient({
-        requestClient
-      }),
-      oracle: new (await import("./oracle/query.lcd")).LCDQueryClient({
-        requestClient
-      }),
-      reserve: new (await import("./reserve/query.lcd")).LCDQueryClient({
-        requestClient
-      })
+      claim: {
+        v1: new (await import("./claim/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      farming: {
+        v1: new (await import("./farming/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      grants: {
+        v1: new (await import("./grants/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      liquidity: {
+        v1: new (await import("./liquidity/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      loan: {
+        v1: new (await import("./loan/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      market: {
+        v1: new (await import("./market/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      mint: {
+        v1: new (await import("./mint/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      nft: {
+        v1: new (await import("./nft/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      ons: {
+        v1: new (await import("./ons/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      reserve: {
+        v1: new (await import("./reserve/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      token: {
+        v1: new (await import("./token/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      }
     }
   };
 };
