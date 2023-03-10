@@ -1,8 +1,8 @@
 import { Minter, MinterSDKType } from "./mint";
 import { Params, ParamsSDKType } from "./params";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import { Long, toTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-import { toTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
 /** GenesisState defines the inflation module's genesis state. */
 
 export interface GenesisState {
@@ -14,6 +14,7 @@ export interface GenesisState {
   /** this line is used by starport scaffolding # genesis/proto/state */
 
   lastBlockTime?: Date;
+  lastEpochReduction: Long;
 }
 /** GenesisState defines the inflation module's genesis state. */
 
@@ -21,13 +22,15 @@ export interface GenesisStateSDKType {
   minter?: MinterSDKType;
   params?: ParamsSDKType;
   last_block_time?: Date;
+  last_epoch_reduction: Long;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     minter: undefined,
     params: undefined,
-    lastBlockTime: undefined
+    lastBlockTime: undefined,
+    lastEpochReduction: Long.ZERO
   };
 }
 
@@ -43,6 +46,10 @@ export const GenesisState = {
 
     if (message.lastBlockTime !== undefined) {
       Timestamp.encode(toTimestamp(message.lastBlockTime), writer.uint32(26).fork()).ldelim();
+    }
+
+    if (!message.lastEpochReduction.isZero()) {
+      writer.uint32(32).int64(message.lastEpochReduction);
     }
 
     return writer;
@@ -69,6 +76,10 @@ export const GenesisState = {
           message.lastBlockTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
 
+        case 4:
+          message.lastEpochReduction = (reader.int64() as Long);
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -83,6 +94,7 @@ export const GenesisState = {
     message.minter = object.minter !== undefined && object.minter !== null ? Minter.fromPartial(object.minter) : undefined;
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.lastBlockTime = object.lastBlockTime ?? undefined;
+    message.lastEpochReduction = object.lastEpochReduction !== undefined && object.lastEpochReduction !== null ? Long.fromValue(object.lastEpochReduction) : Long.ZERO;
     return message;
   }
 

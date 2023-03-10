@@ -1,14 +1,14 @@
-import * as _104 from "./api/http";
-import * as _105 from "./api/httpbody";
-import * as _106 from "./protobuf/any";
-import * as _107 from "./protobuf/descriptor";
-import * as _108 from "./protobuf/timestamp";
-import * as _109 from "./protobuf/duration";
+import * as _142 from "./api/http";
+import * as _143 from "./api/httpbody";
+import * as _144 from "./protobuf/any";
+import * as _145 from "./protobuf/descriptor";
+import * as _146 from "./protobuf/duration";
+import * as _147 from "./protobuf/timestamp";
 export declare namespace google {
     const api: {
         HttpBody: {
-            encode(message: _105.HttpBody, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _105.HttpBody;
+            encode(message: _143.HttpBody, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _143.HttpBody;
             fromPartial(object: {
                 contentType?: string;
                 data?: Uint8Array;
@@ -16,11 +16,11 @@ export declare namespace google {
                     typeUrl?: string;
                     value?: Uint8Array;
                 }[];
-            }): _105.HttpBody;
+            }): _143.HttpBody;
         };
         Http: {
-            encode(message: _104.Http, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _104.Http;
+            encode(message: _142.Http, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _142.Http;
             fromPartial(object: {
                 rules?: {
                     selector?: string;
@@ -38,11 +38,11 @@ export declare namespace google {
                     additionalBindings?: any[];
                 }[];
                 fullyDecodeReservedExpansion?: boolean;
-            }): _104.Http;
+            }): _142.Http;
         };
         HttpRule: {
-            encode(message: _104.HttpRule, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _104.HttpRule;
+            encode(message: _142.HttpRule, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _142.HttpRule;
             fromPartial(object: {
                 selector?: string;
                 get?: string;
@@ -57,61 +57,73 @@ export declare namespace google {
                 body?: string;
                 responseBody?: string;
                 additionalBindings?: any[];
-            }): _104.HttpRule;
+            }): _142.HttpRule;
         };
         CustomHttpPattern: {
-            encode(message: _104.CustomHttpPattern, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _104.CustomHttpPattern;
+            encode(message: _142.CustomHttpPattern, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _142.CustomHttpPattern;
             fromPartial(object: {
                 kind?: string;
                 path?: string;
-            }): _104.CustomHttpPattern;
+            }): _142.CustomHttpPattern;
         };
     };
     const protobuf: {
-        Duration: {
-            encode(message: _109.Duration, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _109.Duration;
-            fromPartial(object: {
-                seconds?: string | number | import("long");
-                nanos?: number;
-            }): _109.Duration;
-        };
         Timestamp: {
-            encode(message: _108.Timestamp, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _108.Timestamp;
+            encode(message: _147.Timestamp, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _147.Timestamp;
             fromPartial(object: {
                 seconds?: string | number | import("long");
                 nanos?: number;
-            }): _108.Timestamp;
+            }): _147.Timestamp;
         };
-        fieldDescriptorProto_TypeFromJSON(object: any): _107.FieldDescriptorProto_Type;
-        fieldDescriptorProto_TypeToJSON(object: _107.FieldDescriptorProto_Type): string;
-        fieldDescriptorProto_LabelFromJSON(object: any): _107.FieldDescriptorProto_Label;
-        fieldDescriptorProto_LabelToJSON(object: _107.FieldDescriptorProto_Label): string;
-        fileOptions_OptimizeModeFromJSON(object: any): _107.FileOptions_OptimizeMode;
-        fileOptions_OptimizeModeToJSON(object: _107.FileOptions_OptimizeMode): string;
-        fieldOptions_CTypeFromJSON(object: any): _107.FieldOptions_CType;
-        fieldOptions_CTypeToJSON(object: _107.FieldOptions_CType): string;
-        fieldOptions_JSTypeFromJSON(object: any): _107.FieldOptions_JSType;
-        fieldOptions_JSTypeToJSON(object: _107.FieldOptions_JSType): string;
-        methodOptions_IdempotencyLevelFromJSON(object: any): _107.MethodOptions_IdempotencyLevel;
-        methodOptions_IdempotencyLevelToJSON(object: _107.MethodOptions_IdempotencyLevel): string;
-        FieldDescriptorProto_Type: typeof _107.FieldDescriptorProto_Type;
-        FieldDescriptorProto_TypeSDKType: typeof _107.FieldDescriptorProto_Type;
-        FieldDescriptorProto_Label: typeof _107.FieldDescriptorProto_Label;
-        FieldDescriptorProto_LabelSDKType: typeof _107.FieldDescriptorProto_Label;
-        FileOptions_OptimizeMode: typeof _107.FileOptions_OptimizeMode;
-        FileOptions_OptimizeModeSDKType: typeof _107.FileOptions_OptimizeMode;
-        FieldOptions_CType: typeof _107.FieldOptions_CType;
-        FieldOptions_CTypeSDKType: typeof _107.FieldOptions_CType;
-        FieldOptions_JSType: typeof _107.FieldOptions_JSType;
-        FieldOptions_JSTypeSDKType: typeof _107.FieldOptions_JSType;
-        MethodOptions_IdempotencyLevel: typeof _107.MethodOptions_IdempotencyLevel;
-        MethodOptions_IdempotencyLevelSDKType: typeof _107.MethodOptions_IdempotencyLevel;
+        Duration: {
+            encode(message: _146.Duration, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _146.Duration;
+            fromPartial(object: {
+                seconds?: string | number | import("long");
+                nanos?: number;
+            }): _146.Duration;
+        };
+        fieldDescriptorProto_TypeFromJSON(object: any): _145.FieldDescriptorProto_Type;
+        fieldDescriptorProto_TypeToJSON(object: _145.FieldDescriptorProto_Type): string;
+        fieldDescriptorProto_LabelFromJSON(object: any): _145.FieldDescriptorProto_Label;
+        fieldDescriptorProto_LabelToJSON(object: _145.FieldDescriptorProto_Label): string;
+        fileOptions_OptimizeModeFromJSON(object: any): _145.FileOptions_OptimizeMode;
+        fileOptions_OptimizeModeToJSON(object: _145.FileOptions_OptimizeMode): string;
+        fieldOptions_CTypeFromJSON(object: any): _145.FieldOptions_CType;
+        fieldOptions_CTypeToJSON(object: _145.FieldOptions_CType): string;
+        fieldOptions_JSTypeFromJSON(object: any): _145.FieldOptions_JSType;
+        fieldOptions_JSTypeToJSON(object: _145.FieldOptions_JSType): string;
+        fieldOptions_OptionRetentionFromJSON(object: any): _145.FieldOptions_OptionRetention;
+        fieldOptions_OptionRetentionToJSON(object: _145.FieldOptions_OptionRetention): string;
+        fieldOptions_OptionTargetTypeFromJSON(object: any): _145.FieldOptions_OptionTargetType;
+        fieldOptions_OptionTargetTypeToJSON(object: _145.FieldOptions_OptionTargetType): string;
+        methodOptions_IdempotencyLevelFromJSON(object: any): _145.MethodOptions_IdempotencyLevel;
+        methodOptions_IdempotencyLevelToJSON(object: _145.MethodOptions_IdempotencyLevel): string;
+        generatedCodeInfo_Annotation_SemanticFromJSON(object: any): _145.GeneratedCodeInfo_Annotation_Semantic;
+        generatedCodeInfo_Annotation_SemanticToJSON(object: _145.GeneratedCodeInfo_Annotation_Semantic): string;
+        FieldDescriptorProto_Type: typeof _145.FieldDescriptorProto_Type;
+        FieldDescriptorProto_TypeSDKType: typeof _145.FieldDescriptorProto_Type;
+        FieldDescriptorProto_Label: typeof _145.FieldDescriptorProto_Label;
+        FieldDescriptorProto_LabelSDKType: typeof _145.FieldDescriptorProto_Label;
+        FileOptions_OptimizeMode: typeof _145.FileOptions_OptimizeMode;
+        FileOptions_OptimizeModeSDKType: typeof _145.FileOptions_OptimizeMode;
+        FieldOptions_CType: typeof _145.FieldOptions_CType;
+        FieldOptions_CTypeSDKType: typeof _145.FieldOptions_CType;
+        FieldOptions_JSType: typeof _145.FieldOptions_JSType;
+        FieldOptions_JSTypeSDKType: typeof _145.FieldOptions_JSType;
+        FieldOptions_OptionRetention: typeof _145.FieldOptions_OptionRetention;
+        FieldOptions_OptionRetentionSDKType: typeof _145.FieldOptions_OptionRetention;
+        FieldOptions_OptionTargetType: typeof _145.FieldOptions_OptionTargetType;
+        FieldOptions_OptionTargetTypeSDKType: typeof _145.FieldOptions_OptionTargetType;
+        MethodOptions_IdempotencyLevel: typeof _145.MethodOptions_IdempotencyLevel;
+        MethodOptions_IdempotencyLevelSDKType: typeof _145.MethodOptions_IdempotencyLevel;
+        GeneratedCodeInfo_Annotation_Semantic: typeof _145.GeneratedCodeInfo_Annotation_Semantic;
+        GeneratedCodeInfo_Annotation_SemanticSDKType: typeof _145.GeneratedCodeInfo_Annotation_Semantic;
         FileDescriptorSet: {
-            encode(message: _107.FileDescriptorSet, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.FileDescriptorSet;
+            encode(message: _145.FileDescriptorSet, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.FileDescriptorSet;
             fromPartial(object: {
                 file?: {
                     name?: string;
@@ -124,20 +136,24 @@ export declare namespace google {
                         field?: {
                             name?: string;
                             number?: number;
-                            label?: _107.FieldDescriptorProto_Label;
-                            type?: _107.FieldDescriptorProto_Type;
+                            label?: _145.FieldDescriptorProto_Label;
+                            type?: _145.FieldDescriptorProto_Type;
                             typeName?: string;
                             extendee?: string;
                             defaultValue?: string;
                             oneofIndex?: number;
                             jsonName?: string;
                             options?: {
-                                ctype?: _107.FieldOptions_CType;
+                                ctype?: _145.FieldOptions_CType;
                                 packed?: boolean;
-                                jstype?: _107.FieldOptions_JSType;
+                                jstype?: _145.FieldOptions_JSType;
                                 lazy?: boolean;
+                                unverifiedLazy?: boolean;
                                 deprecated?: boolean;
                                 weak?: boolean;
+                                debugRedact?: boolean;
+                                retention?: _145.FieldOptions_OptionRetention;
+                                target?: _145.FieldOptions_OptionTargetType;
                                 uninterpretedOption?: {
                                     name?: {
                                         namePart?: string;
@@ -151,24 +167,29 @@ export declare namespace google {
                                     aggregateValue?: string;
                                 }[];
                             };
+                            proto3Optional?: boolean;
                         }[];
                         extension?: {
                             name?: string;
                             number?: number;
-                            label?: _107.FieldDescriptorProto_Label;
-                            type?: _107.FieldDescriptorProto_Type;
+                            label?: _145.FieldDescriptorProto_Label;
+                            type?: _145.FieldDescriptorProto_Type;
                             typeName?: string;
                             extendee?: string;
                             defaultValue?: string;
                             oneofIndex?: number;
                             jsonName?: string;
                             options?: {
-                                ctype?: _107.FieldOptions_CType;
+                                ctype?: _145.FieldOptions_CType;
                                 packed?: boolean;
-                                jstype?: _107.FieldOptions_JSType;
+                                jstype?: _145.FieldOptions_JSType;
                                 lazy?: boolean;
+                                unverifiedLazy?: boolean;
                                 deprecated?: boolean;
                                 weak?: boolean;
+                                debugRedact?: boolean;
+                                retention?: _145.FieldOptions_OptionRetention;
+                                target?: _145.FieldOptions_OptionTargetType;
                                 uninterpretedOption?: {
                                     name?: {
                                         namePart?: string;
@@ -182,6 +203,7 @@ export declare namespace google {
                                     aggregateValue?: string;
                                 }[];
                             };
+                            proto3Optional?: boolean;
                         }[];
                         nestedType?: any[];
                         enumType?: {
@@ -208,6 +230,7 @@ export declare namespace google {
                             options?: {
                                 allowAlias?: boolean;
                                 deprecated?: boolean;
+                                deprecatedLegacyJsonFieldConflicts?: boolean;
                                 uninterpretedOption?: {
                                     name?: {
                                         namePart?: string;
@@ -267,6 +290,7 @@ export declare namespace google {
                             noStandardDescriptorAccessor?: boolean;
                             deprecated?: boolean;
                             mapEntry?: boolean;
+                            deprecatedLegacyJsonFieldConflicts?: boolean;
                             uninterpretedOption?: {
                                 name?: {
                                     namePart?: string;
@@ -310,6 +334,7 @@ export declare namespace google {
                         options?: {
                             allowAlias?: boolean;
                             deprecated?: boolean;
+                            deprecatedLegacyJsonFieldConflicts?: boolean;
                             uninterpretedOption?: {
                                 name?: {
                                     namePart?: string;
@@ -337,7 +362,7 @@ export declare namespace google {
                             outputType?: string;
                             options?: {
                                 deprecated?: boolean;
-                                idempotencyLevel?: _107.MethodOptions_IdempotencyLevel;
+                                idempotencyLevel?: _145.MethodOptions_IdempotencyLevel;
                                 uninterpretedOption?: {
                                     name?: {
                                         namePart?: string;
@@ -373,20 +398,24 @@ export declare namespace google {
                     extension?: {
                         name?: string;
                         number?: number;
-                        label?: _107.FieldDescriptorProto_Label;
-                        type?: _107.FieldDescriptorProto_Type;
+                        label?: _145.FieldDescriptorProto_Label;
+                        type?: _145.FieldDescriptorProto_Type;
                         typeName?: string;
                         extendee?: string;
                         defaultValue?: string;
                         oneofIndex?: number;
                         jsonName?: string;
                         options?: {
-                            ctype?: _107.FieldOptions_CType;
+                            ctype?: _145.FieldOptions_CType;
                             packed?: boolean;
-                            jstype?: _107.FieldOptions_JSType;
+                            jstype?: _145.FieldOptions_JSType;
                             lazy?: boolean;
+                            unverifiedLazy?: boolean;
                             deprecated?: boolean;
                             weak?: boolean;
+                            debugRedact?: boolean;
+                            retention?: _145.FieldOptions_OptionRetention;
+                            target?: _145.FieldOptions_OptionTargetType;
                             uninterpretedOption?: {
                                 name?: {
                                     namePart?: string;
@@ -400,6 +429,7 @@ export declare namespace google {
                                 aggregateValue?: string;
                             }[];
                         };
+                        proto3Optional?: boolean;
                     }[];
                     options?: {
                         javaPackage?: string;
@@ -407,7 +437,7 @@ export declare namespace google {
                         javaMultipleFiles?: boolean;
                         javaGenerateEqualsAndHash?: boolean;
                         javaStringCheckUtf8?: boolean;
-                        optimizeFor?: _107.FileOptions_OptimizeMode;
+                        optimizeFor?: _145.FileOptions_OptimizeMode;
                         goPackage?: string;
                         ccGenericServices?: boolean;
                         javaGenericServices?: boolean;
@@ -445,12 +475,13 @@ export declare namespace google {
                         }[];
                     };
                     syntax?: string;
+                    edition?: string;
                 }[];
-            }): _107.FileDescriptorSet;
+            }): _145.FileDescriptorSet;
         };
         FileDescriptorProto: {
-            encode(message: _107.FileDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.FileDescriptorProto;
+            encode(message: _145.FileDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.FileDescriptorProto;
             fromPartial(object: {
                 name?: string;
                 package?: string;
@@ -462,20 +493,24 @@ export declare namespace google {
                     field?: {
                         name?: string;
                         number?: number;
-                        label?: _107.FieldDescriptorProto_Label;
-                        type?: _107.FieldDescriptorProto_Type;
+                        label?: _145.FieldDescriptorProto_Label;
+                        type?: _145.FieldDescriptorProto_Type;
                         typeName?: string;
                         extendee?: string;
                         defaultValue?: string;
                         oneofIndex?: number;
                         jsonName?: string;
                         options?: {
-                            ctype?: _107.FieldOptions_CType;
+                            ctype?: _145.FieldOptions_CType;
                             packed?: boolean;
-                            jstype?: _107.FieldOptions_JSType;
+                            jstype?: _145.FieldOptions_JSType;
                             lazy?: boolean;
+                            unverifiedLazy?: boolean;
                             deprecated?: boolean;
                             weak?: boolean;
+                            debugRedact?: boolean;
+                            retention?: _145.FieldOptions_OptionRetention;
+                            target?: _145.FieldOptions_OptionTargetType;
                             uninterpretedOption?: {
                                 name?: {
                                     namePart?: string;
@@ -489,24 +524,29 @@ export declare namespace google {
                                 aggregateValue?: string;
                             }[];
                         };
+                        proto3Optional?: boolean;
                     }[];
                     extension?: {
                         name?: string;
                         number?: number;
-                        label?: _107.FieldDescriptorProto_Label;
-                        type?: _107.FieldDescriptorProto_Type;
+                        label?: _145.FieldDescriptorProto_Label;
+                        type?: _145.FieldDescriptorProto_Type;
                         typeName?: string;
                         extendee?: string;
                         defaultValue?: string;
                         oneofIndex?: number;
                         jsonName?: string;
                         options?: {
-                            ctype?: _107.FieldOptions_CType;
+                            ctype?: _145.FieldOptions_CType;
                             packed?: boolean;
-                            jstype?: _107.FieldOptions_JSType;
+                            jstype?: _145.FieldOptions_JSType;
                             lazy?: boolean;
+                            unverifiedLazy?: boolean;
                             deprecated?: boolean;
                             weak?: boolean;
+                            debugRedact?: boolean;
+                            retention?: _145.FieldOptions_OptionRetention;
+                            target?: _145.FieldOptions_OptionTargetType;
                             uninterpretedOption?: {
                                 name?: {
                                     namePart?: string;
@@ -520,6 +560,7 @@ export declare namespace google {
                                 aggregateValue?: string;
                             }[];
                         };
+                        proto3Optional?: boolean;
                     }[];
                     nestedType?: any[];
                     enumType?: {
@@ -546,6 +587,7 @@ export declare namespace google {
                         options?: {
                             allowAlias?: boolean;
                             deprecated?: boolean;
+                            deprecatedLegacyJsonFieldConflicts?: boolean;
                             uninterpretedOption?: {
                                 name?: {
                                     namePart?: string;
@@ -605,6 +647,7 @@ export declare namespace google {
                         noStandardDescriptorAccessor?: boolean;
                         deprecated?: boolean;
                         mapEntry?: boolean;
+                        deprecatedLegacyJsonFieldConflicts?: boolean;
                         uninterpretedOption?: {
                             name?: {
                                 namePart?: string;
@@ -648,6 +691,7 @@ export declare namespace google {
                     options?: {
                         allowAlias?: boolean;
                         deprecated?: boolean;
+                        deprecatedLegacyJsonFieldConflicts?: boolean;
                         uninterpretedOption?: {
                             name?: {
                                 namePart?: string;
@@ -675,7 +719,7 @@ export declare namespace google {
                         outputType?: string;
                         options?: {
                             deprecated?: boolean;
-                            idempotencyLevel?: _107.MethodOptions_IdempotencyLevel;
+                            idempotencyLevel?: _145.MethodOptions_IdempotencyLevel;
                             uninterpretedOption?: {
                                 name?: {
                                     namePart?: string;
@@ -711,20 +755,24 @@ export declare namespace google {
                 extension?: {
                     name?: string;
                     number?: number;
-                    label?: _107.FieldDescriptorProto_Label;
-                    type?: _107.FieldDescriptorProto_Type;
+                    label?: _145.FieldDescriptorProto_Label;
+                    type?: _145.FieldDescriptorProto_Type;
                     typeName?: string;
                     extendee?: string;
                     defaultValue?: string;
                     oneofIndex?: number;
                     jsonName?: string;
                     options?: {
-                        ctype?: _107.FieldOptions_CType;
+                        ctype?: _145.FieldOptions_CType;
                         packed?: boolean;
-                        jstype?: _107.FieldOptions_JSType;
+                        jstype?: _145.FieldOptions_JSType;
                         lazy?: boolean;
+                        unverifiedLazy?: boolean;
                         deprecated?: boolean;
                         weak?: boolean;
+                        debugRedact?: boolean;
+                        retention?: _145.FieldOptions_OptionRetention;
+                        target?: _145.FieldOptions_OptionTargetType;
                         uninterpretedOption?: {
                             name?: {
                                 namePart?: string;
@@ -738,6 +786,7 @@ export declare namespace google {
                             aggregateValue?: string;
                         }[];
                     };
+                    proto3Optional?: boolean;
                 }[];
                 options?: {
                     javaPackage?: string;
@@ -745,7 +794,7 @@ export declare namespace google {
                     javaMultipleFiles?: boolean;
                     javaGenerateEqualsAndHash?: boolean;
                     javaStringCheckUtf8?: boolean;
-                    optimizeFor?: _107.FileOptions_OptimizeMode;
+                    optimizeFor?: _145.FileOptions_OptimizeMode;
                     goPackage?: string;
                     ccGenericServices?: boolean;
                     javaGenericServices?: boolean;
@@ -783,30 +832,35 @@ export declare namespace google {
                     }[];
                 };
                 syntax?: string;
-            }): _107.FileDescriptorProto;
+                edition?: string;
+            }): _145.FileDescriptorProto;
         };
         DescriptorProto: {
-            encode(message: _107.DescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.DescriptorProto;
+            encode(message: _145.DescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.DescriptorProto;
             fromPartial(object: {
                 name?: string;
                 field?: {
                     name?: string;
                     number?: number;
-                    label?: _107.FieldDescriptorProto_Label;
-                    type?: _107.FieldDescriptorProto_Type;
+                    label?: _145.FieldDescriptorProto_Label;
+                    type?: _145.FieldDescriptorProto_Type;
                     typeName?: string;
                     extendee?: string;
                     defaultValue?: string;
                     oneofIndex?: number;
                     jsonName?: string;
                     options?: {
-                        ctype?: _107.FieldOptions_CType;
+                        ctype?: _145.FieldOptions_CType;
                         packed?: boolean;
-                        jstype?: _107.FieldOptions_JSType;
+                        jstype?: _145.FieldOptions_JSType;
                         lazy?: boolean;
+                        unverifiedLazy?: boolean;
                         deprecated?: boolean;
                         weak?: boolean;
+                        debugRedact?: boolean;
+                        retention?: _145.FieldOptions_OptionRetention;
+                        target?: _145.FieldOptions_OptionTargetType;
                         uninterpretedOption?: {
                             name?: {
                                 namePart?: string;
@@ -820,24 +874,29 @@ export declare namespace google {
                             aggregateValue?: string;
                         }[];
                     };
+                    proto3Optional?: boolean;
                 }[];
                 extension?: {
                     name?: string;
                     number?: number;
-                    label?: _107.FieldDescriptorProto_Label;
-                    type?: _107.FieldDescriptorProto_Type;
+                    label?: _145.FieldDescriptorProto_Label;
+                    type?: _145.FieldDescriptorProto_Type;
                     typeName?: string;
                     extendee?: string;
                     defaultValue?: string;
                     oneofIndex?: number;
                     jsonName?: string;
                     options?: {
-                        ctype?: _107.FieldOptions_CType;
+                        ctype?: _145.FieldOptions_CType;
                         packed?: boolean;
-                        jstype?: _107.FieldOptions_JSType;
+                        jstype?: _145.FieldOptions_JSType;
                         lazy?: boolean;
+                        unverifiedLazy?: boolean;
                         deprecated?: boolean;
                         weak?: boolean;
+                        debugRedact?: boolean;
+                        retention?: _145.FieldOptions_OptionRetention;
+                        target?: _145.FieldOptions_OptionTargetType;
                         uninterpretedOption?: {
                             name?: {
                                 namePart?: string;
@@ -851,6 +910,7 @@ export declare namespace google {
                             aggregateValue?: string;
                         }[];
                     };
+                    proto3Optional?: boolean;
                 }[];
                 nestedType?: any[];
                 enumType?: {
@@ -877,6 +937,7 @@ export declare namespace google {
                     options?: {
                         allowAlias?: boolean;
                         deprecated?: boolean;
+                        deprecatedLegacyJsonFieldConflicts?: boolean;
                         uninterpretedOption?: {
                             name?: {
                                 namePart?: string;
@@ -936,6 +997,7 @@ export declare namespace google {
                     noStandardDescriptorAccessor?: boolean;
                     deprecated?: boolean;
                     mapEntry?: boolean;
+                    deprecatedLegacyJsonFieldConflicts?: boolean;
                     uninterpretedOption?: {
                         name?: {
                             namePart?: string;
@@ -954,11 +1016,11 @@ export declare namespace google {
                     end?: number;
                 }[];
                 reservedName?: string[];
-            }): _107.DescriptorProto;
+            }): _145.DescriptorProto;
         };
         DescriptorProto_ExtensionRange: {
-            encode(message: _107.DescriptorProto_ExtensionRange, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.DescriptorProto_ExtensionRange;
+            encode(message: _145.DescriptorProto_ExtensionRange, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.DescriptorProto_ExtensionRange;
             fromPartial(object: {
                 start?: number;
                 end?: number;
@@ -976,19 +1038,19 @@ export declare namespace google {
                         aggregateValue?: string;
                     }[];
                 };
-            }): _107.DescriptorProto_ExtensionRange;
+            }): _145.DescriptorProto_ExtensionRange;
         };
         DescriptorProto_ReservedRange: {
-            encode(message: _107.DescriptorProto_ReservedRange, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.DescriptorProto_ReservedRange;
+            encode(message: _145.DescriptorProto_ReservedRange, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.DescriptorProto_ReservedRange;
             fromPartial(object: {
                 start?: number;
                 end?: number;
-            }): _107.DescriptorProto_ReservedRange;
+            }): _145.DescriptorProto_ReservedRange;
         };
         ExtensionRangeOptions: {
-            encode(message: _107.ExtensionRangeOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.ExtensionRangeOptions;
+            encode(message: _145.ExtensionRangeOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.ExtensionRangeOptions;
             fromPartial(object: {
                 uninterpretedOption?: {
                     name?: {
@@ -1002,28 +1064,32 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.ExtensionRangeOptions;
+            }): _145.ExtensionRangeOptions;
         };
         FieldDescriptorProto: {
-            encode(message: _107.FieldDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.FieldDescriptorProto;
+            encode(message: _145.FieldDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.FieldDescriptorProto;
             fromPartial(object: {
                 name?: string;
                 number?: number;
-                label?: _107.FieldDescriptorProto_Label;
-                type?: _107.FieldDescriptorProto_Type;
+                label?: _145.FieldDescriptorProto_Label;
+                type?: _145.FieldDescriptorProto_Type;
                 typeName?: string;
                 extendee?: string;
                 defaultValue?: string;
                 oneofIndex?: number;
                 jsonName?: string;
                 options?: {
-                    ctype?: _107.FieldOptions_CType;
+                    ctype?: _145.FieldOptions_CType;
                     packed?: boolean;
-                    jstype?: _107.FieldOptions_JSType;
+                    jstype?: _145.FieldOptions_JSType;
                     lazy?: boolean;
+                    unverifiedLazy?: boolean;
                     deprecated?: boolean;
                     weak?: boolean;
+                    debugRedact?: boolean;
+                    retention?: _145.FieldOptions_OptionRetention;
+                    target?: _145.FieldOptions_OptionTargetType;
                     uninterpretedOption?: {
                         name?: {
                             namePart?: string;
@@ -1037,11 +1103,12 @@ export declare namespace google {
                         aggregateValue?: string;
                     }[];
                 };
-            }): _107.FieldDescriptorProto;
+                proto3Optional?: boolean;
+            }): _145.FieldDescriptorProto;
         };
         OneofDescriptorProto: {
-            encode(message: _107.OneofDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.OneofDescriptorProto;
+            encode(message: _145.OneofDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.OneofDescriptorProto;
             fromPartial(object: {
                 name?: string;
                 options?: {
@@ -1058,11 +1125,11 @@ export declare namespace google {
                         aggregateValue?: string;
                     }[];
                 };
-            }): _107.OneofDescriptorProto;
+            }): _145.OneofDescriptorProto;
         };
         EnumDescriptorProto: {
-            encode(message: _107.EnumDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.EnumDescriptorProto;
+            encode(message: _145.EnumDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.EnumDescriptorProto;
             fromPartial(object: {
                 name?: string;
                 value?: {
@@ -1087,6 +1154,7 @@ export declare namespace google {
                 options?: {
                     allowAlias?: boolean;
                     deprecated?: boolean;
+                    deprecatedLegacyJsonFieldConflicts?: boolean;
                     uninterpretedOption?: {
                         name?: {
                             namePart?: string;
@@ -1105,19 +1173,19 @@ export declare namespace google {
                     end?: number;
                 }[];
                 reservedName?: string[];
-            }): _107.EnumDescriptorProto;
+            }): _145.EnumDescriptorProto;
         };
         EnumDescriptorProto_EnumReservedRange: {
-            encode(message: _107.EnumDescriptorProto_EnumReservedRange, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.EnumDescriptorProto_EnumReservedRange;
+            encode(message: _145.EnumDescriptorProto_EnumReservedRange, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.EnumDescriptorProto_EnumReservedRange;
             fromPartial(object: {
                 start?: number;
                 end?: number;
-            }): _107.EnumDescriptorProto_EnumReservedRange;
+            }): _145.EnumDescriptorProto_EnumReservedRange;
         };
         EnumValueDescriptorProto: {
-            encode(message: _107.EnumValueDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.EnumValueDescriptorProto;
+            encode(message: _145.EnumValueDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.EnumValueDescriptorProto;
             fromPartial(object: {
                 name?: string;
                 number?: number;
@@ -1136,11 +1204,11 @@ export declare namespace google {
                         aggregateValue?: string;
                     }[];
                 };
-            }): _107.EnumValueDescriptorProto;
+            }): _145.EnumValueDescriptorProto;
         };
         ServiceDescriptorProto: {
-            encode(message: _107.ServiceDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.ServiceDescriptorProto;
+            encode(message: _145.ServiceDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.ServiceDescriptorProto;
             fromPartial(object: {
                 name?: string;
                 method?: {
@@ -1149,7 +1217,7 @@ export declare namespace google {
                     outputType?: string;
                     options?: {
                         deprecated?: boolean;
-                        idempotencyLevel?: _107.MethodOptions_IdempotencyLevel;
+                        idempotencyLevel?: _145.MethodOptions_IdempotencyLevel;
                         uninterpretedOption?: {
                             name?: {
                                 namePart?: string;
@@ -1181,18 +1249,18 @@ export declare namespace google {
                         aggregateValue?: string;
                     }[];
                 };
-            }): _107.ServiceDescriptorProto;
+            }): _145.ServiceDescriptorProto;
         };
         MethodDescriptorProto: {
-            encode(message: _107.MethodDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.MethodDescriptorProto;
+            encode(message: _145.MethodDescriptorProto, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.MethodDescriptorProto;
             fromPartial(object: {
                 name?: string;
                 inputType?: string;
                 outputType?: string;
                 options?: {
                     deprecated?: boolean;
-                    idempotencyLevel?: _107.MethodOptions_IdempotencyLevel;
+                    idempotencyLevel?: _145.MethodOptions_IdempotencyLevel;
                     uninterpretedOption?: {
                         name?: {
                             namePart?: string;
@@ -1208,18 +1276,18 @@ export declare namespace google {
                 };
                 clientStreaming?: boolean;
                 serverStreaming?: boolean;
-            }): _107.MethodDescriptorProto;
+            }): _145.MethodDescriptorProto;
         };
         FileOptions: {
-            encode(message: _107.FileOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.FileOptions;
+            encode(message: _145.FileOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.FileOptions;
             fromPartial(object: {
                 javaPackage?: string;
                 javaOuterClassname?: string;
                 javaMultipleFiles?: boolean;
                 javaGenerateEqualsAndHash?: boolean;
                 javaStringCheckUtf8?: boolean;
-                optimizeFor?: _107.FileOptions_OptimizeMode;
+                optimizeFor?: _145.FileOptions_OptimizeMode;
                 goPackage?: string;
                 ccGenericServices?: boolean;
                 javaGenericServices?: boolean;
@@ -1246,16 +1314,17 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.FileOptions;
+            }): _145.FileOptions;
         };
         MessageOptions: {
-            encode(message: _107.MessageOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.MessageOptions;
+            encode(message: _145.MessageOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.MessageOptions;
             fromPartial(object: {
                 messageSetWireFormat?: boolean;
                 noStandardDescriptorAccessor?: boolean;
                 deprecated?: boolean;
                 mapEntry?: boolean;
+                deprecatedLegacyJsonFieldConflicts?: boolean;
                 uninterpretedOption?: {
                     name?: {
                         namePart?: string;
@@ -1268,18 +1337,22 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.MessageOptions;
+            }): _145.MessageOptions;
         };
         FieldOptions: {
-            encode(message: _107.FieldOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.FieldOptions;
+            encode(message: _145.FieldOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.FieldOptions;
             fromPartial(object: {
-                ctype?: _107.FieldOptions_CType;
+                ctype?: _145.FieldOptions_CType;
                 packed?: boolean;
-                jstype?: _107.FieldOptions_JSType;
+                jstype?: _145.FieldOptions_JSType;
                 lazy?: boolean;
+                unverifiedLazy?: boolean;
                 deprecated?: boolean;
                 weak?: boolean;
+                debugRedact?: boolean;
+                retention?: _145.FieldOptions_OptionRetention;
+                target?: _145.FieldOptions_OptionTargetType;
                 uninterpretedOption?: {
                     name?: {
                         namePart?: string;
@@ -1292,11 +1365,11 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.FieldOptions;
+            }): _145.FieldOptions;
         };
         OneofOptions: {
-            encode(message: _107.OneofOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.OneofOptions;
+            encode(message: _145.OneofOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.OneofOptions;
             fromPartial(object: {
                 uninterpretedOption?: {
                     name?: {
@@ -1310,14 +1383,15 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.OneofOptions;
+            }): _145.OneofOptions;
         };
         EnumOptions: {
-            encode(message: _107.EnumOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.EnumOptions;
+            encode(message: _145.EnumOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.EnumOptions;
             fromPartial(object: {
                 allowAlias?: boolean;
                 deprecated?: boolean;
+                deprecatedLegacyJsonFieldConflicts?: boolean;
                 uninterpretedOption?: {
                     name?: {
                         namePart?: string;
@@ -1330,11 +1404,11 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.EnumOptions;
+            }): _145.EnumOptions;
         };
         EnumValueOptions: {
-            encode(message: _107.EnumValueOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.EnumValueOptions;
+            encode(message: _145.EnumValueOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.EnumValueOptions;
             fromPartial(object: {
                 deprecated?: boolean;
                 uninterpretedOption?: {
@@ -1349,11 +1423,11 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.EnumValueOptions;
+            }): _145.EnumValueOptions;
         };
         ServiceOptions: {
-            encode(message: _107.ServiceOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.ServiceOptions;
+            encode(message: _145.ServiceOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.ServiceOptions;
             fromPartial(object: {
                 deprecated?: boolean;
                 uninterpretedOption?: {
@@ -1368,14 +1442,14 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.ServiceOptions;
+            }): _145.ServiceOptions;
         };
         MethodOptions: {
-            encode(message: _107.MethodOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.MethodOptions;
+            encode(message: _145.MethodOptions, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.MethodOptions;
             fromPartial(object: {
                 deprecated?: boolean;
-                idempotencyLevel?: _107.MethodOptions_IdempotencyLevel;
+                idempotencyLevel?: _145.MethodOptions_IdempotencyLevel;
                 uninterpretedOption?: {
                     name?: {
                         namePart?: string;
@@ -1388,11 +1462,11 @@ export declare namespace google {
                     stringValue?: Uint8Array;
                     aggregateValue?: string;
                 }[];
-            }): _107.MethodOptions;
+            }): _145.MethodOptions;
         };
         UninterpretedOption: {
-            encode(message: _107.UninterpretedOption, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.UninterpretedOption;
+            encode(message: _145.UninterpretedOption, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.UninterpretedOption;
             fromPartial(object: {
                 name?: {
                     namePart?: string;
@@ -1404,19 +1478,19 @@ export declare namespace google {
                 doubleValue?: number;
                 stringValue?: Uint8Array;
                 aggregateValue?: string;
-            }): _107.UninterpretedOption;
+            }): _145.UninterpretedOption;
         };
         UninterpretedOption_NamePart: {
-            encode(message: _107.UninterpretedOption_NamePart, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.UninterpretedOption_NamePart;
+            encode(message: _145.UninterpretedOption_NamePart, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.UninterpretedOption_NamePart;
             fromPartial(object: {
                 namePart?: string;
                 isExtension?: boolean;
-            }): _107.UninterpretedOption_NamePart;
+            }): _145.UninterpretedOption_NamePart;
         };
         SourceCodeInfo: {
-            encode(message: _107.SourceCodeInfo, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.SourceCodeInfo;
+            encode(message: _145.SourceCodeInfo, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.SourceCodeInfo;
             fromPartial(object: {
                 location?: {
                     path?: number[];
@@ -1425,48 +1499,50 @@ export declare namespace google {
                     trailingComments?: string;
                     leadingDetachedComments?: string[];
                 }[];
-            }): _107.SourceCodeInfo;
+            }): _145.SourceCodeInfo;
         };
         SourceCodeInfo_Location: {
-            encode(message: _107.SourceCodeInfo_Location, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.SourceCodeInfo_Location;
+            encode(message: _145.SourceCodeInfo_Location, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.SourceCodeInfo_Location;
             fromPartial(object: {
                 path?: number[];
                 span?: number[];
                 leadingComments?: string;
                 trailingComments?: string;
                 leadingDetachedComments?: string[];
-            }): _107.SourceCodeInfo_Location;
+            }): _145.SourceCodeInfo_Location;
         };
         GeneratedCodeInfo: {
-            encode(message: _107.GeneratedCodeInfo, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.GeneratedCodeInfo;
+            encode(message: _145.GeneratedCodeInfo, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.GeneratedCodeInfo;
             fromPartial(object: {
                 annotation?: {
                     path?: number[];
                     sourceFile?: string;
                     begin?: number;
                     end?: number;
+                    semantic?: _145.GeneratedCodeInfo_Annotation_Semantic;
                 }[];
-            }): _107.GeneratedCodeInfo;
+            }): _145.GeneratedCodeInfo;
         };
         GeneratedCodeInfo_Annotation: {
-            encode(message: _107.GeneratedCodeInfo_Annotation, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _107.GeneratedCodeInfo_Annotation;
+            encode(message: _145.GeneratedCodeInfo_Annotation, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _145.GeneratedCodeInfo_Annotation;
             fromPartial(object: {
                 path?: number[];
                 sourceFile?: string;
                 begin?: number;
                 end?: number;
-            }): _107.GeneratedCodeInfo_Annotation;
+                semantic?: _145.GeneratedCodeInfo_Annotation_Semantic;
+            }): _145.GeneratedCodeInfo_Annotation;
         };
         Any: {
-            encode(message: _106.Any, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _106.Any;
+            encode(message: _144.Any, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _144.Any;
             fromPartial(object: {
                 typeUrl?: string;
                 value?: Uint8Array;
-            }): _106.Any;
+            }): _144.Any;
         };
     };
 }

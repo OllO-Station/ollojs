@@ -46,7 +46,7 @@ export interface QueryValidatorRequestSDKType {
 /** QueryValidatorResponse is response type for the Query/Validator RPC method */
 
 export interface QueryValidatorResponse {
-  /** validator defines the the validator info. */
+  /** validator defines the validator info. */
   validator?: Validator;
 }
 /** QueryValidatorResponse is response type for the Query/Validator RPC method */
@@ -359,7 +359,7 @@ export interface QueryDelegatorValidatorsRequestSDKType {
  */
 
 export interface QueryDelegatorValidatorsResponse {
-  /** validators defines the the validators' info of a delegator. */
+  /** validators defines the validators' info of a delegator. */
   validators: Validator[];
   /** pagination defines the pagination in the response. */
 
@@ -401,7 +401,7 @@ export interface QueryDelegatorValidatorRequestSDKType {
  */
 
 export interface QueryDelegatorValidatorResponse {
-  /** validator defines the the validator info. */
+  /** validator defines the validator info. */
   validator?: Validator;
 }
 /**

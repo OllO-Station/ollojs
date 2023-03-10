@@ -1,5 +1,33 @@
 import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
+export declare enum ClaimAction {
+    ClaimActionUnspecified = 0,
+    ClaimActionInitialClaim = 1,
+    ClaimActionStake = 2,
+    ClaimActionCastVote = 3,
+    ClaimActionDepositLiquidity = 4,
+    ClaimActionLockLiquidity = 5,
+    ClaimActionMintNft = 6,
+    ClaimActionAuctionNft = 7,
+    ClaimActionDepositExternalAsset = 8,
+    ClaimActionSwap = 9,
+    ClaimActionBorrow = 10,
+    UNRECOGNIZED = -1
+}
+export declare const ClaimActionSDKType: typeof ClaimAction;
+export declare function claimActionFromJSON(object: any): ClaimAction;
+export declare function claimActionToJSON(object: ClaimAction): string;
+export declare enum ClaimStatus {
+    ClaimStatusUnspecified = 0,
+    ClaimStatusPending = 1,
+    ClaimStatusClaimed = 2,
+    ClaimStatusActive = 3,
+    ClaimStatusExpired = 4,
+    UNRECOGNIZED = -1
+}
+export declare const ClaimStatusSDKType: typeof ClaimStatus;
+export declare function claimStatusFromJSON(object: any): ClaimStatus;
+export declare function claimStatusToJSON(object: ClaimStatus): string;
 export interface InitialClaim {
     enabled: boolean;
     goalId: Long;

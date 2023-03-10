@@ -16,7 +16,10 @@ export interface Params {
    */
 
   nextEpochDays: number;
-  /** farming_fee_collector is the module account address to collect fees within the farming module */
+  /**
+   * farming_fee_collector is the module account address to collect fees within
+   * the farming module
+   */
 
   farmingFeeCollector: string;
   /** delayed_staking_gas_fee is used to impose gas fee for the delayed staking */

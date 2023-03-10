@@ -3,16 +3,15 @@ package ollo.market.v1;
 
 // this line is used by starport scaffolding # proto/packet/import
 
-option go_package = "ollo/x/market/types";
+option go_package = "github.com/ollo-station/ollo/x/market/types";
 
 message MarketPacketData {
-    oneof packet {
-        NoData no_data = 1;
-        // this line is used by starport scaffolding # ibc/packet/proto/field
-    }
+  oneof packet {
+    NoData no_data = 1;
+    // this line is used by starport scaffolding # ibc/packet/proto/field
+  }
 }
 
-message NoData {
-}
+message NoData {}
 
 // this line is used by starport scaffolding # ibc/packet/proto/message

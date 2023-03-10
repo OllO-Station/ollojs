@@ -3,11 +3,17 @@ export declare const createRPCMsgClient: ({ rpc }: {
     rpc: Rpc;
 }) => Promise<{
     cosmos: {
+        auth: {
+            v1beta1: import("../cosmos/auth/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
         authz: {
             v1beta1: import("../cosmos/authz/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         bank: {
             v1beta1: import("../cosmos/bank/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
+        consensus: {
+            v1: import("../cosmos/consensus/v1/tx.rpc.msg").MsgClientImpl;
         };
         crisis: {
             v1beta1: import("../cosmos/crisis/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -21,12 +27,11 @@ export declare const createRPCMsgClient: ({ rpc }: {
         feegrant: {
             v1beta1: import("../cosmos/feegrant/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
-        gov: {
-            v1: import("../cosmos/gov/v1/tx.rpc.msg").MsgClientImpl;
-            v1beta1: import("../cosmos/gov/v1beta1/tx.rpc.msg").MsgClientImpl;
-        };
         group: {
             v1: import("../cosmos/group/v1/tx.rpc.msg").MsgClientImpl;
+        };
+        mint: {
+            v1beta1: import("../cosmos/mint/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         nft: {
             v1beta1: import("../cosmos/nft/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -48,11 +53,17 @@ export declare const createRPCMsgClient: ({ rpc }: {
         claim: {
             v1: import("./claim/v1/tx.rpc.msg").MsgClientImpl;
         };
+        emissions: {
+            v1: import("./emissions/v1/tx.rpc.msg").MsgClientImpl;
+        };
         farming: {
             v1: import("./farming/v1/tx.rpc.msg").MsgClientImpl;
         };
         grants: {
             v1: import("./grants/v1/tx.rpc.msg").MsgClientImpl;
+        };
+        incentive: {
+            v1: import("./incentive/v1/tx.rpc.msg").MsgClientImpl;
         };
         liquidity: {
             v1: import("./liquidity/v1/tx.rpc.msg").MsgClientImpl;
@@ -60,17 +71,26 @@ export declare const createRPCMsgClient: ({ rpc }: {
         loan: {
             v1: import("./loan/v1/tx.rpc.msg").MsgClientImpl;
         };
+        lock: {
+            v1: import("./lock/v1/tx.rpc.msg").MsgClientImpl;
+        };
         nft: {
             v1: import("./nft/v1/tx.rpc.msg").MsgClientImpl;
         };
         ons: {
             v1: import("./ons/v1/tx.rpc.msg").MsgClientImpl;
         };
+        prices: {
+            v1: import("./prices/v1/tx.rpc.msg").MsgClientImpl;
+        };
         reserve: {
             v1: import("./reserve/v1/tx.rpc.msg").MsgClientImpl;
         };
         token: {
             v1: import("./token/v1/tx.rpc.msg").MsgClientImpl;
+        };
+        vault: {
+            v1: import("./vault/v1/tx.rpc.msg").MsgClientImpl;
         };
     };
 }>;

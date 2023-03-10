@@ -14,10 +14,10 @@ export interface GenesisState {
 }
 /** GenesisState defines the claim module's genesis state. */
 export interface GenesisStateSDKType {
-    airdropSupply?: CoinSDKType;
-    claimRecords: ClaimRecordSDKType[];
+    airdrop_supply?: CoinSDKType;
+    claim_records: ClaimRecordSDKType[];
     goals: GoalSDKType[];
-    initialClaim?: InitialClaimSDKType;
+    initial_claim?: InitialClaimSDKType;
     params?: ParamsSDKType;
 }
 export declare const GenesisState: {

@@ -4,14 +4,22 @@ import { DeepPartial, Long } from "../../../helpers";
 /** Params defines the set of params for the distribution module. */
 export interface Params {
     communityTax: string;
+    /**
+     * The base_proposer_reward and bonus_proposer_reward fields are deprecated
+     * and are no longer used in the x/distribution module's reward mechanism.
+     */
+    /** @deprecated */
     baseProposerReward: string;
+    /** @deprecated */
     bonusProposerReward: string;
     withdrawAddrEnabled: boolean;
 }
 /** Params defines the set of params for the distribution module. */
 export interface ParamsSDKType {
     community_tax: string;
+    /** @deprecated */
     base_proposer_reward: string;
+    /** @deprecated */
     bonus_proposer_reward: string;
     withdraw_addr_enabled: boolean;
 }
@@ -137,7 +145,13 @@ export interface FeePoolSDKType {
  * CommunityPoolSpendProposal details a proposal for use of community funds,
  * together with how many coins are proposed to be spent, and to which
  * recipient account.
+ *
+ * Deprecated: Do not use. As of the Cosmos SDK release v0.47.x, there is no
+ * longer a need for an explicit CommunityPoolSpendProposal. To spend community
+ * pool funds, a simple MsgCommunityPoolSpend can be invoked from the x/gov
+ * module via a v1 governance proposal.
  */
+/** @deprecated */
 export interface CommunityPoolSpendProposal {
     title: string;
     description: string;
@@ -148,7 +162,13 @@ export interface CommunityPoolSpendProposal {
  * CommunityPoolSpendProposal details a proposal for use of community funds,
  * together with how many coins are proposed to be spent, and to which
  * recipient account.
+ *
+ * Deprecated: Do not use. As of the Cosmos SDK release v0.47.x, there is no
+ * longer a need for an explicit CommunityPoolSpendProposal. To spend community
+ * pool funds, a simple MsgCommunityPoolSpend can be invoked from the x/gov
+ * module via a v1 governance proposal.
  */
+/** @deprecated */
 export interface CommunityPoolSpendProposalSDKType {
     title: string;
     description: string;

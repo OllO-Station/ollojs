@@ -1,5 +1,5 @@
 import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
-import { ContractInfo, ContractInfoSDKType, ContractCodeHistoryEntry, ContractCodeHistoryEntrySDKType, Model, ModelSDKType } from "./types";
+import { ContractInfo, ContractInfoSDKType, ContractCodeHistoryEntry, ContractCodeHistoryEntrySDKType, Model, ModelSDKType, AccessConfig, AccessConfigSDKType, Params, ParamsSDKType } from "./types";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Long } from "../../../helpers";
 /**
@@ -221,12 +221,14 @@ export interface CodeInfoResponse {
     codeId: Long;
     creator: string;
     dataHash: Uint8Array;
+    instantiatePermission?: AccessConfig;
 }
 /** CodeInfoResponse contains code meta data from CodeInfo */
 export interface CodeInfoResponseSDKType {
     code_id: Long;
     creator: string;
     data_hash: Uint8Array;
+    instantiate_permission?: AccessConfigSDKType;
 }
 /** QueryCodeResponse is the response type for the Query/Code RPC method */
 export interface QueryCodeResponse {
@@ -288,6 +290,57 @@ export interface QueryPinnedCodesResponse {
  */
 export interface QueryPinnedCodesResponseSDKType {
     code_ids: Long[];
+    pagination?: PageResponseSDKType;
+}
+/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+export interface QueryParamsRequest {
+}
+/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+export interface QueryParamsRequestSDKType {
+}
+/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+export interface QueryParamsResponse {
+    /** params defines the parameters of the module. */
+    params?: Params;
+}
+/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+export interface QueryParamsResponseSDKType {
+    params?: ParamsSDKType;
+}
+/**
+ * QueryContractsByCreatorRequest is the request type for the
+ * Query/ContractsByCreator RPC method.
+ */
+export interface QueryContractsByCreatorRequest {
+    /** CreatorAddress is the address of contract creator */
+    creatorAddress: string;
+    /** Pagination defines an optional pagination for the request. */
+    pagination?: PageRequest;
+}
+/**
+ * QueryContractsByCreatorRequest is the request type for the
+ * Query/ContractsByCreator RPC method.
+ */
+export interface QueryContractsByCreatorRequestSDKType {
+    creator_address: string;
+    pagination?: PageRequestSDKType;
+}
+/**
+ * QueryContractsByCreatorResponse is the response type for the
+ * Query/ContractsByCreator RPC method.
+ */
+export interface QueryContractsByCreatorResponse {
+    /** ContractAddresses result set */
+    contractAddresses: string[];
+    /** Pagination defines the pagination in the response. */
+    pagination?: PageResponse;
+}
+/**
+ * QueryContractsByCreatorResponse is the response type for the
+ * Query/ContractsByCreator RPC method.
+ */
+export interface QueryContractsByCreatorResponseSDKType {
+    contract_addresses: string[];
     pagination?: PageResponseSDKType;
 }
 export declare const QueryContractInfoRequest: {
@@ -384,4 +437,24 @@ export declare const QueryPinnedCodesResponse: {
     encode(message: QueryPinnedCodesResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryPinnedCodesResponse;
     fromPartial(object: DeepPartial<QueryPinnedCodesResponse>): QueryPinnedCodesResponse;
+};
+export declare const QueryParamsRequest: {
+    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
+    fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest;
+};
+export declare const QueryParamsResponse: {
+    encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
+    fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse;
+};
+export declare const QueryContractsByCreatorRequest: {
+    encode(message: QueryContractsByCreatorRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryContractsByCreatorRequest;
+    fromPartial(object: DeepPartial<QueryContractsByCreatorRequest>): QueryContractsByCreatorRequest;
+};
+export declare const QueryContractsByCreatorResponse: {
+    encode(message: QueryContractsByCreatorResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryContractsByCreatorResponse;
+    fromPartial(object: DeepPartial<QueryContractsByCreatorResponse>): QueryContractsByCreatorResponse;
 };

@@ -12,11 +12,13 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
             v1beta1: {
                 accounts(request?: import("./auth/v1beta1/query").QueryAccountsRequest): Promise<import("./auth/v1beta1/query").QueryAccountsResponse>;
                 account(request: import("./auth/v1beta1/query").QueryAccountRequest): Promise<import("./auth/v1beta1/query").QueryAccountResponse>;
+                accountAddressByID(request: import("./auth/v1beta1/query").QueryAccountAddressByIDRequest): Promise<import("./auth/v1beta1/query").QueryAccountAddressByIDResponse>;
                 params(request?: import("./auth/v1beta1/query").QueryParamsRequest): Promise<import("./auth/v1beta1/query").QueryParamsResponse>;
                 moduleAccounts(request?: import("./auth/v1beta1/query").QueryModuleAccountsRequest): Promise<import("./auth/v1beta1/query").QueryModuleAccountsResponse>;
                 bech32Prefix(request?: import("./auth/v1beta1/query").Bech32PrefixRequest): Promise<import("./auth/v1beta1/query").Bech32PrefixResponse>;
                 addressBytesToString(request: import("./auth/v1beta1/query").AddressBytesToStringRequest): Promise<import("./auth/v1beta1/query").AddressBytesToStringResponse>;
                 addressStringToBytes(request: import("./auth/v1beta1/query").AddressStringToBytesRequest): Promise<import("./auth/v1beta1/query").AddressStringToBytesResponse>;
+                accountInfo(request: import("./auth/v1beta1/query").QueryAccountInfoRequest): Promise<import("./auth/v1beta1/query").QueryAccountInfoResponse>;
             };
         };
         authz: {
@@ -37,9 +39,15 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 denomMetadata(request: import("./bank/v1beta1/query").QueryDenomMetadataRequest): Promise<import("./bank/v1beta1/query").QueryDenomMetadataResponse>;
                 denomsMetadata(request?: import("./bank/v1beta1/query").QueryDenomsMetadataRequest): Promise<import("./bank/v1beta1/query").QueryDenomsMetadataResponse>;
                 denomOwners(request: import("./bank/v1beta1/query").QueryDenomOwnersRequest): Promise<import("./bank/v1beta1/query").QueryDenomOwnersResponse>;
+                sendEnabled(request: import("./bank/v1beta1/query").QuerySendEnabledRequest): Promise<import("./bank/v1beta1/query").QuerySendEnabledResponse>;
             };
         };
         base: {
+            node: {
+                v1beta1: {
+                    config(request?: import("./base/node/v1beta1/query").ConfigRequest): Promise<import("./base/node/v1beta1/query").ConfigResponse>;
+                };
+            };
             tendermint: {
                 v1beta1: {
                     getNodeInfo(request?: import("./base/tendermint/v1beta1/query").GetNodeInfoRequest): Promise<import("./base/tendermint/v1beta1/query").GetNodeInfoResponse>;
@@ -48,12 +56,19 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                     getBlockByHeight(request: import("./base/tendermint/v1beta1/query").GetBlockByHeightRequest): Promise<import("./base/tendermint/v1beta1/query").GetBlockByHeightResponse>;
                     getLatestValidatorSet(request?: import("./base/tendermint/v1beta1/query").GetLatestValidatorSetRequest): Promise<import("./base/tendermint/v1beta1/query").GetLatestValidatorSetResponse>;
                     getValidatorSetByHeight(request: import("./base/tendermint/v1beta1/query").GetValidatorSetByHeightRequest): Promise<import("./base/tendermint/v1beta1/query").GetValidatorSetByHeightResponse>;
+                    aBCIQuery(request: import("./base/tendermint/v1beta1/query").ABCIQueryRequest): Promise<import("./base/tendermint/v1beta1/query").ABCIQueryResponse>;
                 };
+            };
+        };
+        consensus: {
+            v1: {
+                params(request?: import("./consensus/v1/query").QueryParamsRequest): Promise<import("./consensus/v1/query").QueryParamsResponse>;
             };
         };
         distribution: {
             v1beta1: {
                 params(request?: import("./distribution/v1beta1/query").QueryParamsRequest): Promise<import("./distribution/v1beta1/query").QueryParamsResponse>;
+                validatorDistributionInfo(request: import("./distribution/v1beta1/query").QueryValidatorDistributionInfoRequest): Promise<import("./distribution/v1beta1/query").QueryValidatorDistributionInfoResponse>;
                 validatorOutstandingRewards(request: import("./distribution/v1beta1/query").QueryValidatorOutstandingRewardsRequest): Promise<import("./distribution/v1beta1/query").QueryValidatorOutstandingRewardsResponse>;
                 validatorCommission(request: import("./distribution/v1beta1/query").QueryValidatorCommissionRequest): Promise<import("./distribution/v1beta1/query").QueryValidatorCommissionResponse>;
                 validatorSlashes(request: import("./distribution/v1beta1/query").QueryValidatorSlashesRequest): Promise<import("./distribution/v1beta1/query").QueryValidatorSlashesResponse>;
@@ -75,28 +90,6 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 allowance(request: import("./feegrant/v1beta1/query").QueryAllowanceRequest): Promise<import("./feegrant/v1beta1/query").QueryAllowanceResponse>;
                 allowances(request: import("./feegrant/v1beta1/query").QueryAllowancesRequest): Promise<import("./feegrant/v1beta1/query").QueryAllowancesResponse>;
                 allowancesByGranter(request: import("./feegrant/v1beta1/query").QueryAllowancesByGranterRequest): Promise<import("./feegrant/v1beta1/query").QueryAllowancesByGranterResponse>;
-            };
-        };
-        gov: {
-            v1: {
-                proposal(request: import("./gov/v1/query").QueryProposalRequest): Promise<import("./gov/v1/query").QueryProposalResponse>;
-                proposals(request: import("./gov/v1/query").QueryProposalsRequest): Promise<import("./gov/v1/query").QueryProposalsResponse>;
-                vote(request: import("./gov/v1/query").QueryVoteRequest): Promise<import("./gov/v1/query").QueryVoteResponse>;
-                votes(request: import("./gov/v1/query").QueryVotesRequest): Promise<import("./gov/v1/query").QueryVotesResponse>;
-                params(request: import("./gov/v1/query").QueryParamsRequest): Promise<import("./gov/v1/query").QueryParamsResponse>;
-                deposit(request: import("./gov/v1/query").QueryDepositRequest): Promise<import("./gov/v1/query").QueryDepositResponse>;
-                deposits(request: import("./gov/v1/query").QueryDepositsRequest): Promise<import("./gov/v1/query").QueryDepositsResponse>;
-                tallyResult(request: import("./gov/v1/query").QueryTallyResultRequest): Promise<import("./gov/v1/query").QueryTallyResultResponse>;
-            };
-            v1beta1: {
-                proposal(request: import("./gov/v1beta1/query").QueryProposalRequest): Promise<import("./gov/v1beta1/query").QueryProposalResponse>;
-                proposals(request: import("./gov/v1beta1/query").QueryProposalsRequest): Promise<import("./gov/v1beta1/query").QueryProposalsResponse>;
-                vote(request: import("./gov/v1beta1/query").QueryVoteRequest): Promise<import("./gov/v1beta1/query").QueryVoteResponse>;
-                votes(request: import("./gov/v1beta1/query").QueryVotesRequest): Promise<import("./gov/v1beta1/query").QueryVotesResponse>;
-                params(request: import("./gov/v1beta1/query").QueryParamsRequest): Promise<import("./gov/v1beta1/query").QueryParamsResponse>;
-                deposit(request: import("./gov/v1beta1/query").QueryDepositRequest): Promise<import("./gov/v1beta1/query").QueryDepositResponse>;
-                deposits(request: import("./gov/v1beta1/query").QueryDepositsRequest): Promise<import("./gov/v1beta1/query").QueryDepositsResponse>;
-                tallyResult(request: import("./gov/v1beta1/query").QueryTallyResultRequest): Promise<import("./gov/v1beta1/query").QueryTallyResultResponse>;
             };
         };
         group: {
@@ -132,6 +125,14 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 nFT(request: import("./nft/v1beta1/query").QueryNFTRequest): Promise<import("./nft/v1beta1/query").QueryNFTResponse>;
                 class(request: import("./nft/v1beta1/query").QueryClassRequest): Promise<import("./nft/v1beta1/query").QueryClassResponse>;
                 classes(request?: import("./nft/v1beta1/query").QueryClassesRequest): Promise<import("./nft/v1beta1/query").QueryClassesResponse>;
+            };
+        };
+        orm: {
+            query: {
+                v1alpha1: {
+                    get(request: import("./orm/query/v1alpha1/query").GetRequest): Promise<import("./orm/query/v1alpha1/query").GetResponse>;
+                    list(request: import("./orm/query/v1alpha1/query").ListRequest): Promise<import("./orm/query/v1alpha1/query").ListResponse>;
+                };
             };
         };
         params: {

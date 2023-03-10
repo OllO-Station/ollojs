@@ -27,6 +27,15 @@ export interface MsgIBCSendSDKType {
     timeout_timestamp: Long;
     data: Uint8Array;
 }
+/** MsgIBCSendResponse */
+export interface MsgIBCSendResponse {
+    /** Sequence number of the IBC packet sent */
+    sequence: Long;
+}
+/** MsgIBCSendResponse */
+export interface MsgIBCSendResponseSDKType {
+    sequence: Long;
+}
 /** MsgIBCCloseChannel port and channel need to be owned by the contract */
 export interface MsgIBCCloseChannel {
     channel: string;
@@ -39,6 +48,11 @@ export declare const MsgIBCSend: {
     encode(message: MsgIBCSend, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgIBCSend;
     fromPartial(object: DeepPartial<MsgIBCSend>): MsgIBCSend;
+};
+export declare const MsgIBCSendResponse: {
+    encode(message: MsgIBCSendResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgIBCSendResponse;
+    fromPartial(object: DeepPartial<MsgIBCSendResponse>): MsgIBCSendResponse;
 };
 export declare const MsgIBCCloseChannel: {
     encode(message: MsgIBCCloseChannel, writer?: _m0.Writer): _m0.Writer;

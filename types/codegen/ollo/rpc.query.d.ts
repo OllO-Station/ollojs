@@ -12,11 +12,13 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
             v1beta1: {
                 accounts(request?: import("../cosmos/auth/v1beta1/query").QueryAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountsResponse>;
                 account(request: import("../cosmos/auth/v1beta1/query").QueryAccountRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountResponse>;
+                accountAddressByID(request: import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDResponse>;
                 params(request?: import("../cosmos/auth/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryParamsResponse>;
                 moduleAccounts(request?: import("../cosmos/auth/v1beta1/query").QueryModuleAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountsResponse>;
                 bech32Prefix(request?: import("../cosmos/auth/v1beta1/query").Bech32PrefixRequest): Promise<import("../cosmos/auth/v1beta1/query").Bech32PrefixResponse>;
                 addressBytesToString(request: import("../cosmos/auth/v1beta1/query").AddressBytesToStringRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressBytesToStringResponse>;
                 addressStringToBytes(request: import("../cosmos/auth/v1beta1/query").AddressStringToBytesRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressStringToBytesResponse>;
+                accountInfo(request: import("../cosmos/auth/v1beta1/query").QueryAccountInfoRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountInfoResponse>;
             };
         };
         authz: {
@@ -37,9 +39,15 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 denomMetadata(request: import("../cosmos/bank/v1beta1/query").QueryDenomMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomMetadataResponse>;
                 denomsMetadata(request?: import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataResponse>;
                 denomOwners(request: import("../cosmos/bank/v1beta1/query").QueryDenomOwnersRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomOwnersResponse>;
+                sendEnabled(request: import("../cosmos/bank/v1beta1/query").QuerySendEnabledRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySendEnabledResponse>;
             };
         };
         base: {
+            node: {
+                v1beta1: {
+                    config(request?: import("../cosmos/base/node/v1beta1/query").ConfigRequest): Promise<import("../cosmos/base/node/v1beta1/query").ConfigResponse>;
+                };
+            };
             tendermint: {
                 v1beta1: {
                     getNodeInfo(request?: import("../cosmos/base/tendermint/v1beta1/query").GetNodeInfoRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetNodeInfoResponse>;
@@ -48,12 +56,19 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                     getBlockByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightResponse>;
                     getLatestValidatorSet(request?: import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetResponse>;
                     getValidatorSetByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightResponse>;
+                    aBCIQuery(request: import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryResponse>;
                 };
+            };
+        };
+        consensus: {
+            v1: {
+                params(request?: import("../cosmos/consensus/v1/query").QueryParamsRequest): Promise<import("../cosmos/consensus/v1/query").QueryParamsResponse>;
             };
         };
         distribution: {
             v1beta1: {
                 params(request?: import("../cosmos/distribution/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryParamsResponse>;
+                validatorDistributionInfo(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoResponse>;
                 validatorOutstandingRewards(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsResponse>;
                 validatorCommission(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionResponse>;
                 validatorSlashes(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesResponse>;
@@ -75,28 +90,6 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 allowance(request: import("../cosmos/feegrant/v1beta1/query").QueryAllowanceRequest): Promise<import("../cosmos/feegrant/v1beta1/query").QueryAllowanceResponse>;
                 allowances(request: import("../cosmos/feegrant/v1beta1/query").QueryAllowancesRequest): Promise<import("../cosmos/feegrant/v1beta1/query").QueryAllowancesResponse>;
                 allowancesByGranter(request: import("../cosmos/feegrant/v1beta1/query").QueryAllowancesByGranterRequest): Promise<import("../cosmos/feegrant/v1beta1/query").QueryAllowancesByGranterResponse>;
-            };
-        };
-        gov: {
-            v1: {
-                proposal(request: import("../cosmos/gov/v1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalResponse>;
-                proposals(request: import("../cosmos/gov/v1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalsResponse>;
-                vote(request: import("../cosmos/gov/v1/query").QueryVoteRequest): Promise<import("../cosmos/gov/v1/query").QueryVoteResponse>;
-                votes(request: import("../cosmos/gov/v1/query").QueryVotesRequest): Promise<import("../cosmos/gov/v1/query").QueryVotesResponse>;
-                params(request: import("../cosmos/gov/v1/query").QueryParamsRequest): Promise<import("../cosmos/gov/v1/query").QueryParamsResponse>;
-                deposit(request: import("../cosmos/gov/v1/query").QueryDepositRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositResponse>;
-                deposits(request: import("../cosmos/gov/v1/query").QueryDepositsRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositsResponse>;
-                tallyResult(request: import("../cosmos/gov/v1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1/query").QueryTallyResultResponse>;
-            };
-            v1beta1: {
-                proposal(request: import("../cosmos/gov/v1beta1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalResponse>;
-                proposals(request: import("../cosmos/gov/v1beta1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalsResponse>;
-                vote(request: import("../cosmos/gov/v1beta1/query").QueryVoteRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryVoteResponse>;
-                votes(request: import("../cosmos/gov/v1beta1/query").QueryVotesRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryVotesResponse>;
-                params(request: import("../cosmos/gov/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryParamsResponse>;
-                deposit(request: import("../cosmos/gov/v1beta1/query").QueryDepositRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryDepositResponse>;
-                deposits(request: import("../cosmos/gov/v1beta1/query").QueryDepositsRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryDepositsResponse>;
-                tallyResult(request: import("../cosmos/gov/v1beta1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryTallyResultResponse>;
             };
         };
         group: {
@@ -132,6 +125,14 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 nFT(request: import("../cosmos/nft/v1beta1/query").QueryNFTRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryNFTResponse>;
                 class(request: import("../cosmos/nft/v1beta1/query").QueryClassRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassResponse>;
                 classes(request?: import("../cosmos/nft/v1beta1/query").QueryClassesRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassesResponse>;
+            };
+        };
+        orm: {
+            query: {
+                v1alpha1: {
+                    get(request: import("../cosmos/orm/query/v1alpha1/query").GetRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").GetResponse>;
+                    list(request: import("../cosmos/orm/query/v1alpha1/query").ListRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").ListResponse>;
+                };
             };
         };
         params: {
@@ -196,6 +197,19 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 initialClaim(request?: import("./claim/v1/query").QueryGetInitialClaimRequest): Promise<import("./claim/v1/query").QueryGetInitialClaimResponse>;
             };
         };
+        emissions: {
+            v1: {
+                queryEmission(request: import("./emissions/v1/query").QueryEmissionRequest): Promise<import("./emissions/v1/query").QueryEmissionResponse>;
+                queryAllEmissions(request?: import("./emissions/v1/query").QueryAllEmissionsRequest): Promise<import("./emissions/v1/query").QueryAllEmissionsResponse>;
+            };
+        };
+        epoch: {
+            v1: {
+                epochs(request?: import("./epoch/v1/query").QueryEpochsRequest): Promise<import("./epoch/v1/query").QueryEpochsResponse>;
+                epoch(request: import("./epoch/v1/query").QueryEpochRequest): Promise<import("./epoch/v1/query").QueryEpochResponse>;
+                currentEpoch(request: import("./epoch/v1/query").QueryCurrentEpochRequest): Promise<import("./epoch/v1/query").QueryCurrentEpochResponse>;
+            };
+        };
         farming: {
             v1: {
                 params(request?: import("./farming/v1/query").QueryParamsRequest): Promise<import("./farming/v1/query").QueryParamsResponse>;
@@ -205,6 +219,14 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 totalStakings(request: import("./farming/v1/query").QueryTotalStakingsRequest): Promise<import("./farming/v1/query").QueryTotalStakingsResponse>;
                 rewards(request: import("./farming/v1/query").QueryRewardsRequest): Promise<import("./farming/v1/query").QueryRewardsResponse>;
                 currentEpochDays(request?: import("./farming/v1/query").QueryCurrentEpochDaysRequest): Promise<import("./farming/v1/query").QueryCurrentEpochDaysResponse>;
+            };
+        };
+        fees: {
+            v1: {
+                feeTokens(request?: import("./fees/v1/query").QueryFeeTokensRequest): Promise<import("./fees/v1/query").QueryFeeTokensResponse>;
+                denomSpotPrice(request: import("./fees/v1/query").QueryDenomSpotPriceRequest): Promise<import("./fees/v1/query").QueryDenomSpotPriceResponse>;
+                denomPoolId(request: import("./fees/v1/query").QueryDenomPoolIdRequest): Promise<import("./fees/v1/query").QueryDenomPoolIdResponse>;
+                baseDenom(request?: import("./fees/v1/query").QueryBaseDenomRequest): Promise<import("./fees/v1/query").QueryBaseDenomResponse>;
             };
         };
         grants: {
@@ -219,12 +241,25 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 vestings(request: import("./grants/v1/query").QueryVestingsRequest): Promise<import("./grants/v1/query").QueryVestingsResponse>;
             };
         };
+        icq: {
+            v1: {
+                params(request?: import("./icq/v1/query").QueryParamsRequest): Promise<import("./icq/v1/query").QueryParamsResponse>;
+            };
+        };
+        incentive: {
+            v1: {
+                params(request?: import("./incentive/v1/query").QueryParamsRequest): Promise<import("./incentive/v1/query").QueryParamsResponse>;
+                marketMakers(request: import("./incentive/v1/query").QueryMarketMakersRequest): Promise<import("./incentive/v1/query").QueryMarketMakersResponse>;
+                incentive(request: import("./incentive/v1/query").QueryIncentiveRequest): Promise<import("./incentive/v1/query").QueryIncentiveResponse>;
+            };
+        };
         liquidity: {
             v1: {
-                liquidityPools(request: import("./liquidity/v1/query").QueryLiquidityPoolsRequest): Promise<import("./liquidity/v1/query").QueryLiquidityPoolsResponse>;
-                liquidityPool(request: import("./liquidity/v1/query").QueryLiquidityPoolRequest): Promise<import("./liquidity/v1/query").QueryLiquidityPoolResponse>;
-                liquidityPoolByPoolCoinDenom(request: import("./liquidity/v1/query").QueryLiquidityPoolByPoolCoinDenomRequest): Promise<import("./liquidity/v1/query").QueryLiquidityPoolResponse>;
-                liquidityPoolByReserveAcc(request: import("./liquidity/v1/query").QueryLiquidityPoolByReserveAccRequest): Promise<import("./liquidity/v1/query").QueryLiquidityPoolResponse>;
+                params(request?: import("./liquidity/v1/query").QueryParamsRequest): Promise<import("./liquidity/v1/query").QueryParamsResponse>;
+                pools(request: import("./liquidity/v1/query").QueryPoolsRequest): Promise<import("./liquidity/v1/query").QueryPoolsResponse>;
+                pool(request: import("./liquidity/v1/query").QueryPoolRequest): Promise<import("./liquidity/v1/query").QueryPoolResponse>;
+                poolByReserveAddress(request: import("./liquidity/v1/query").QueryPoolByReserveAddressRequest): Promise<import("./liquidity/v1/query").QueryPoolResponse>;
+                poolByPoolCoinDenom(request: import("./liquidity/v1/query").QueryPoolByPoolCoinDenomRequest): Promise<import("./liquidity/v1/query").QueryPoolResponse>;
                 pairs(request: import("./liquidity/v1/query").QueryPairsRequest): Promise<import("./liquidity/v1/query").QueryPairsResponse>;
                 pair(request: import("./liquidity/v1/query").QueryPairRequest): Promise<import("./liquidity/v1/query").QueryPairResponse>;
                 depositRequests(request: import("./liquidity/v1/query").QueryDepositRequestsRequest): Promise<import("./liquidity/v1/query").QueryDepositRequestsResponse>;
@@ -235,7 +270,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 order(request: import("./liquidity/v1/query").QueryOrderRequest): Promise<import("./liquidity/v1/query").QueryOrderResponse>;
                 ordersByOrderer(request: import("./liquidity/v1/query").QueryOrdersByOrdererRequest): Promise<import("./liquidity/v1/query").QueryOrdersResponse>;
                 orderBooks(request: import("./liquidity/v1/query").QueryOrderBooksRequest): Promise<import("./liquidity/v1/query").QueryOrderBooksResponse>;
-                params(request?: import("./liquidity/v1/query").QueryParamsRequest): Promise<import("./liquidity/v1/query").QueryParamsResponse>;
+                numMMOrders(request: import("./liquidity/v1/query").QueryNumMMOrdersRequest): Promise<import("./liquidity/v1/query").QueryNumMMOrdersResponse>;
             };
         };
         loan: {
@@ -243,6 +278,11 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 params(request?: import("./loan/v1/query").QueryParamsRequest): Promise<import("./loan/v1/query").QueryParamsResponse>;
                 loans(request: import("./loan/v1/query").QueryGetLoansRequest): Promise<import("./loan/v1/query").QueryGetLoansResponse>;
                 loansAll(request?: import("./loan/v1/query").QueryAllLoansRequest): Promise<import("./loan/v1/query").QueryAllLoansResponse>;
+            };
+        };
+        lock: {
+            v1: {
+                queryParams(request?: import("./lock/v1/query").QueryParamsRequest): Promise<import("./lock/v1/query").QueryParamsResponse>;
             };
         };
         market: {
@@ -277,6 +317,24 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 whoisAll(request?: import("./ons/v1/query").QueryAllWhoisRequest): Promise<import("./ons/v1/query").QueryAllWhoisResponse>;
             };
         };
+        prices: {
+            v1: {
+                params(request?: import("./prices/v1/query").QueryParamsRequest): Promise<import("./prices/v1/query").QueryParamsResponse>;
+                bandPricesResult(request: import("./prices/v1/query").QueryBandPricesRequest): Promise<import("./prices/v1/query").QueryBandPricesResponse>;
+                lastBandPricesId(request?: import("./prices/v1/query").QueryLastBandPricesIdRequest): Promise<import("./prices/v1/query").QueryLastBandPricesIdResponse>;
+                queryRoundData(request: import("./prices/v1/query").QueryRoundDataRequest): Promise<import("./prices/v1/query").QueryRoundDataResponse>;
+                latestRoundData(request: import("./prices/v1/query").QueryLatestRoundDataRequest): Promise<import("./prices/v1/query").QueryLatestRoundDataResponse>;
+                queryAllModuleOwner(request?: import("./prices/v1/query").QueryModuleOwnerRequest): Promise<import("./prices/v1/query").QueryModuleOwnerResponse>;
+                queryFeedByFeedId(request: import("./prices/v1/query").QueryFeedByIdRequest): Promise<import("./prices/v1/query").QueryFeedByIdResponse>;
+                queryAccountInfo(request: import("./prices/v1/query").QueryAccountRequest): Promise<import("./prices/v1/query").QueryAccountResponse>;
+                queryFeedRewardAvailStrategy(request?: import("./prices/v1/query").QueryFeedRewardAvailStrategiesRequest): Promise<import("./prices/v1/query").QueryFeedRewardAvailStrategiesResponse>;
+            };
+        };
+        ratelimit: {
+            v1: {
+                params(request?: import("./ratelimit/v1/query").QueryParamsRequest): Promise<import("./ratelimit/v1/query").QueryParamsResponse>;
+            };
+        };
         reserve: {
             v1: {
                 params(request?: import("./reserve/v1/query").QueryParamsRequest): Promise<import("./reserve/v1/query").QueryParamsResponse>;
@@ -293,6 +351,12 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 fees(request: import("./token/v1/query").QueryFeesRequest): Promise<import("./token/v1/query").QueryFeesResponse>;
                 params(request?: import("./token/v1/query").QueryParamsRequest): Promise<import("./token/v1/query").QueryParamsResponse>;
                 burn(request?: import("./token/v1/query").QueryBurnRequest): Promise<import("./token/v1/query").QueryBurnResponse>;
+            };
+        };
+        vault: {
+            v1: {
+                queryVault(request: import("./vault/v1/query").QueryVaultRequest): Promise<import("./vault/v1/query").QueryVaultResponse>;
+                queryAllVaults(request?: import("./vault/v1/query").QueryAllVaultsRequest): Promise<import("./vault/v1/query").QueryAllVaultsResponse>;
             };
         };
     };

@@ -50,6 +50,7 @@ export interface QueryPlansResponseSDKType {
 }
 /** QueryPlanRequest is the request type for the Query/Plan RPC method. */
 export interface QueryPlanRequest {
+    /** QueryPlanRequest is the request type for the Query/Plan RPC method. */
     planId: Long;
 }
 /** QueryPlanRequest is the request type for the Query/Plan RPC method. */
@@ -84,19 +85,35 @@ export interface QueryStakingsResponseSDKType {
     staked_coins: CoinSDKType[];
     queued_coins: CoinSDKType[];
 }
-/** QueryTotalStakingsRequest is the request type for the Query/TotalStakings RPC method. */
+/**
+ * QueryTotalStakingsRequest is the request type for the Query/TotalStakings RPC
+ * method.
+ */
 export interface QueryTotalStakingsRequest {
+    /**
+     * QueryTotalStakingsRequest is the request type for the Query/TotalStakings RPC
+     * method.
+     */
     stakingCoinDenom: string;
 }
-/** QueryTotalStakingsRequest is the request type for the Query/TotalStakings RPC method. */
+/**
+ * QueryTotalStakingsRequest is the request type for the Query/TotalStakings RPC
+ * method.
+ */
 export interface QueryTotalStakingsRequestSDKType {
     staking_coin_denom: string;
 }
-/** QueryTotalStakingsResponse is the response type for the Query/TotalStakings RPC method. */
+/**
+ * QueryTotalStakingsResponse is the response type for the Query/TotalStakings
+ * RPC method.
+ */
 export interface QueryTotalStakingsResponse {
     amount: string;
 }
-/** QueryTotalStakingsResponse is the response type for the Query/TotalStakings RPC method. */
+/**
+ * QueryTotalStakingsResponse is the response type for the Query/TotalStakings
+ * RPC method.
+ */
 export interface QueryTotalStakingsResponseSDKType {
     amount: string;
 }
@@ -118,17 +135,33 @@ export interface QueryRewardsResponse {
 export interface QueryRewardsResponseSDKType {
     rewards: CoinSDKType[];
 }
-/** QueryCurrentEpochDaysRequest is the request type for the Query/CurrentEpochDays RPC method. */
+/**
+ * QueryCurrentEpochDaysRequest is the request type for the
+ * Query/CurrentEpochDays RPC method.
+ */
 export interface QueryCurrentEpochDaysRequest {
 }
-/** QueryCurrentEpochDaysRequest is the request type for the Query/CurrentEpochDays RPC method. */
+/**
+ * QueryCurrentEpochDaysRequest is the request type for the
+ * Query/CurrentEpochDays RPC method.
+ */
 export interface QueryCurrentEpochDaysRequestSDKType {
 }
-/** QuerCurrentEpochDaysResponse is the response type for the Query/CurrentEpochDays RPC method. */
+/**
+ * QuerCurrentEpochDaysResponse is the response type for the
+ * Query/CurrentEpochDays RPC method.
+ */
 export interface QueryCurrentEpochDaysResponse {
+    /**
+     * QuerCurrentEpochDaysResponse is the response type for the
+     * Query/CurrentEpochDays RPC method.
+     */
     currentEpochDays: number;
 }
-/** QuerCurrentEpochDaysResponse is the response type for the Query/CurrentEpochDays RPC method. */
+/**
+ * QuerCurrentEpochDaysResponse is the response type for the
+ * Query/CurrentEpochDays RPC method.
+ */
 export interface QueryCurrentEpochDaysResponseSDKType {
     current_epoch_days: number;
 }

@@ -6,7 +6,10 @@ import { toTimestamp, fromTimestamp, DeepPartial, Long } from "../../../helpers"
 /** VoteOption enumerates the valid vote options for a given proposal. */
 
 export enum VoteOption {
-  /** VOTE_OPTION_UNSPECIFIED - VOTE_OPTION_UNSPECIFIED defines a no-op vote option. */
+  /**
+   * VOTE_OPTION_UNSPECIFIED - VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
+   * return an error.
+   */
   VOTE_OPTION_UNSPECIFIED = 0,
 
   /** VOTE_OPTION_YES - VOTE_OPTION_YES defines a yes vote option. */
@@ -79,20 +82,32 @@ export enum ProposalStatus {
   /** PROPOSAL_STATUS_UNSPECIFIED - An empty value is invalid and not allowed. */
   PROPOSAL_STATUS_UNSPECIFIED = 0,
 
-  /** PROPOSAL_STATUS_SUBMITTED - Initial status of a proposal when persisted. */
+  /** PROPOSAL_STATUS_SUBMITTED - Initial status of a proposal when submitted. */
   PROPOSAL_STATUS_SUBMITTED = 1,
 
-  /** PROPOSAL_STATUS_CLOSED - Final status of a proposal when the final tally was executed. */
-  PROPOSAL_STATUS_CLOSED = 2,
-
-  /** PROPOSAL_STATUS_ABORTED - Final status of a proposal when the group was modified before the final tally. */
-  PROPOSAL_STATUS_ABORTED = 3,
+  /**
+   * PROPOSAL_STATUS_ACCEPTED - Final status of a proposal when the final tally is done and the outcome
+   * passes the group policy's decision policy.
+   */
+  PROPOSAL_STATUS_ACCEPTED = 2,
 
   /**
-   * PROPOSAL_STATUS_WITHDRAWN - A proposal can be deleted before the voting start time by the owner. When this happens the final status
-   * is Withdrawn.
+   * PROPOSAL_STATUS_REJECTED - Final status of a proposal when the final tally is done and the outcome
+   * is rejected by the group policy's decision policy.
    */
-  PROPOSAL_STATUS_WITHDRAWN = 4,
+  PROPOSAL_STATUS_REJECTED = 3,
+
+  /**
+   * PROPOSAL_STATUS_ABORTED - Final status of a proposal when the group policy is modified before the
+   * final tally.
+   */
+  PROPOSAL_STATUS_ABORTED = 4,
+
+  /**
+   * PROPOSAL_STATUS_WITHDRAWN - A proposal can be withdrawn before the voting start time by the owner.
+   * When this happens the final status is Withdrawn.
+   */
+  PROPOSAL_STATUS_WITHDRAWN = 5,
   UNRECOGNIZED = -1,
 }
 export const ProposalStatusSDKType = ProposalStatus;
@@ -107,14 +122,18 @@ export function proposalStatusFromJSON(object: any): ProposalStatus {
       return ProposalStatus.PROPOSAL_STATUS_SUBMITTED;
 
     case 2:
-    case "PROPOSAL_STATUS_CLOSED":
-      return ProposalStatus.PROPOSAL_STATUS_CLOSED;
+    case "PROPOSAL_STATUS_ACCEPTED":
+      return ProposalStatus.PROPOSAL_STATUS_ACCEPTED;
 
     case 3:
+    case "PROPOSAL_STATUS_REJECTED":
+      return ProposalStatus.PROPOSAL_STATUS_REJECTED;
+
+    case 4:
     case "PROPOSAL_STATUS_ABORTED":
       return ProposalStatus.PROPOSAL_STATUS_ABORTED;
 
-    case 4:
+    case 5:
     case "PROPOSAL_STATUS_WITHDRAWN":
       return ProposalStatus.PROPOSAL_STATUS_WITHDRAWN;
 
@@ -132,8 +151,11 @@ export function proposalStatusToJSON(object: ProposalStatus): string {
     case ProposalStatus.PROPOSAL_STATUS_SUBMITTED:
       return "PROPOSAL_STATUS_SUBMITTED";
 
-    case ProposalStatus.PROPOSAL_STATUS_CLOSED:
-      return "PROPOSAL_STATUS_CLOSED";
+    case ProposalStatus.PROPOSAL_STATUS_ACCEPTED:
+      return "PROPOSAL_STATUS_ACCEPTED";
+
+    case ProposalStatus.PROPOSAL_STATUS_REJECTED:
+      return "PROPOSAL_STATUS_REJECTED";
 
     case ProposalStatus.PROPOSAL_STATUS_ABORTED:
       return "PROPOSAL_STATUS_ABORTED";
@@ -142,66 +164,6 @@ export function proposalStatusToJSON(object: ProposalStatus): string {
       return "PROPOSAL_STATUS_WITHDRAWN";
 
     case ProposalStatus.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
-/** ProposalResult defines types of proposal results. */
-
-export enum ProposalResult {
-  /** PROPOSAL_RESULT_UNSPECIFIED - An empty value is invalid and not allowed */
-  PROPOSAL_RESULT_UNSPECIFIED = 0,
-
-  /** PROPOSAL_RESULT_UNFINALIZED - Until a final tally has happened the status is unfinalized */
-  PROPOSAL_RESULT_UNFINALIZED = 1,
-
-  /** PROPOSAL_RESULT_ACCEPTED - Final result of the tally */
-  PROPOSAL_RESULT_ACCEPTED = 2,
-
-  /** PROPOSAL_RESULT_REJECTED - Final result of the tally */
-  PROPOSAL_RESULT_REJECTED = 3,
-  UNRECOGNIZED = -1,
-}
-export const ProposalResultSDKType = ProposalResult;
-export function proposalResultFromJSON(object: any): ProposalResult {
-  switch (object) {
-    case 0:
-    case "PROPOSAL_RESULT_UNSPECIFIED":
-      return ProposalResult.PROPOSAL_RESULT_UNSPECIFIED;
-
-    case 1:
-    case "PROPOSAL_RESULT_UNFINALIZED":
-      return ProposalResult.PROPOSAL_RESULT_UNFINALIZED;
-
-    case 2:
-    case "PROPOSAL_RESULT_ACCEPTED":
-      return ProposalResult.PROPOSAL_RESULT_ACCEPTED;
-
-    case 3:
-    case "PROPOSAL_RESULT_REJECTED":
-      return ProposalResult.PROPOSAL_RESULT_REJECTED;
-
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ProposalResult.UNRECOGNIZED;
-  }
-}
-export function proposalResultToJSON(object: ProposalResult): string {
-  switch (object) {
-    case ProposalResult.PROPOSAL_RESULT_UNSPECIFIED:
-      return "PROPOSAL_RESULT_UNSPECIFIED";
-
-    case ProposalResult.PROPOSAL_RESULT_UNFINALIZED:
-      return "PROPOSAL_RESULT_UNFINALIZED";
-
-    case ProposalResult.PROPOSAL_RESULT_ACCEPTED:
-      return "PROPOSAL_RESULT_ACCEPTED";
-
-    case ProposalResult.PROPOSAL_RESULT_REJECTED:
-      return "PROPOSAL_RESULT_REJECTED";
-
-    case ProposalResult.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
@@ -268,7 +230,7 @@ export function proposalExecutorResultToJSON(object: ProposalExecutorResult): st
 }
 /**
  * Member represents a group member with an account address,
- * non-zero weight and metadata.
+ * non-zero weight, metadata and added_at timestamp.
  */
 
 export interface Member {
@@ -277,7 +239,7 @@ export interface Member {
   /** weight is the member's voting weight that should be greater than 0. */
 
   weight: string;
-  /** metadata is any arbitrary metadata to attached to the member. */
+  /** metadata is any arbitrary metadata attached to the member. */
 
   metadata: string;
   /** added_at is a timestamp specifying when a member was added. */
@@ -286,7 +248,7 @@ export interface Member {
 }
 /**
  * Member represents a group member with an account address,
- * non-zero weight and metadata.
+ * non-zero weight, metadata and added_at timestamp.
  */
 
 export interface MemberSDKType {
@@ -295,42 +257,92 @@ export interface MemberSDKType {
   metadata: string;
   added_at?: Date;
 }
-/** Members defines a repeated slice of Member objects. */
+/**
+ * MemberRequest represents a group member to be used in Msg server requests.
+ * Contrary to `Member`, it doesn't have any `added_at` field
+ * since this field cannot be set as part of requests.
+ */
 
-export interface Members {
-  /** members is the list of members. */
-  members: Member[];
-}
-/** Members defines a repeated slice of Member objects. */
+export interface MemberRequest {
+  /** address is the member's account address. */
+  address: string;
+  /** weight is the member's voting weight that should be greater than 0. */
 
-export interface MembersSDKType {
-  members: MemberSDKType[];
+  weight: string;
+  /** metadata is any arbitrary metadata attached to the member. */
+
+  metadata: string;
 }
-/** ThresholdDecisionPolicy implements the DecisionPolicy interface */
+/**
+ * MemberRequest represents a group member to be used in Msg server requests.
+ * Contrary to `Member`, it doesn't have any `added_at` field
+ * since this field cannot be set as part of requests.
+ */
+
+export interface MemberRequestSDKType {
+  address: string;
+  weight: string;
+  metadata: string;
+}
+/**
+ * ThresholdDecisionPolicy is a decision policy where a proposal passes when it
+ * satisfies the two following conditions:
+ * 1. The sum of all `YES` voters' weights is greater or equal than the defined
+ *    `threshold`.
+ * 2. The voting and execution periods of the proposal respect the parameters
+ *    given by `windows`.
+ */
 
 export interface ThresholdDecisionPolicy {
-  /** threshold is the minimum weighted sum of yes votes that must be met or exceeded for a proposal to succeed. */
+  /**
+   * threshold is the minimum weighted sum of `YES` votes that must be met or
+   * exceeded for a proposal to succeed.
+   */
   threshold: string;
   /** windows defines the different windows for voting and execution. */
 
   windows?: DecisionPolicyWindows;
 }
-/** ThresholdDecisionPolicy implements the DecisionPolicy interface */
+/**
+ * ThresholdDecisionPolicy is a decision policy where a proposal passes when it
+ * satisfies the two following conditions:
+ * 1. The sum of all `YES` voters' weights is greater or equal than the defined
+ *    `threshold`.
+ * 2. The voting and execution periods of the proposal respect the parameters
+ *    given by `windows`.
+ */
 
 export interface ThresholdDecisionPolicySDKType {
   threshold: string;
   windows?: DecisionPolicyWindowsSDKType;
 }
-/** PercentageDecisionPolicy implements the DecisionPolicy interface */
+/**
+ * PercentageDecisionPolicy is a decision policy where a proposal passes when
+ * it satisfies the two following conditions:
+ * 1. The percentage of all `YES` voters' weights out of the total group weight
+ *    is greater or equal than the given `percentage`.
+ * 2. The voting and execution periods of the proposal respect the parameters
+ *    given by `windows`.
+ */
 
 export interface PercentageDecisionPolicy {
-  /** percentage is the minimum percentage the weighted sum of yes votes must meet for a proposal to succeed. */
+  /**
+   * percentage is the minimum percentage the weighted sum of `YES` votes must
+   * meet for a proposal to succeed.
+   */
   percentage: string;
   /** windows defines the different windows for voting and execution. */
 
   windows?: DecisionPolicyWindows;
 }
-/** PercentageDecisionPolicy implements the DecisionPolicy interface */
+/**
+ * PercentageDecisionPolicy is a decision policy where a proposal passes when
+ * it satisfies the two following conditions:
+ * 1. The percentage of all `YES` voters' weights out of the total group weight
+ *    is greater or equal than the given `percentage`.
+ * 2. The voting and execution periods of the proposal respect the parameters
+ *    given by `windows`.
+ */
 
 export interface PercentageDecisionPolicySDKType {
   percentage: string;
@@ -465,9 +477,9 @@ export interface GroupPolicyInfoSDKType {
 export interface Proposal {
   /** id is the unique id of the proposal. */
   id: Long;
-  /** address is the account address of group policy. */
+  /** group_policy_address is the account address of group policy. */
 
-  address: string;
+  groupPolicyAddress: string;
   /** metadata is any arbitrary metadata to attached to the proposal. */
 
   metadata: string;
@@ -478,14 +490,16 @@ export interface Proposal {
 
   submitTime?: Date;
   /**
-   * group_version tracks the version of the group that this proposal corresponds to.
-   * When group membership is changed, existing proposals from previous group versions will become invalid.
+   * group_version tracks the version of the group at proposal submission.
+   * This field is here for informational purposes only.
    */
 
   groupVersion: Long;
   /**
-   * group_policy_version tracks the version of the group policy that this proposal corresponds to.
-   * When a decision policy is changed, existing proposals from previous policy versions will become invalid.
+   * group_policy_version tracks the version of the group policy at proposal submission.
+   * When a decision policy is changed, existing proposals from previous policy
+   * versions will become invalid with the `ABORTED` status.
+   * This field is here for informational purposes only.
    */
 
   groupPolicyVersion: Long;
@@ -493,32 +507,26 @@ export interface Proposal {
 
   status: ProposalStatus;
   /**
-   * result is the final result based on the votes and election rule. Initial value is unfinalized.
-   * The result is persisted so that clients can always rely on this state and not have to replicate the logic.
-   */
-
-  result: ProposalResult;
-  /**
    * final_tally_result contains the sums of all weighted votes for this
-   * proposal for each vote option, after tallying. When querying a proposal
-   * via gRPC, this field is not populated until the proposal's voting period
-   * has ended.
+   * proposal for each vote option. It is empty at submission, and only
+   * populated after tallying, at voting period end or at proposal execution,
+   * whichever happens first.
    */
 
   finalTallyResult?: TallyResult;
   /**
    * voting_period_end is the timestamp before which voting must be done.
-   * Unless a successfull MsgExec is called before (to execute a proposal whose
+   * Unless a successful MsgExec is called before (to execute a proposal whose
    * tally is successful before the voting period ends), tallying will be done
-   * at this point, and the `final_tally_result`, as well
-   * as `status` and `result` fields will be accordingly updated.
+   * at this point, and the `final_tally_result`and `status` fields will be
+   * accordingly updated.
    */
 
   votingPeriodEnd?: Date;
-  /** executor_result is the final result based on the votes and election rule. Initial value is NotRun. */
+  /** executor_result is the final result of the proposal execution. Initial value is NotRun. */
 
   executorResult: ProposalExecutorResult;
-  /** messages is a list of Msgs that will be executed if the proposal passes. */
+  /** messages is a list of `sdk.Msg`s that will be executed if the proposal passes. */
 
   messages: Any[];
 }
@@ -531,14 +539,13 @@ export interface Proposal {
 
 export interface ProposalSDKType {
   id: Long;
-  address: string;
+  group_policy_address: string;
   metadata: string;
   proposers: string[];
   submit_time?: Date;
   group_version: Long;
   group_policy_version: Long;
   status: ProposalStatus;
-  result: ProposalResult;
   final_tally_result?: TallyResultSDKType;
   voting_period_end?: Date;
   executor_result: ProposalExecutorResult;
@@ -552,7 +559,7 @@ export interface TallyResult {
   /** abstain_count is the weighted sum of abstainers. */
 
   abstainCount: string;
-  /** no is the weighted sum of no votes. */
+  /** no_count is the weighted sum of no votes. */
 
   noCount: string;
   /** no_with_veto_count is the weighted sum of veto. */
@@ -670,32 +677,50 @@ export const Member = {
 
 };
 
-function createBaseMembers(): Members {
+function createBaseMemberRequest(): MemberRequest {
   return {
-    members: []
+    address: "",
+    weight: "",
+    metadata: ""
   };
 }
 
-export const Members = {
-  encode(message: Members, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.members) {
-      Member.encode(v!, writer.uint32(10).fork()).ldelim();
+export const MemberRequest = {
+  encode(message: MemberRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+
+    if (message.weight !== "") {
+      writer.uint32(18).string(message.weight);
+    }
+
+    if (message.metadata !== "") {
+      writer.uint32(26).string(message.metadata);
     }
 
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Members {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MemberRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMembers();
+    const message = createBaseMemberRequest();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
 
       switch (tag >>> 3) {
         case 1:
-          message.members.push(Member.decode(reader, reader.uint32()));
+          message.address = reader.string();
+          break;
+
+        case 2:
+          message.weight = reader.string();
+          break;
+
+        case 3:
+          message.metadata = reader.string();
           break;
 
         default:
@@ -707,9 +732,11 @@ export const Members = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<Members>): Members {
-    const message = createBaseMembers();
-    message.members = object.members?.map(e => Member.fromPartial(e)) || [];
+  fromPartial(object: DeepPartial<MemberRequest>): MemberRequest {
+    const message = createBaseMemberRequest();
+    message.address = object.address ?? "";
+    message.weight = object.weight ?? "";
+    message.metadata = object.metadata ?? "";
     return message;
   }
 
@@ -1138,14 +1165,13 @@ export const GroupPolicyInfo = {
 function createBaseProposal(): Proposal {
   return {
     id: Long.UZERO,
-    address: "",
+    groupPolicyAddress: "",
     metadata: "",
     proposers: [],
     submitTime: undefined,
     groupVersion: Long.UZERO,
     groupPolicyVersion: Long.UZERO,
     status: 0,
-    result: 0,
     finalTallyResult: undefined,
     votingPeriodEnd: undefined,
     executorResult: 0,
@@ -1159,8 +1185,8 @@ export const Proposal = {
       writer.uint32(8).uint64(message.id);
     }
 
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
+    if (message.groupPolicyAddress !== "") {
+      writer.uint32(18).string(message.groupPolicyAddress);
     }
 
     if (message.metadata !== "") {
@@ -1187,24 +1213,20 @@ export const Proposal = {
       writer.uint32(64).int32(message.status);
     }
 
-    if (message.result !== 0) {
-      writer.uint32(72).int32(message.result);
-    }
-
     if (message.finalTallyResult !== undefined) {
-      TallyResult.encode(message.finalTallyResult, writer.uint32(82).fork()).ldelim();
+      TallyResult.encode(message.finalTallyResult, writer.uint32(74).fork()).ldelim();
     }
 
     if (message.votingPeriodEnd !== undefined) {
-      Timestamp.encode(toTimestamp(message.votingPeriodEnd), writer.uint32(90).fork()).ldelim();
+      Timestamp.encode(toTimestamp(message.votingPeriodEnd), writer.uint32(82).fork()).ldelim();
     }
 
     if (message.executorResult !== 0) {
-      writer.uint32(96).int32(message.executorResult);
+      writer.uint32(88).int32(message.executorResult);
     }
 
     for (const v of message.messages) {
-      Any.encode(v!, writer.uint32(106).fork()).ldelim();
+      Any.encode(v!, writer.uint32(98).fork()).ldelim();
     }
 
     return writer;
@@ -1224,7 +1246,7 @@ export const Proposal = {
           break;
 
         case 2:
-          message.address = reader.string();
+          message.groupPolicyAddress = reader.string();
           break;
 
         case 3:
@@ -1252,22 +1274,18 @@ export const Proposal = {
           break;
 
         case 9:
-          message.result = (reader.int32() as any);
-          break;
-
-        case 10:
           message.finalTallyResult = TallyResult.decode(reader, reader.uint32());
           break;
 
-        case 11:
+        case 10:
           message.votingPeriodEnd = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
 
-        case 12:
+        case 11:
           message.executorResult = (reader.int32() as any);
           break;
 
-        case 13:
+        case 12:
           message.messages.push(Any.decode(reader, reader.uint32()));
           break;
 
@@ -1283,14 +1301,13 @@ export const Proposal = {
   fromPartial(object: DeepPartial<Proposal>): Proposal {
     const message = createBaseProposal();
     message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
-    message.address = object.address ?? "";
+    message.groupPolicyAddress = object.groupPolicyAddress ?? "";
     message.metadata = object.metadata ?? "";
     message.proposers = object.proposers?.map(e => e) || [];
     message.submitTime = object.submitTime ?? undefined;
     message.groupVersion = object.groupVersion !== undefined && object.groupVersion !== null ? Long.fromValue(object.groupVersion) : Long.UZERO;
     message.groupPolicyVersion = object.groupPolicyVersion !== undefined && object.groupPolicyVersion !== null ? Long.fromValue(object.groupPolicyVersion) : Long.UZERO;
     message.status = object.status ?? 0;
-    message.result = object.result ?? 0;
     message.finalTallyResult = object.finalTallyResult !== undefined && object.finalTallyResult !== null ? TallyResult.fromPartial(object.finalTallyResult) : undefined;
     message.votingPeriodEnd = object.votingPeriodEnd ?? undefined;
     message.executorResult = object.executorResult ?? 0;

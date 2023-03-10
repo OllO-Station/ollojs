@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreatePool, MsgCreatePair, MsgCreatePoolCapped, MsgDeposit, MsgWithdraw, MsgOrderLimit, MsgOrderMarket, MsgOrderMarketMaking, MsgCancelOrder, MsgCancelAllOrders, MsgCancelMarketMakingOrder } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/ollo.liquidity.v1.MsgCreatePool", MsgCreatePool], ["/ollo.liquidity.v1.MsgCreatePair", MsgCreatePair], ["/ollo.liquidity.v1.MsgCreatePoolCapped", MsgCreatePoolCapped], ["/ollo.liquidity.v1.MsgDeposit", MsgDeposit], ["/ollo.liquidity.v1.MsgWithdraw", MsgWithdraw], ["/ollo.liquidity.v1.MsgOrderLimit", MsgOrderLimit], ["/ollo.liquidity.v1.MsgOrderMarket", MsgOrderMarket], ["/ollo.liquidity.v1.MsgOrderMarketMaking", MsgOrderMarketMaking], ["/ollo.liquidity.v1.MsgCancelOrder", MsgCancelOrder], ["/ollo.liquidity.v1.MsgCancelAllOrders", MsgCancelAllOrders], ["/ollo.liquidity.v1.MsgCancelMarketMakingOrder", MsgCancelMarketMakingOrder]];
+import { MsgCreatePair, MsgCreatePool, MsgCreateRangedPool, MsgDeposit, MsgWithdraw, MsgLimitOrder, MsgMarketOrder, MsgMMOrder, MsgCancelOrder, MsgCancelAllOrders } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/ollo.liquidity.v1.MsgCreatePair", MsgCreatePair], ["/ollo.liquidity.v1.MsgCreatePool", MsgCreatePool], ["/ollo.liquidity.v1.MsgCreateRangedPool", MsgCreateRangedPool], ["/ollo.liquidity.v1.MsgDeposit", MsgDeposit], ["/ollo.liquidity.v1.MsgWithdraw", MsgWithdraw], ["/ollo.liquidity.v1.MsgLimitOrder", MsgLimitOrder], ["/ollo.liquidity.v1.MsgMarketOrder", MsgMarketOrder], ["/ollo.liquidity.v1.MsgMMOrder", MsgMMOrder], ["/ollo.liquidity.v1.MsgCancelOrder", MsgCancelOrder], ["/ollo.liquidity.v1.MsgCancelAllOrders", MsgCancelAllOrders]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -8,13 +8,6 @@ export const load = (protoRegistry: Registry) => {
 };
 export const MessageComposer = {
   encoded: {
-    createPool(value: MsgCreatePool) {
-      return {
-        typeUrl: "/ollo.liquidity.v1.MsgCreatePool",
-        value: MsgCreatePool.encode(value).finish()
-      };
-    },
-
     createPair(value: MsgCreatePair) {
       return {
         typeUrl: "/ollo.liquidity.v1.MsgCreatePair",
@@ -22,10 +15,17 @@ export const MessageComposer = {
       };
     },
 
-    createPoolCapped(value: MsgCreatePoolCapped) {
+    createPool(value: MsgCreatePool) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgCreatePoolCapped",
-        value: MsgCreatePoolCapped.encode(value).finish()
+        typeUrl: "/ollo.liquidity.v1.MsgCreatePool",
+        value: MsgCreatePool.encode(value).finish()
+      };
+    },
+
+    createRangedPool(value: MsgCreateRangedPool) {
+      return {
+        typeUrl: "/ollo.liquidity.v1.MsgCreateRangedPool",
+        value: MsgCreateRangedPool.encode(value).finish()
       };
     },
 
@@ -43,24 +43,24 @@ export const MessageComposer = {
       };
     },
 
-    orderLimit(value: MsgOrderLimit) {
+    limitOrder(value: MsgLimitOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderLimit",
-        value: MsgOrderLimit.encode(value).finish()
+        typeUrl: "/ollo.liquidity.v1.MsgLimitOrder",
+        value: MsgLimitOrder.encode(value).finish()
       };
     },
 
-    orderMarket(value: MsgOrderMarket) {
+    marketOrder(value: MsgMarketOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderMarket",
-        value: MsgOrderMarket.encode(value).finish()
+        typeUrl: "/ollo.liquidity.v1.MsgMarketOrder",
+        value: MsgMarketOrder.encode(value).finish()
       };
     },
 
-    orderMarketMaking(value: MsgOrderMarketMaking) {
+    mMOrder(value: MsgMMOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderMarketMaking",
-        value: MsgOrderMarketMaking.encode(value).finish()
+        typeUrl: "/ollo.liquidity.v1.MsgMMOrder",
+        value: MsgMMOrder.encode(value).finish()
       };
     },
 
@@ -76,24 +76,10 @@ export const MessageComposer = {
         typeUrl: "/ollo.liquidity.v1.MsgCancelAllOrders",
         value: MsgCancelAllOrders.encode(value).finish()
       };
-    },
-
-    cancelMarketMakingOrder(value: MsgCancelMarketMakingOrder) {
-      return {
-        typeUrl: "/ollo.liquidity.v1.MsgCancelMarketMakingOrder",
-        value: MsgCancelMarketMakingOrder.encode(value).finish()
-      };
     }
 
   },
   withTypeUrl: {
-    createPool(value: MsgCreatePool) {
-      return {
-        typeUrl: "/ollo.liquidity.v1.MsgCreatePool",
-        value
-      };
-    },
-
     createPair(value: MsgCreatePair) {
       return {
         typeUrl: "/ollo.liquidity.v1.MsgCreatePair",
@@ -101,9 +87,16 @@ export const MessageComposer = {
       };
     },
 
-    createPoolCapped(value: MsgCreatePoolCapped) {
+    createPool(value: MsgCreatePool) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgCreatePoolCapped",
+        typeUrl: "/ollo.liquidity.v1.MsgCreatePool",
+        value
+      };
+    },
+
+    createRangedPool(value: MsgCreateRangedPool) {
+      return {
+        typeUrl: "/ollo.liquidity.v1.MsgCreateRangedPool",
         value
       };
     },
@@ -122,23 +115,23 @@ export const MessageComposer = {
       };
     },
 
-    orderLimit(value: MsgOrderLimit) {
+    limitOrder(value: MsgLimitOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderLimit",
+        typeUrl: "/ollo.liquidity.v1.MsgLimitOrder",
         value
       };
     },
 
-    orderMarket(value: MsgOrderMarket) {
+    marketOrder(value: MsgMarketOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderMarket",
+        typeUrl: "/ollo.liquidity.v1.MsgMarketOrder",
         value
       };
     },
 
-    orderMarketMaking(value: MsgOrderMarketMaking) {
+    mMOrder(value: MsgMMOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderMarketMaking",
+        typeUrl: "/ollo.liquidity.v1.MsgMMOrder",
         value
       };
     },
@@ -155,24 +148,10 @@ export const MessageComposer = {
         typeUrl: "/ollo.liquidity.v1.MsgCancelAllOrders",
         value
       };
-    },
-
-    cancelMarketMakingOrder(value: MsgCancelMarketMakingOrder) {
-      return {
-        typeUrl: "/ollo.liquidity.v1.MsgCancelMarketMakingOrder",
-        value
-      };
     }
 
   },
   fromPartial: {
-    createPool(value: MsgCreatePool) {
-      return {
-        typeUrl: "/ollo.liquidity.v1.MsgCreatePool",
-        value: MsgCreatePool.fromPartial(value)
-      };
-    },
-
     createPair(value: MsgCreatePair) {
       return {
         typeUrl: "/ollo.liquidity.v1.MsgCreatePair",
@@ -180,10 +159,17 @@ export const MessageComposer = {
       };
     },
 
-    createPoolCapped(value: MsgCreatePoolCapped) {
+    createPool(value: MsgCreatePool) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgCreatePoolCapped",
-        value: MsgCreatePoolCapped.fromPartial(value)
+        typeUrl: "/ollo.liquidity.v1.MsgCreatePool",
+        value: MsgCreatePool.fromPartial(value)
+      };
+    },
+
+    createRangedPool(value: MsgCreateRangedPool) {
+      return {
+        typeUrl: "/ollo.liquidity.v1.MsgCreateRangedPool",
+        value: MsgCreateRangedPool.fromPartial(value)
       };
     },
 
@@ -201,24 +187,24 @@ export const MessageComposer = {
       };
     },
 
-    orderLimit(value: MsgOrderLimit) {
+    limitOrder(value: MsgLimitOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderLimit",
-        value: MsgOrderLimit.fromPartial(value)
+        typeUrl: "/ollo.liquidity.v1.MsgLimitOrder",
+        value: MsgLimitOrder.fromPartial(value)
       };
     },
 
-    orderMarket(value: MsgOrderMarket) {
+    marketOrder(value: MsgMarketOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderMarket",
-        value: MsgOrderMarket.fromPartial(value)
+        typeUrl: "/ollo.liquidity.v1.MsgMarketOrder",
+        value: MsgMarketOrder.fromPartial(value)
       };
     },
 
-    orderMarketMaking(value: MsgOrderMarketMaking) {
+    mMOrder(value: MsgMMOrder) {
       return {
-        typeUrl: "/ollo.liquidity.v1.MsgOrderMarketMaking",
-        value: MsgOrderMarketMaking.fromPartial(value)
+        typeUrl: "/ollo.liquidity.v1.MsgMMOrder",
+        value: MsgMMOrder.fromPartial(value)
       };
     },
 
@@ -233,13 +219,6 @@ export const MessageComposer = {
       return {
         typeUrl: "/ollo.liquidity.v1.MsgCancelAllOrders",
         value: MsgCancelAllOrders.fromPartial(value)
-      };
-    },
-
-    cancelMarketMakingOrder(value: MsgCancelMarketMakingOrder) {
-      return {
-        typeUrl: "/ollo.liquidity.v1.MsgCancelMarketMakingOrder",
-        value: MsgCancelMarketMakingOrder.fromPartial(value)
       };
     }
 

@@ -3,8 +3,8 @@ import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } fr
 import { TxResponse, TxResponseSDKType, GasInfo, GasInfoSDKType, Result, ResultSDKType } from "../../base/abci/v1beta1/abci";
 import { BlockID, BlockIDSDKType } from "../../../tendermint/types/types";
 import { Block, BlockSDKType } from "../../../tendermint/types/block";
+import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Long } from "../../../helpers";
 /** OrderBy defines the sorting order */
 export declare enum OrderBy {
     /** ORDER_BY_UNSPECIFIED - ORDER_BY_UNSPECIFIED specifies an unknown sorting order. OrderBy defaults to ASC in this case. */
@@ -23,8 +23,8 @@ export declare enum BroadcastMode {
     /** BROADCAST_MODE_UNSPECIFIED - zero-value for mode ordering */
     BROADCAST_MODE_UNSPECIFIED = 0,
     /**
-     * BROADCAST_MODE_BLOCK - BROADCAST_MODE_BLOCK defines a tx broadcasting mode where the client waits for
-     * the tx to be committed in a block.
+     * BROADCAST_MODE_BLOCK - DEPRECATED: use BROADCAST_MODE_SYNC instead,
+     * BROADCAST_MODE_BLOCK is not supported by the SDK from v0.47.x onwards.
      */
     BROADCAST_MODE_BLOCK = 1,
     /**
@@ -49,9 +49,20 @@ export declare function broadcastModeToJSON(object: BroadcastMode): string;
 export interface GetTxsEventRequest {
     /** events is the list of transaction event type. */
     events: string[];
-    /** pagination defines a pagination for the request. */
+    /**
+     * pagination defines a pagination for the request.
+     * Deprecated post v0.46.x: use page and limit instead.
+     */
+    /** @deprecated */
     pagination?: PageRequest;
     orderBy: OrderBy;
+    /** page is the page number to query, starts at 1. If not provided, will default to first page. */
+    page: Long;
+    /**
+     * limit is the total number of results to be returned in the result page.
+     * If left empty it will default to a value to be set by each app.
+     */
+    limit: Long;
 }
 /**
  * GetTxsEventRequest is the request type for the Service.TxsByEvents
@@ -59,8 +70,11 @@ export interface GetTxsEventRequest {
  */
 export interface GetTxsEventRequestSDKType {
     events: string[];
+    /** @deprecated */
     pagination?: PageRequestSDKType;
     order_by: OrderBy;
+    page: Long;
+    limit: Long;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -71,8 +85,14 @@ export interface GetTxsEventResponse {
     txs: Tx[];
     /** tx_responses is the list of queried TxResponses. */
     txResponses: TxResponse[];
-    /** pagination defines a pagination for the response. */
+    /**
+     * pagination defines a pagination for the response.
+     * Deprecated post v0.46.x: use total instead.
+     */
+    /** @deprecated */
     pagination?: PageResponse;
+    /** total is total number of results available */
+    total: Long;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -81,7 +101,9 @@ export interface GetTxsEventResponse {
 export interface GetTxsEventResponseSDKType {
     txs: TxSDKType[];
     tx_responses: TxResponseSDKType[];
+    /** @deprecated */
     pagination?: PageResponseSDKType;
+    total: Long;
 }
 /**
  * BroadcastTxRequest is the request type for the Service.BroadcastTxRequest

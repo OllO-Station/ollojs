@@ -2,6 +2,82 @@ import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const olloAminoConverters: {
+    "/ollo.vault.v1.MsgCreateRequest": {
+        aminoType: string;
+        toAmino: ({ from, amountIn, amountOut }: import("./vault/v1/tx").MsgCreateRequest) => {
+            from: string;
+            amount_in: string;
+            amount_out: string;
+        };
+        fromAmino: ({ from, amount_in, amount_out }: {
+            from: string;
+            amount_in: string;
+            amount_out: string;
+        }) => import("./vault/v1/tx").MsgCreateRequest;
+    };
+    "/ollo.vault.v1.MsgDepositRequest": {
+        aminoType: string;
+        toAmino: ({ from, userVaultId, amount }: import("./vault/v1/tx").MsgDepositRequest) => {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_vault_id, amount }: {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        }) => import("./vault/v1/tx").MsgDepositRequest;
+    };
+    "/ollo.vault.v1.MsgWithdrawRequest": {
+        aminoType: string;
+        toAmino: ({ from, userVaultId, amount }: import("./vault/v1/tx").MsgWithdrawRequest) => {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_vault_id, amount }: {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        }) => import("./vault/v1/tx").MsgWithdrawRequest;
+    };
+    "/ollo.vault.v1.MsgDrawRequest": {
+        aminoType: string;
+        toAmino: ({ from, userVaultId, amount }: import("./vault/v1/tx").MsgDrawRequest) => {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_vault_id, amount }: {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        }) => import("./vault/v1/tx").MsgDrawRequest;
+    };
+    "/ollo.vault.v1.MsgRepayRequest": {
+        aminoType: string;
+        toAmino: ({ from, userVaultId, amount }: import("./vault/v1/tx").MsgRepayRequest) => {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_vault_id, amount }: {
+            from: string;
+            user_vault_id: string;
+            amount: string;
+        }) => import("./vault/v1/tx").MsgRepayRequest;
+    };
+    "/ollo.vault.v1.MsgCloseRequest": {
+        aminoType: string;
+        toAmino: ({ from, userVaultId }: import("./vault/v1/tx").MsgCloseRequest) => {
+            from: string;
+            user_vault_id: string;
+        };
+        fromAmino: ({ from, user_vault_id }: {
+            from: string;
+            user_vault_id: string;
+        }) => import("./vault/v1/tx").MsgCloseRequest;
+    };
     "/ollo.token.v1.MsgIssueToken": {
         aminoType: string;
         toAmino: ({ symbol, name, scale, minUnit, initialSupply, maxSupply, mintable, owner }: import("./token/v1/tx").MsgIssueToken) => {
@@ -198,6 +274,275 @@ export declare const olloAminoConverters: {
             transferFromAddress: string;
             transferToAddress: string;
         }) => import("./reserve/v1/tx").MsgForceTransfer;
+    };
+    "/ollo.prices.v1.MsgBandPricesData": {
+        aminoType: string;
+        toAmino: ({ creator, oracleScriptId, sourceChannel, calldata, askCount, minCount, feeLimit, prepareGas, executeGas, clientId }: import("./prices/v1/tx").MsgBandPricesData) => {
+            creator: string;
+            oracle_script_id: string;
+            source_channel: string;
+            calldata: {
+                symbols: string[];
+                multiplier: string;
+            };
+            ask_count: string;
+            min_count: string;
+            fee_limit: {
+                denom: string;
+                amount: string;
+            }[];
+            prepare_gas: string;
+            execute_gas: string;
+            client_id: string;
+        };
+        fromAmino: ({ creator, oracle_script_id, source_channel, calldata, ask_count, min_count, fee_limit, prepare_gas, execute_gas, client_id }: {
+            creator: string;
+            oracle_script_id: string;
+            source_channel: string;
+            calldata: {
+                symbols: string[];
+                multiplier: string;
+            };
+            ask_count: string;
+            min_count: string;
+            fee_limit: {
+                denom: string;
+                amount: string;
+            }[];
+            prepare_gas: string;
+            execute_gas: string;
+            client_id: string;
+        }) => import("./prices/v1/tx").MsgBandPricesData;
+    };
+    "/ollo.prices.v1.MsgFeedData": {
+        aminoType: string;
+        toAmino: ({ feedId, submitter, observationFeedData, observationFeedDataSignatures, isFeedDataValid, cosmosPubKeys, txFee }: import("./prices/v1/tx").MsgFeedData) => {
+            feedId: string;
+            submitter: Uint8Array;
+            observationFeedData: Uint8Array[];
+            observationFeedDataSignatures: Uint8Array[];
+            isFeedDataValid: boolean;
+            cosmosPubKeys: Uint8Array[];
+            txFee: {
+                denom: string;
+                amount: string;
+            };
+        };
+        fromAmino: ({ feedId, submitter, observationFeedData, observationFeedDataSignatures, isFeedDataValid, cosmosPubKeys, txFee }: {
+            feedId: string;
+            submitter: Uint8Array;
+            observationFeedData: Uint8Array[];
+            observationFeedDataSignatures: Uint8Array[];
+            isFeedDataValid: boolean;
+            cosmosPubKeys: Uint8Array[];
+            txFee: {
+                denom: string;
+                amount: string;
+            };
+        }) => import("./prices/v1/tx").MsgFeedData;
+    };
+    "/ollo.prices.v1.MsgModuleOwner": {
+        aminoType: string;
+        toAmino: ({ address, pubKey, assignerAddress }: import("./prices/v1/prices").MsgModuleOwner) => {
+            address: Uint8Array;
+            pubKey: Uint8Array;
+            assignerAddress: Uint8Array;
+        };
+        fromAmino: ({ address, pubKey, assignerAddress }: {
+            address: Uint8Array;
+            pubKey: Uint8Array;
+            assignerAddress: Uint8Array;
+        }) => import("./prices/v1/prices").MsgModuleOwner;
+    };
+    "/ollo.prices.v1.MsgModuleOwnershipTransfer": {
+        aminoType: string;
+        toAmino: ({ assignerAddress, newModuleOwnerAddress, newModuleOwnerPubKey }: import("./prices/v1/tx").MsgModuleOwnershipTransfer) => {
+            assignerAddress: Uint8Array;
+            newModuleOwnerAddress: Uint8Array;
+            newModuleOwnerPubKey: Uint8Array;
+        };
+        fromAmino: ({ assignerAddress, newModuleOwnerAddress, newModuleOwnerPubKey }: {
+            assignerAddress: Uint8Array;
+            newModuleOwnerAddress: Uint8Array;
+            newModuleOwnerPubKey: Uint8Array;
+        }) => import("./prices/v1/tx").MsgModuleOwnershipTransfer;
+    };
+    "/ollo.prices.v1.MsgFeed": {
+        aminoType: string;
+        toAmino: ({ feedId, feedOwner, dataProviders, submissionCount, heartbeatTrigger, deviationThresholdTrigger, moduleOwnerAddress, feedReward, desc }: import("./prices/v1/tx").MsgFeed) => {
+            feedId: string;
+            feedOwner: Uint8Array;
+            dataProviders: {
+                address: Uint8Array;
+                pubKey: Uint8Array;
+            }[];
+            submissionCount: number;
+            heartbeatTrigger: number;
+            deviationThresholdTrigger: number;
+            moduleOwnerAddress: Uint8Array;
+            feedReward: {
+                amount: string;
+                strategy: string;
+            };
+            desc: string;
+        };
+        fromAmino: ({ feedId, feedOwner, dataProviders, submissionCount, heartbeatTrigger, deviationThresholdTrigger, moduleOwnerAddress, feedReward, desc }: {
+            feedId: string;
+            feedOwner: Uint8Array;
+            dataProviders: {
+                address: Uint8Array;
+                pubKey: Uint8Array;
+            }[];
+            submissionCount: number;
+            heartbeatTrigger: number;
+            deviationThresholdTrigger: number;
+            moduleOwnerAddress: Uint8Array;
+            feedReward: {
+                amount: string;
+                strategy: string;
+            };
+            desc: string;
+        }) => import("./prices/v1/tx").MsgFeed;
+    };
+    "/ollo.prices.v1.MsgAddDataProvider": {
+        aminoType: string;
+        toAmino: ({ feedId, dataProvider, signer }: import("./prices/v1/tx").MsgAddDataProvider) => {
+            feedId: string;
+            dataProvider: {
+                address: Uint8Array;
+                pubKey: Uint8Array;
+            };
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, dataProvider, signer }: {
+            feedId: string;
+            dataProvider: {
+                address: Uint8Array;
+                pubKey: Uint8Array;
+            };
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgAddDataProvider;
+    };
+    "/ollo.prices.v1.MsgRemoveDataProvider": {
+        aminoType: string;
+        toAmino: ({ feedId, address, signer }: import("./prices/v1/tx").MsgRemoveDataProvider) => {
+            feedId: string;
+            address: Uint8Array;
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, address, signer }: {
+            feedId: string;
+            address: Uint8Array;
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgRemoveDataProvider;
+    };
+    "/ollo.prices.v1.MsgSetSubmissionCount": {
+        aminoType: string;
+        toAmino: ({ feedId, submissionCount, signer }: import("./prices/v1/tx").MsgSetSubmissionCount) => {
+            feedId: string;
+            submissionCount: number;
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, submissionCount, signer }: {
+            feedId: string;
+            submissionCount: number;
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgSetSubmissionCount;
+    };
+    "/ollo.prices.v1.MsgSetHeartbeatTrigger": {
+        aminoType: string;
+        toAmino: ({ feedId, heartbeatTrigger, signer }: import("./prices/v1/tx").MsgSetHeartbeatTrigger) => {
+            feedId: string;
+            heartbeatTrigger: number;
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, heartbeatTrigger, signer }: {
+            feedId: string;
+            heartbeatTrigger: number;
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgSetHeartbeatTrigger;
+    };
+    "/ollo.prices.v1.MsgSetDeviationThresholdTrigger": {
+        aminoType: string;
+        toAmino: ({ feedId, deviationThresholdTrigger, signer }: import("./prices/v1/tx").MsgSetDeviationThresholdTrigger) => {
+            feedId: string;
+            deviationThresholdTrigger: number;
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, deviationThresholdTrigger, signer }: {
+            feedId: string;
+            deviationThresholdTrigger: number;
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgSetDeviationThresholdTrigger;
+    };
+    "/ollo.prices.v1.MsgSetFeedReward": {
+        aminoType: string;
+        toAmino: ({ feedId, feedReward, signer }: import("./prices/v1/tx").MsgSetFeedReward) => {
+            feedId: string;
+            feedReward: {
+                amount: string;
+                strategy: string;
+            };
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, feedReward, signer }: {
+            feedId: string;
+            feedReward: {
+                amount: string;
+                strategy: string;
+            };
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgSetFeedReward;
+    };
+    "/ollo.prices.v1.MsgRequestNewRound": {
+        aminoType: string;
+        toAmino: ({ feedId, signer }: import("./prices/v1/tx").MsgRequestNewRound) => {
+            feedId: string;
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, signer }: {
+            feedId: string;
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgRequestNewRound;
+    };
+    "/ollo.prices.v1.MsgFeedOwnershipTransfer": {
+        aminoType: string;
+        toAmino: ({ feedId, newFeedOwnerAddress, signer }: import("./prices/v1/tx").MsgFeedOwnershipTransfer) => {
+            feedId: string;
+            newFeedOwnerAddress: Uint8Array;
+            signer: Uint8Array;
+        };
+        fromAmino: ({ feedId, newFeedOwnerAddress, signer }: {
+            feedId: string;
+            newFeedOwnerAddress: Uint8Array;
+            signer: Uint8Array;
+        }) => import("./prices/v1/tx").MsgFeedOwnershipTransfer;
+    };
+    "/ollo.prices.v1.MsgAccount": {
+        aminoType: string;
+        toAmino: ({ submitter, chainlinkPublicKey, chainlinkSigningKey, piggyAddress }: import("./prices/v1/tx").MsgAccount) => {
+            submitter: Uint8Array;
+            chainlinkPublicKey: Uint8Array;
+            chainlinkSigningKey: Uint8Array;
+            piggyAddress: Uint8Array;
+        };
+        fromAmino: ({ submitter, chainlinkPublicKey, chainlinkSigningKey, piggyAddress }: {
+            submitter: Uint8Array;
+            chainlinkPublicKey: Uint8Array;
+            chainlinkSigningKey: Uint8Array;
+            piggyAddress: Uint8Array;
+        }) => import("./prices/v1/tx").MsgAccount;
+    };
+    "/ollo.prices.v1.MsgEditAccount": {
+        aminoType: string;
+        toAmino: ({ submitter, piggyAddress }: import("./prices/v1/tx").MsgEditAccount) => {
+            submitter: Uint8Array;
+            piggyAddress: Uint8Array;
+        };
+        fromAmino: ({ submitter, piggyAddress }: {
+            submitter: Uint8Array;
+            piggyAddress: Uint8Array;
+        }) => import("./prices/v1/tx").MsgEditAccount;
     };
     "/ollo.ons.v1.MsgBuyName": {
         aminoType: string;
@@ -407,6 +752,60 @@ export declare const olloAminoConverters: {
             uri_hash: string;
         }) => import("./nft/v1/tx").MsgSendNFT;
     };
+    "/ollo.lock.v1.MsgCreateLockRequest": {
+        aminoType: string;
+        toAmino: ({ depositor, amount, assetId }: import("./lock/v1/tx").MsgCreateLockRequest) => {
+            depositor: string;
+            amount: string;
+            asset_id: string;
+        };
+        fromAmino: ({ depositor, amount, asset_id }: {
+            depositor: string;
+            amount: string;
+            asset_id: string;
+        }) => import("./lock/v1/tx").MsgCreateLockRequest;
+    };
+    "/ollo.lock.v1.MsgDepositAssetRequest": {
+        aminoType: string;
+        toAmino: ({ depositor, lockerId, amount, assetId }: import("./lock/v1/tx").MsgDepositAssetRequest) => {
+            depositor: string;
+            locker_id: string;
+            amount: string;
+            asset_id: string;
+        };
+        fromAmino: ({ depositor, locker_id, amount, asset_id }: {
+            depositor: string;
+            locker_id: string;
+            amount: string;
+            asset_id: string;
+        }) => import("./lock/v1/tx").MsgDepositAssetRequest;
+    };
+    "/ollo.lock.v1.MsgWithdrawAssetRequest": {
+        aminoType: string;
+        toAmino: ({ depositor, lockerId, amount, assetId }: import("./lock/v1/tx").MsgWithdrawAssetRequest) => {
+            depositor: string;
+            locker_id: string;
+            amount: string;
+            asset_id: string;
+        };
+        fromAmino: ({ depositor, locker_id, amount, asset_id }: {
+            depositor: string;
+            locker_id: string;
+            amount: string;
+            asset_id: string;
+        }) => import("./lock/v1/tx").MsgWithdrawAssetRequest;
+    };
+    "/ollo.lock.v1.MsgCloseLockRequest": {
+        aminoType: string;
+        toAmino: ({ depositor, lockerId }: import("./lock/v1/tx").MsgCloseLockRequest) => {
+            depositor: string;
+            locker_id: string;
+        };
+        fromAmino: ({ depositor, locker_id }: {
+            depositor: string;
+            locker_id: string;
+        }) => import("./lock/v1/tx").MsgCloseLockRequest;
+    };
     "/ollo.loan.v1.MsgRequestLoan": {
         aminoType: string;
         toAmino: ({ creator, amount, fee, collateral, deadline }: import("./loan/v1/tx").MsgRequestLoan) => {
@@ -468,27 +867,6 @@ export declare const olloAminoConverters: {
             id: string;
         }) => import("./loan/v1/tx").MsgCancelLoan;
     };
-    "/ollo.liquidity.v1.MsgCreatePool": {
-        aminoType: string;
-        toAmino: ({ creator, typeId, pairId, depositCoins }: import("./liquidity/v1/tx").MsgCreatePool) => {
-            creator: string;
-            type_id: string;
-            pair_id: string;
-            deposit_coins: {
-                denom: string;
-                amount: string;
-            }[];
-        };
-        fromAmino: ({ creator, type_id, pair_id, deposit_coins }: {
-            creator: string;
-            type_id: string;
-            pair_id: string;
-            deposit_coins: {
-                denom: string;
-                amount: string;
-            }[];
-        }) => import("./liquidity/v1/tx").MsgCreatePool;
-    };
     "/ollo.liquidity.v1.MsgCreatePair": {
         aminoType: string;
         toAmino: ({ creator, baseCoinDenom, quoteCoinDenom }: import("./liquidity/v1/tx").MsgCreatePair) => {
@@ -502,9 +880,28 @@ export declare const olloAminoConverters: {
             quote_coin_denom: string;
         }) => import("./liquidity/v1/tx").MsgCreatePair;
     };
-    "/ollo.liquidity.v1.MsgCreatePoolCapped": {
+    "/ollo.liquidity.v1.MsgCreatePool": {
         aminoType: string;
-        toAmino: ({ creator, pairId, depositCoins, minPrice, maxPrice, initialPrice }: import("./liquidity/v1/tx").MsgCreatePoolCapped) => {
+        toAmino: ({ creator, pairId, depositCoins }: import("./liquidity/v1/tx").MsgCreatePool) => {
+            creator: string;
+            pair_id: string;
+            deposit_coins: {
+                denom: string;
+                amount: string;
+            }[];
+        };
+        fromAmino: ({ creator, pair_id, deposit_coins }: {
+            creator: string;
+            pair_id: string;
+            deposit_coins: {
+                denom: string;
+                amount: string;
+            }[];
+        }) => import("./liquidity/v1/tx").MsgCreatePool;
+    };
+    "/ollo.liquidity.v1.MsgCreateRangedPool": {
+        aminoType: string;
+        toAmino: ({ creator, pairId, depositCoins, minPrice, maxPrice, initialPrice }: import("./liquidity/v1/tx").MsgCreateRangedPool) => {
             creator: string;
             pair_id: string;
             deposit_coins: {
@@ -525,7 +922,7 @@ export declare const olloAminoConverters: {
             min_price: string;
             max_price: string;
             initial_price: string;
-        }) => import("./liquidity/v1/tx").MsgCreatePoolCapped;
+        }) => import("./liquidity/v1/tx").MsgCreateRangedPool;
     };
     "/ollo.liquidity.v1.MsgDeposit": {
         aminoType: string;
@@ -565,9 +962,9 @@ export declare const olloAminoConverters: {
             };
         }) => import("./liquidity/v1/tx").MsgWithdraw;
     };
-    "/ollo.liquidity.v1.MsgOrderLimit": {
+    "/ollo.liquidity.v1.MsgLimitOrder": {
         aminoType: string;
-        toAmino: ({ orderer, pairId, direction, offerCoin, demandCoinDenom, price, amount, orderLifespan }: import("./liquidity/v1/tx").MsgOrderLimit) => {
+        toAmino: ({ orderer, pairId, direction, offerCoin, demandCoinDenom, price, amount, orderLifespan }: import("./liquidity/v1/tx").MsgLimitOrder) => {
             orderer: string;
             pair_id: string;
             direction: number;
@@ -598,11 +995,11 @@ export declare const olloAminoConverters: {
                 seconds: string;
                 nanos: number;
             };
-        }) => import("./liquidity/v1/tx").MsgOrderLimit;
+        }) => import("./liquidity/v1/tx").MsgLimitOrder;
     };
-    "/ollo.liquidity.v1.MsgOrderMarket": {
+    "/ollo.liquidity.v1.MsgMarketOrder": {
         aminoType: string;
-        toAmino: ({ orderer, pairId, direction, offerCoin, demandCoinDenom, amount, orderLifespan }: import("./liquidity/v1/tx").MsgOrderMarket) => {
+        toAmino: ({ orderer, pairId, direction, offerCoin, demandCoinDenom, amount, orderLifespan }: import("./liquidity/v1/tx").MsgMarketOrder) => {
             orderer: string;
             pair_id: string;
             direction: number;
@@ -631,73 +1028,86 @@ export declare const olloAminoConverters: {
                 seconds: string;
                 nanos: number;
             };
-        }) => import("./liquidity/v1/tx").MsgOrderMarket;
+        }) => import("./liquidity/v1/tx").MsgMarketOrder;
     };
-    "/ollo.liquidity.v1.MsgOrderMarketMaking": {
+    "/ollo.liquidity.v1.MsgMMOrder": {
         aminoType: string;
-        toAmino: ({ orderer, pairId, maxSellPrice, minSellPrice, sellAmount, maxBuyPrice, minBuyPrice, buyAmount, orderLifespan }: import("./liquidity/v1/tx").MsgOrderMarketMaking) => {
+        toAmino: ({ orderer, pairId, direction, offerCoin, demandCoinDenom, price, amount, orderLifespan }: import("./liquidity/v1/tx").MsgMMOrder) => {
             orderer: string;
             pair_id: string;
-            max_sell_price: string;
-            min_sell_price: string;
-            sell_amount: string;
-            max_buy_price: string;
-            min_buy_price: string;
-            buy_amount: string;
+            direction: number;
+            offer_coin: {
+                denom: string;
+                amount: string;
+            };
+            demand_coin_denom: string;
+            price: string;
+            amount: string;
             order_lifespan: {
                 seconds: string;
                 nanos: number;
             };
         };
-        fromAmino: ({ orderer, pair_id, max_sell_price, min_sell_price, sell_amount, max_buy_price, min_buy_price, buy_amount, order_lifespan }: {
+        fromAmino: ({ orderer, pair_id, direction, offer_coin, demand_coin_denom, price, amount, order_lifespan }: {
             orderer: string;
             pair_id: string;
-            max_sell_price: string;
-            min_sell_price: string;
-            sell_amount: string;
-            max_buy_price: string;
-            min_buy_price: string;
-            buy_amount: string;
+            direction: number;
+            offer_coin: {
+                denom: string;
+                amount: string;
+            };
+            demand_coin_denom: string;
+            price: string;
+            amount: string;
             order_lifespan: {
                 seconds: string;
                 nanos: number;
             };
-        }) => import("./liquidity/v1/tx").MsgOrderMarketMaking;
+        }) => import("./liquidity/v1/tx").MsgMMOrder;
     };
     "/ollo.liquidity.v1.MsgCancelOrder": {
         aminoType: string;
-        toAmino: ({ orderAddr, pairId, orderId }: import("./liquidity/v1/tx").MsgCancelOrder) => {
-            order_addr: string;
+        toAmino: ({ orderer, pairId, orderId }: import("./liquidity/v1/tx").MsgCancelOrder) => {
+            orderer: string;
             pair_id: string;
             order_id: string;
         };
-        fromAmino: ({ order_addr, pair_id, order_id }: {
-            order_addr: string;
+        fromAmino: ({ orderer, pair_id, order_id }: {
+            orderer: string;
             pair_id: string;
             order_id: string;
         }) => import("./liquidity/v1/tx").MsgCancelOrder;
     };
     "/ollo.liquidity.v1.MsgCancelAllOrders": {
         aminoType: string;
-        toAmino: ({ orderAddr, pairIds }: import("./liquidity/v1/tx").MsgCancelAllOrders) => {
-            order_addr: string;
+        toAmino: ({ orderer, pairIds }: import("./liquidity/v1/tx").MsgCancelAllOrders) => {
+            orderer: string;
             pair_ids: string[];
         };
-        fromAmino: ({ order_addr, pair_ids }: {
-            order_addr: string;
+        fromAmino: ({ orderer, pair_ids }: {
+            orderer: string;
             pair_ids: string[];
         }) => import("./liquidity/v1/tx").MsgCancelAllOrders;
     };
-    "/ollo.liquidity.v1.MsgCancelMarketMakingOrder": {
+    "/ollo.incentive.v1.MsgApplyMarketMaker": {
         aminoType: string;
-        toAmino: ({ orderer, pairId }: import("./liquidity/v1/tx").MsgCancelMarketMakingOrder) => {
-            orderer: string;
-            pair_id: string;
+        toAmino: ({ address, pairIds }: import("./incentive/v1/tx").MsgApplyMarketMaker) => {
+            address: string;
+            pair_ids: string[];
         };
-        fromAmino: ({ orderer, pair_id }: {
-            orderer: string;
-            pair_id: string;
-        }) => import("./liquidity/v1/tx").MsgCancelMarketMakingOrder;
+        fromAmino: ({ address, pair_ids }: {
+            address: string;
+            pair_ids: string[];
+        }) => import("./incentive/v1/tx").MsgApplyMarketMaker;
+    };
+    "/ollo.incentive.v1.MsgClaimIncentive": {
+        aminoType: string;
+        toAmino: ({ address }: import("./incentive/v1/tx").MsgClaimIncentive) => {
+            address: string;
+        };
+        fromAmino: ({ address }: {
+            address: string;
+        }) => import("./incentive/v1/tx").MsgClaimIncentive;
     };
     "/ollo.grants.v1.MsgCreateFixedPriceAuction": {
         aminoType: string;
@@ -1025,6 +1435,82 @@ export declare const olloAminoConverters: {
         fromAmino: ({ requester }: {
             requester: string;
         }) => import("./farming/v1/tx").MsgAdvanceEpoch;
+    };
+    "/ollo.emissions.v1.MsgCreateRequest": {
+        aminoType: string;
+        toAmino: ({ from, amountIn, amountOut }: import("./emissions/v1/tx").MsgCreateRequest) => {
+            from: string;
+            amount_in: string;
+            amount_out: string;
+        };
+        fromAmino: ({ from, amount_in, amount_out }: {
+            from: string;
+            amount_in: string;
+            amount_out: string;
+        }) => import("./emissions/v1/tx").MsgCreateRequest;
+    };
+    "/ollo.emissions.v1.MsgDepositRequest": {
+        aminoType: string;
+        toAmino: ({ from, userEmissionId, amount }: import("./emissions/v1/tx").MsgDepositRequest) => {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_emission_id, amount }: {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        }) => import("./emissions/v1/tx").MsgDepositRequest;
+    };
+    "/ollo.emissions.v1.MsgWithdrawRequest": {
+        aminoType: string;
+        toAmino: ({ from, userEmissionId, amount }: import("./emissions/v1/tx").MsgWithdrawRequest) => {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_emission_id, amount }: {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        }) => import("./emissions/v1/tx").MsgWithdrawRequest;
+    };
+    "/ollo.emissions.v1.MsgDrawRequest": {
+        aminoType: string;
+        toAmino: ({ from, userEmissionId, amount }: import("./emissions/v1/tx").MsgDrawRequest) => {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_emission_id, amount }: {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        }) => import("./emissions/v1/tx").MsgDrawRequest;
+    };
+    "/ollo.emissions.v1.MsgRepayRequest": {
+        aminoType: string;
+        toAmino: ({ from, userEmissionId, amount }: import("./emissions/v1/tx").MsgRepayRequest) => {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        };
+        fromAmino: ({ from, user_emission_id, amount }: {
+            from: string;
+            user_emission_id: string;
+            amount: string;
+        }) => import("./emissions/v1/tx").MsgRepayRequest;
+    };
+    "/ollo.emissions.v1.MsgCloseRequest": {
+        aminoType: string;
+        toAmino: ({ from, userEmissionId }: import("./emissions/v1/tx").MsgCloseRequest) => {
+            from: string;
+            user_emission_id: string;
+        };
+        fromAmino: ({ from, user_emission_id }: {
+            from: string;
+            user_emission_id: string;
+        }) => import("./emissions/v1/tx").MsgCloseRequest;
     };
     "/ollo.claim.v1.MsgClaim": {
         aminoType: string;

@@ -18,8 +18,8 @@ export interface Msg {
     /** RemovePlan defines a method for removing a terminated plan. */
     removePlan(request: MsgRemovePlan): Promise<MsgRemovePlanResponse>;
     /**
-     * AdvanceEpoch defines a method for advancing epoch by one, just for testing purpose
-     * and shouldn't be used in real world
+     * AdvanceEpoch defines a method for advancing epoch by one, just for testing
+     * purpose and shouldn't be used in real world
      */
     advanceEpoch(request: MsgAdvanceEpoch): Promise<MsgAdvanceEpochResponse>;
 }

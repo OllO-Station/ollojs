@@ -1,6 +1,6 @@
 {
   "protoDirs": [
-    "./proto"
+    "proto"
   ],
   "outPath": "./src/codegen",
   "options": {

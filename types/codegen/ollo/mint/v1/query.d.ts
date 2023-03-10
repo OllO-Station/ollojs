@@ -72,17 +72,29 @@ export interface QueryDistributionResponse {
 }
 export interface QueryDistributionResponseSDKType {
 }
-/** QueryLastBlockTimeRequest is the request type for the Query/LastBlockTime RPC method. */
+/**
+ * QueryLastBlockTimeRequest is the request type for the Query/LastBlockTime RPC
+ * method.
+ */
 export interface QueryLastBlockTimeRequest {
 }
-/** QueryLastBlockTimeRequest is the request type for the Query/LastBlockTime RPC method. */
+/**
+ * QueryLastBlockTimeRequest is the request type for the Query/LastBlockTime RPC
+ * method.
+ */
 export interface QueryLastBlockTimeRequestSDKType {
 }
-/** QueryLastBlockTimeResponse is the response type for the Query/LastBlockTime RPC method. */
+/**
+ * QueryLastBlockTimeResponse is the response type for the Query/LastBlockTime
+ * RPC method.
+ */
 export interface QueryLastBlockTimeResponse {
     lastBlockTime?: Date;
 }
-/** QueryLastBlockTimeResponse is the response type for the Query/LastBlockTime RPC method. */
+/**
+ * QueryLastBlockTimeResponse is the response type for the Query/LastBlockTime
+ * RPC method.
+ */
 export interface QueryLastBlockTimeResponseSDKType {
     last_block_time?: Date;
 }

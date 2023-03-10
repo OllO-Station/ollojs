@@ -1,4 +1,4 @@
-import { Member, MemberSDKType, VoteOption } from "./types";
+import { MemberRequest, MemberRequestSDKType, VoteOption, ProposalExecutorResult } from "./types";
 import { Any, AnySDKType } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Long } from "../../../helpers";
@@ -57,7 +57,7 @@ export interface MsgCreateGroup {
   admin: string;
   /** members defines the group members. */
 
-  members: Member[];
+  members: MemberRequest[];
   /** metadata is any arbitrary metadata to attached to the group. */
 
   metadata: string;
@@ -66,7 +66,7 @@ export interface MsgCreateGroup {
 
 export interface MsgCreateGroupSDKType {
   admin: string;
-  members: MemberSDKType[];
+  members: MemberRequestSDKType[];
   metadata: string;
 }
 /** MsgCreateGroupResponse is the Msg/CreateGroup response type. */
@@ -93,14 +93,14 @@ export interface MsgUpdateGroupMembers {
    * set weight to 0 to remove a member.
    */
 
-  memberUpdates: Member[];
+  memberUpdates: MemberRequest[];
 }
 /** MsgUpdateGroupMembers is the Msg/UpdateGroupMembers request type. */
 
 export interface MsgUpdateGroupMembersSDKType {
   admin: string;
   group_id: Long;
-  member_updates: MemberSDKType[];
+  member_updates: MemberRequestSDKType[];
 }
 /** MsgUpdateGroupMembersResponse is the Msg/UpdateGroupMembers response type. */
 
@@ -197,9 +197,9 @@ export interface MsgCreateGroupPolicyResponseSDKType {
 export interface MsgUpdateGroupPolicyAdmin {
   /** admin is the account address of the group admin. */
   admin: string;
-  /** address is the account address of the group policy. */
+  /** group_policy_address is the account address of the group policy. */
 
-  address: string;
+  groupPolicyAddress: string;
   /** new_admin is the new group policy admin. */
 
   newAdmin: string;
@@ -208,7 +208,7 @@ export interface MsgUpdateGroupPolicyAdmin {
 
 export interface MsgUpdateGroupPolicyAdminSDKType {
   admin: string;
-  address: string;
+  group_policy_address: string;
   new_admin: string;
 }
 /** MsgCreateGroupWithPolicy is the Msg/CreateGroupWithPolicy request type. */
@@ -218,14 +218,17 @@ export interface MsgCreateGroupWithPolicy {
   admin: string;
   /** members defines the group members. */
 
-  members: Member[];
+  members: MemberRequest[];
   /** group_metadata is any arbitrary metadata attached to the group. */
 
   groupMetadata: string;
   /** group_policy_metadata is any arbitrary metadata attached to the group policy. */
 
   groupPolicyMetadata: string;
-  /** group_policy_as_admin is a boolean field, if set to true, the group policy account address will be used as group and group policy admin. */
+  /**
+   * group_policy_as_admin is a boolean field, if set to true, the group policy account address will be used as group
+   * and group policy admin.
+   */
 
   groupPolicyAsAdmin: boolean;
   /** decision_policy specifies the group policy's decision policy. */
@@ -236,7 +239,7 @@ export interface MsgCreateGroupWithPolicy {
 
 export interface MsgCreateGroupWithPolicySDKType {
   admin: string;
-  members: MemberSDKType[];
+  members: MemberRequestSDKType[];
   group_metadata: string;
   group_policy_metadata: string;
   group_policy_as_admin: boolean;
@@ -268,9 +271,9 @@ export interface MsgUpdateGroupPolicyAdminResponseSDKType {}
 export interface MsgUpdateGroupPolicyDecisionPolicy {
   /** admin is the account address of the group admin. */
   admin: string;
-  /** address is the account address of group policy. */
+  /** group_policy_address is the account address of group policy. */
 
-  address: string;
+  groupPolicyAddress: string;
   /** decision_policy is the updated group policy's decision policy. */
 
   decisionPolicy?: Any;
@@ -279,7 +282,7 @@ export interface MsgUpdateGroupPolicyDecisionPolicy {
 
 export interface MsgUpdateGroupPolicyDecisionPolicySDKType {
   admin: string;
-  address: string;
+  group_policy_address: string;
   decision_policy?: AnySDKType;
 }
 /** MsgUpdateGroupPolicyDecisionPolicyResponse is the Msg/UpdateGroupPolicyDecisionPolicy response type. */
@@ -293,9 +296,9 @@ export interface MsgUpdateGroupPolicyDecisionPolicyResponseSDKType {}
 export interface MsgUpdateGroupPolicyMetadata {
   /** admin is the account address of the group admin. */
   admin: string;
-  /** address is the account address of group policy. */
+  /** group_policy_address is the account address of group policy. */
 
-  address: string;
+  groupPolicyAddress: string;
   /** metadata is the updated group policy metadata. */
 
   metadata: string;
@@ -304,7 +307,7 @@ export interface MsgUpdateGroupPolicyMetadata {
 
 export interface MsgUpdateGroupPolicyMetadataSDKType {
   admin: string;
-  address: string;
+  group_policy_address: string;
   metadata: string;
 }
 /** MsgUpdateGroupPolicyMetadataResponse is the Msg/UpdateGroupPolicyMetadata response type. */
@@ -316,8 +319,8 @@ export interface MsgUpdateGroupPolicyMetadataResponseSDKType {}
 /** MsgSubmitProposal is the Msg/SubmitProposal request type. */
 
 export interface MsgSubmitProposal {
-  /** address is the account address of group policy. */
-  address: string;
+  /** group_policy_address is the account address of group policy. */
+  groupPolicyAddress: string;
   /**
    * proposers are the account addresses of the proposers.
    * Proposers signatures will be counted as yes votes.
@@ -341,7 +344,7 @@ export interface MsgSubmitProposal {
 /** MsgSubmitProposal is the Msg/SubmitProposal request type. */
 
 export interface MsgSubmitProposalSDKType {
-  address: string;
+  group_policy_address: string;
   proposers: string[];
   metadata: string;
   messages: AnySDKType[];
@@ -420,22 +423,27 @@ export interface MsgVoteResponseSDKType {}
 export interface MsgExec {
   /** proposal is the unique ID of the proposal. */
   proposalId: Long;
-  /** signer is the account address used to execute the proposal. */
+  /** executor is the account address used to execute the proposal. */
 
-  signer: string;
+  executor: string;
 }
 /** MsgExec is the Msg/Exec request type. */
 
 export interface MsgExecSDKType {
   proposal_id: Long;
-  signer: string;
+  executor: string;
 }
 /** MsgExecResponse is the Msg/Exec request type. */
 
-export interface MsgExecResponse {}
+export interface MsgExecResponse {
+  /** result is the final result of the proposal execution. */
+  result: ProposalExecutorResult;
+}
 /** MsgExecResponse is the Msg/Exec request type. */
 
-export interface MsgExecResponseSDKType {}
+export interface MsgExecResponseSDKType {
+  result: ProposalExecutorResult;
+}
 /** MsgLeaveGroup is the Msg/LeaveGroup request type. */
 
 export interface MsgLeaveGroup {
@@ -473,7 +481,7 @@ export const MsgCreateGroup = {
     }
 
     for (const v of message.members) {
-      Member.encode(v!, writer.uint32(18).fork()).ldelim();
+      MemberRequest.encode(v!, writer.uint32(18).fork()).ldelim();
     }
 
     if (message.metadata !== "") {
@@ -497,7 +505,7 @@ export const MsgCreateGroup = {
           break;
 
         case 2:
-          message.members.push(Member.decode(reader, reader.uint32()));
+          message.members.push(MemberRequest.decode(reader, reader.uint32()));
           break;
 
         case 3:
@@ -516,7 +524,7 @@ export const MsgCreateGroup = {
   fromPartial(object: DeepPartial<MsgCreateGroup>): MsgCreateGroup {
     const message = createBaseMsgCreateGroup();
     message.admin = object.admin ?? "";
-    message.members = object.members?.map(e => Member.fromPartial(e)) || [];
+    message.members = object.members?.map(e => MemberRequest.fromPartial(e)) || [];
     message.metadata = object.metadata ?? "";
     return message;
   }
@@ -587,7 +595,7 @@ export const MsgUpdateGroupMembers = {
     }
 
     for (const v of message.memberUpdates) {
-      Member.encode(v!, writer.uint32(26).fork()).ldelim();
+      MemberRequest.encode(v!, writer.uint32(26).fork()).ldelim();
     }
 
     return writer;
@@ -611,7 +619,7 @@ export const MsgUpdateGroupMembers = {
           break;
 
         case 3:
-          message.memberUpdates.push(Member.decode(reader, reader.uint32()));
+          message.memberUpdates.push(MemberRequest.decode(reader, reader.uint32()));
           break;
 
         default:
@@ -627,7 +635,7 @@ export const MsgUpdateGroupMembers = {
     const message = createBaseMsgUpdateGroupMembers();
     message.admin = object.admin ?? "";
     message.groupId = object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
-    message.memberUpdates = object.memberUpdates?.map(e => Member.fromPartial(e)) || [];
+    message.memberUpdates = object.memberUpdates?.map(e => MemberRequest.fromPartial(e)) || [];
     return message;
   }
 
@@ -988,7 +996,7 @@ export const MsgCreateGroupPolicyResponse = {
 function createBaseMsgUpdateGroupPolicyAdmin(): MsgUpdateGroupPolicyAdmin {
   return {
     admin: "",
-    address: "",
+    groupPolicyAddress: "",
     newAdmin: ""
   };
 }
@@ -999,8 +1007,8 @@ export const MsgUpdateGroupPolicyAdmin = {
       writer.uint32(10).string(message.admin);
     }
 
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
+    if (message.groupPolicyAddress !== "") {
+      writer.uint32(18).string(message.groupPolicyAddress);
     }
 
     if (message.newAdmin !== "") {
@@ -1024,7 +1032,7 @@ export const MsgUpdateGroupPolicyAdmin = {
           break;
 
         case 2:
-          message.address = reader.string();
+          message.groupPolicyAddress = reader.string();
           break;
 
         case 3:
@@ -1043,7 +1051,7 @@ export const MsgUpdateGroupPolicyAdmin = {
   fromPartial(object: DeepPartial<MsgUpdateGroupPolicyAdmin>): MsgUpdateGroupPolicyAdmin {
     const message = createBaseMsgUpdateGroupPolicyAdmin();
     message.admin = object.admin ?? "";
-    message.address = object.address ?? "";
+    message.groupPolicyAddress = object.groupPolicyAddress ?? "";
     message.newAdmin = object.newAdmin ?? "";
     return message;
   }
@@ -1068,7 +1076,7 @@ export const MsgCreateGroupWithPolicy = {
     }
 
     for (const v of message.members) {
-      Member.encode(v!, writer.uint32(18).fork()).ldelim();
+      MemberRequest.encode(v!, writer.uint32(18).fork()).ldelim();
     }
 
     if (message.groupMetadata !== "") {
@@ -1104,7 +1112,7 @@ export const MsgCreateGroupWithPolicy = {
           break;
 
         case 2:
-          message.members.push(Member.decode(reader, reader.uint32()));
+          message.members.push(MemberRequest.decode(reader, reader.uint32()));
           break;
 
         case 3:
@@ -1135,7 +1143,7 @@ export const MsgCreateGroupWithPolicy = {
   fromPartial(object: DeepPartial<MsgCreateGroupWithPolicy>): MsgCreateGroupWithPolicy {
     const message = createBaseMsgCreateGroupWithPolicy();
     message.admin = object.admin ?? "";
-    message.members = object.members?.map(e => Member.fromPartial(e)) || [];
+    message.members = object.members?.map(e => MemberRequest.fromPartial(e)) || [];
     message.groupMetadata = object.groupMetadata ?? "";
     message.groupPolicyMetadata = object.groupPolicyMetadata ?? "";
     message.groupPolicyAsAdmin = object.groupPolicyAsAdmin ?? false;
@@ -1237,7 +1245,7 @@ export const MsgUpdateGroupPolicyAdminResponse = {
 function createBaseMsgUpdateGroupPolicyDecisionPolicy(): MsgUpdateGroupPolicyDecisionPolicy {
   return {
     admin: "",
-    address: "",
+    groupPolicyAddress: "",
     decisionPolicy: undefined
   };
 }
@@ -1248,8 +1256,8 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
       writer.uint32(10).string(message.admin);
     }
 
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
+    if (message.groupPolicyAddress !== "") {
+      writer.uint32(18).string(message.groupPolicyAddress);
     }
 
     if (message.decisionPolicy !== undefined) {
@@ -1273,7 +1281,7 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
           break;
 
         case 2:
-          message.address = reader.string();
+          message.groupPolicyAddress = reader.string();
           break;
 
         case 3:
@@ -1292,7 +1300,7 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
   fromPartial(object: DeepPartial<MsgUpdateGroupPolicyDecisionPolicy>): MsgUpdateGroupPolicyDecisionPolicy {
     const message = createBaseMsgUpdateGroupPolicyDecisionPolicy();
     message.admin = object.admin ?? "";
-    message.address = object.address ?? "";
+    message.groupPolicyAddress = object.groupPolicyAddress ?? "";
     message.decisionPolicy = object.decisionPolicy !== undefined && object.decisionPolicy !== null ? Any.fromPartial(object.decisionPolicy) : undefined;
     return message;
   }
@@ -1336,7 +1344,7 @@ export const MsgUpdateGroupPolicyDecisionPolicyResponse = {
 function createBaseMsgUpdateGroupPolicyMetadata(): MsgUpdateGroupPolicyMetadata {
   return {
     admin: "",
-    address: "",
+    groupPolicyAddress: "",
     metadata: ""
   };
 }
@@ -1347,8 +1355,8 @@ export const MsgUpdateGroupPolicyMetadata = {
       writer.uint32(10).string(message.admin);
     }
 
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
+    if (message.groupPolicyAddress !== "") {
+      writer.uint32(18).string(message.groupPolicyAddress);
     }
 
     if (message.metadata !== "") {
@@ -1372,7 +1380,7 @@ export const MsgUpdateGroupPolicyMetadata = {
           break;
 
         case 2:
-          message.address = reader.string();
+          message.groupPolicyAddress = reader.string();
           break;
 
         case 3:
@@ -1391,7 +1399,7 @@ export const MsgUpdateGroupPolicyMetadata = {
   fromPartial(object: DeepPartial<MsgUpdateGroupPolicyMetadata>): MsgUpdateGroupPolicyMetadata {
     const message = createBaseMsgUpdateGroupPolicyMetadata();
     message.admin = object.admin ?? "";
-    message.address = object.address ?? "";
+    message.groupPolicyAddress = object.groupPolicyAddress ?? "";
     message.metadata = object.metadata ?? "";
     return message;
   }
@@ -1434,7 +1442,7 @@ export const MsgUpdateGroupPolicyMetadataResponse = {
 
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
   return {
-    address: "",
+    groupPolicyAddress: "",
     proposers: [],
     metadata: "",
     messages: [],
@@ -1444,8 +1452,8 @@ function createBaseMsgSubmitProposal(): MsgSubmitProposal {
 
 export const MsgSubmitProposal = {
   encode(message: MsgSubmitProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
+    if (message.groupPolicyAddress !== "") {
+      writer.uint32(10).string(message.groupPolicyAddress);
     }
 
     for (const v of message.proposers) {
@@ -1477,7 +1485,7 @@ export const MsgSubmitProposal = {
 
       switch (tag >>> 3) {
         case 1:
-          message.address = reader.string();
+          message.groupPolicyAddress = reader.string();
           break;
 
         case 2:
@@ -1507,7 +1515,7 @@ export const MsgSubmitProposal = {
 
   fromPartial(object: DeepPartial<MsgSubmitProposal>): MsgSubmitProposal {
     const message = createBaseMsgSubmitProposal();
-    message.address = object.address ?? "";
+    message.groupPolicyAddress = object.groupPolicyAddress ?? "";
     message.proposers = object.proposers?.map(e => e) || [];
     message.metadata = object.metadata ?? "";
     message.messages = object.messages?.map(e => Any.fromPartial(e)) || [];
@@ -1773,7 +1781,7 @@ export const MsgVoteResponse = {
 function createBaseMsgExec(): MsgExec {
   return {
     proposalId: Long.UZERO,
-    signer: ""
+    executor: ""
   };
 }
 
@@ -1783,8 +1791,8 @@ export const MsgExec = {
       writer.uint32(8).uint64(message.proposalId);
     }
 
-    if (message.signer !== "") {
-      writer.uint32(18).string(message.signer);
+    if (message.executor !== "") {
+      writer.uint32(18).string(message.executor);
     }
 
     return writer;
@@ -1804,7 +1812,7 @@ export const MsgExec = {
           break;
 
         case 2:
-          message.signer = reader.string();
+          message.executor = reader.string();
           break;
 
         default:
@@ -1819,18 +1827,24 @@ export const MsgExec = {
   fromPartial(object: DeepPartial<MsgExec>): MsgExec {
     const message = createBaseMsgExec();
     message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO;
-    message.signer = object.signer ?? "";
+    message.executor = object.executor ?? "";
     return message;
   }
 
 };
 
 function createBaseMsgExecResponse(): MsgExecResponse {
-  return {};
+  return {
+    result: 0
+  };
 }
 
 export const MsgExecResponse = {
-  encode(_: MsgExecResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgExecResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.result !== 0) {
+      writer.uint32(16).int32(message.result);
+    }
+
     return writer;
   },
 
@@ -1843,6 +1857,10 @@ export const MsgExecResponse = {
       const tag = reader.uint32();
 
       switch (tag >>> 3) {
+        case 2:
+          message.result = (reader.int32() as any);
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -1852,8 +1870,9 @@ export const MsgExecResponse = {
     return message;
   },
 
-  fromPartial(_: DeepPartial<MsgExecResponse>): MsgExecResponse {
+  fromPartial(object: DeepPartial<MsgExecResponse>): MsgExecResponse {
     const message = createBaseMsgExecResponse();
+    message.result = object.result ?? 0;
     return message;
   }
 

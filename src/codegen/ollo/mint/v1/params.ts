@@ -18,7 +18,10 @@ export interface Params {
   /** goal of percent bonded coins */
 
   goalBonded: string;
-  /** expected blocks per year */
+  /**
+   * expected blocks per year
+   * TODO epochs
+   */
 
   blocksPerYear: Long;
   /** distribution_proportions defines the proportion of the minted denom */
@@ -27,6 +30,10 @@ export interface Params {
   /** list of funded addresses */
 
   fundedAddresses: WeightedAddress[];
+  reduceFactor: string;
+  mintDistributionEpochStart: Long;
+  genesisEpochProvisions: string;
+  epochId: string;
 }
 /** Params holds parameters for the mint module. */
 
@@ -39,6 +46,10 @@ export interface ParamsSDKType {
   blocks_per_year: Long;
   distribution_proportions?: DistributionProportionsSDKType;
   funded_addresses: WeightedAddressSDKType[];
+  reduce_factor: string;
+  mint_distribution_epoch_start: Long;
+  genesis_epoch_provisions: string;
+  epoch_id: string;
 }
 
 function createBaseParams(): Params {
@@ -50,7 +61,11 @@ function createBaseParams(): Params {
     goalBonded: "",
     blocksPerYear: Long.UZERO,
     distributionProportions: undefined,
-    fundedAddresses: []
+    fundedAddresses: [],
+    reduceFactor: "",
+    mintDistributionEpochStart: Long.UZERO,
+    genesisEpochProvisions: "",
+    epochId: ""
   };
 }
 
@@ -86,6 +101,22 @@ export const Params = {
 
     for (const v of message.fundedAddresses) {
       WeightedAddress.encode(v!, writer.uint32(66).fork()).ldelim();
+    }
+
+    if (message.reduceFactor !== "") {
+      writer.uint32(74).string(message.reduceFactor);
+    }
+
+    if (!message.mintDistributionEpochStart.isZero()) {
+      writer.uint32(80).uint64(message.mintDistributionEpochStart);
+    }
+
+    if (message.genesisEpochProvisions !== "") {
+      writer.uint32(90).string(message.genesisEpochProvisions);
+    }
+
+    if (message.epochId !== "") {
+      writer.uint32(98).string(message.epochId);
     }
 
     return writer;
@@ -132,6 +163,22 @@ export const Params = {
           message.fundedAddresses.push(WeightedAddress.decode(reader, reader.uint32()));
           break;
 
+        case 9:
+          message.reduceFactor = reader.string();
+          break;
+
+        case 10:
+          message.mintDistributionEpochStart = (reader.uint64() as Long);
+          break;
+
+        case 11:
+          message.genesisEpochProvisions = reader.string();
+          break;
+
+        case 12:
+          message.epochId = reader.string();
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -151,6 +198,10 @@ export const Params = {
     message.blocksPerYear = object.blocksPerYear !== undefined && object.blocksPerYear !== null ? Long.fromValue(object.blocksPerYear) : Long.UZERO;
     message.distributionProportions = object.distributionProportions !== undefined && object.distributionProportions !== null ? DistributionProportions.fromPartial(object.distributionProportions) : undefined;
     message.fundedAddresses = object.fundedAddresses?.map(e => WeightedAddress.fromPartial(e)) || [];
+    message.reduceFactor = object.reduceFactor ?? "";
+    message.mintDistributionEpochStart = object.mintDistributionEpochStart !== undefined && object.mintDistributionEpochStart !== null ? Long.fromValue(object.mintDistributionEpochStart) : Long.UZERO;
+    message.genesisEpochProvisions = object.genesisEpochProvisions ?? "";
+    message.epochId = object.epochId ?? "";
     return message;
   }
 

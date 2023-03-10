@@ -1,21 +1,24 @@
 import { Rpc } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryLiquidityPoolsRequest, QueryLiquidityPoolsResponse, QueryLiquidityPoolRequest, QueryLiquidityPoolResponse, QueryLiquidityPoolByPoolCoinDenomRequest, QueryLiquidityPoolByReserveAccRequest, QueryPairsRequest, QueryPairsResponse, QueryPairRequest, QueryPairResponse, QueryDepositRequestsRequest, QueryDepositRequestsResponse, QueryDepositRequestRequest, QueryDepositRequestResponse, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponse, QueryWithdrawRequestRequest, QueryWithdrawRequestResponse, QueryOrdersRequest, QueryOrdersResponse, QueryOrderRequest, QueryOrderResponse, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponse, QueryParamsRequest, QueryParamsResponse } from "./query";
-/** Query defines the gRPC query service for the liquidity module. */
+import { QueryParamsRequest, QueryParamsResponse, QueryPoolsRequest, QueryPoolsResponse, QueryPoolRequest, QueryPoolResponse, QueryPoolByReserveAddressRequest, QueryPoolByPoolCoinDenomRequest, QueryPairsRequest, QueryPairsResponse, QueryPairRequest, QueryPairResponse, QueryDepositRequestsRequest, QueryDepositRequestsResponse, QueryDepositRequestRequest, QueryDepositRequestResponse, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponse, QueryWithdrawRequestRequest, QueryWithdrawRequestResponse, QueryOrdersRequest, QueryOrdersResponse, QueryOrderRequest, QueryOrderResponse, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponse, QueryNumMMOrdersRequest, QueryNumMMOrdersResponse } from "./query";
+/** Query defines the gRPC querier service. */
 
 export interface Query {
-  /** "Returns a list of all liquidity pools with pagination */
-  liquidityPools(request: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponse>;
-  /** Returns the liquidity pool that corresponds to the pool_id." */
+  /** Params returns parameters of the module. */
+  params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+  /** Pools returns all liquidity pools. */
 
-  liquidityPool(request: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponse>;
-  /** Get specific liquidity pool corresponding to the pool_coin_denom. */
+  pools(request: QueryPoolsRequest): Promise<QueryPoolsResponse>;
+  /** Pool returns the specific liquidity pool. */
 
-  liquidityPoolByPoolCoinDenom(request: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponse>;
-  /** Get specific liquidity pool corresponding to the reserve account. */
+  pool(request: QueryPoolRequest): Promise<QueryPoolResponse>;
+  /** PoolByReserveAddress returns all pools that correspond to the reserve account. */
 
-  liquidityPoolByReserveAcc(request: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponse>;
+  poolByReserveAddress(request: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponse>;
+  /** PoolByPoolCoinDenom returns all pools that correspond to the pool coin denom. */
+
+  poolByPoolCoinDenom(request: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponse>;
   /** Pairs returns all liquidity pairs. */
 
   pairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
@@ -43,22 +46,23 @@ export interface Query {
   /** OrdersByOrderer returns orders made by an orderer. */
 
   ordersByOrderer(request: QueryOrdersByOrdererRequest): Promise<QueryOrdersResponse>;
-  /** Get all order books of the liquidity module. */
+  /** OrderBooks returns an order book representation of orders. */
 
   orderBooks(request: QueryOrderBooksRequest): Promise<QueryOrderBooksResponse>;
-  /** Get all parameters of the liquidity module. */
+  /** NumMMOrders returns the number of active market making orders. */
 
-  params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+  numMMOrders(request: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
 
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.liquidityPools = this.liquidityPools.bind(this);
-    this.liquidityPool = this.liquidityPool.bind(this);
-    this.liquidityPoolByPoolCoinDenom = this.liquidityPoolByPoolCoinDenom.bind(this);
-    this.liquidityPoolByReserveAcc = this.liquidityPoolByReserveAcc.bind(this);
+    this.params = this.params.bind(this);
+    this.pools = this.pools.bind(this);
+    this.pool = this.pool.bind(this);
+    this.poolByReserveAddress = this.poolByReserveAddress.bind(this);
+    this.poolByPoolCoinDenom = this.poolByPoolCoinDenom.bind(this);
     this.pairs = this.pairs.bind(this);
     this.pair = this.pair.bind(this);
     this.depositRequests = this.depositRequests.bind(this);
@@ -69,31 +73,37 @@ export class QueryClientImpl implements Query {
     this.order = this.order.bind(this);
     this.ordersByOrderer = this.ordersByOrderer.bind(this);
     this.orderBooks = this.orderBooks.bind(this);
-    this.params = this.params.bind(this);
+    this.numMMOrders = this.numMMOrders.bind(this);
   }
 
-  liquidityPools(request: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponse> {
-    const data = QueryLiquidityPoolsRequest.encode(request).finish();
-    const promise = this.rpc.request("ollo.liquidity.v1.Query", "LiquidityPools", data);
-    return promise.then(data => QueryLiquidityPoolsResponse.decode(new _m0.Reader(data)));
+  params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
+    const data = QueryParamsRequest.encode(request).finish();
+    const promise = this.rpc.request("ollo.liquidity.v1.Query", "Params", data);
+    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
-  liquidityPool(request: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponse> {
-    const data = QueryLiquidityPoolRequest.encode(request).finish();
-    const promise = this.rpc.request("ollo.liquidity.v1.Query", "LiquidityPool", data);
-    return promise.then(data => QueryLiquidityPoolResponse.decode(new _m0.Reader(data)));
+  pools(request: QueryPoolsRequest): Promise<QueryPoolsResponse> {
+    const data = QueryPoolsRequest.encode(request).finish();
+    const promise = this.rpc.request("ollo.liquidity.v1.Query", "Pools", data);
+    return promise.then(data => QueryPoolsResponse.decode(new _m0.Reader(data)));
   }
 
-  liquidityPoolByPoolCoinDenom(request: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponse> {
-    const data = QueryLiquidityPoolByPoolCoinDenomRequest.encode(request).finish();
-    const promise = this.rpc.request("ollo.liquidity.v1.Query", "LiquidityPoolByPoolCoinDenom", data);
-    return promise.then(data => QueryLiquidityPoolResponse.decode(new _m0.Reader(data)));
+  pool(request: QueryPoolRequest): Promise<QueryPoolResponse> {
+    const data = QueryPoolRequest.encode(request).finish();
+    const promise = this.rpc.request("ollo.liquidity.v1.Query", "Pool", data);
+    return promise.then(data => QueryPoolResponse.decode(new _m0.Reader(data)));
   }
 
-  liquidityPoolByReserveAcc(request: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponse> {
-    const data = QueryLiquidityPoolByReserveAccRequest.encode(request).finish();
-    const promise = this.rpc.request("ollo.liquidity.v1.Query", "LiquidityPoolByReserveAcc", data);
-    return promise.then(data => QueryLiquidityPoolResponse.decode(new _m0.Reader(data)));
+  poolByReserveAddress(request: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponse> {
+    const data = QueryPoolByReserveAddressRequest.encode(request).finish();
+    const promise = this.rpc.request("ollo.liquidity.v1.Query", "PoolByReserveAddress", data);
+    return promise.then(data => QueryPoolResponse.decode(new _m0.Reader(data)));
+  }
+
+  poolByPoolCoinDenom(request: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponse> {
+    const data = QueryPoolByPoolCoinDenomRequest.encode(request).finish();
+    const promise = this.rpc.request("ollo.liquidity.v1.Query", "PoolByPoolCoinDenom", data);
+    return promise.then(data => QueryPoolResponse.decode(new _m0.Reader(data)));
   }
 
   pairs(request: QueryPairsRequest): Promise<QueryPairsResponse> {
@@ -156,10 +166,10 @@ export class QueryClientImpl implements Query {
     return promise.then(data => QueryOrderBooksResponse.decode(new _m0.Reader(data)));
   }
 
-  params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("ollo.liquidity.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+  numMMOrders(request: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponse> {
+    const data = QueryNumMMOrdersRequest.encode(request).finish();
+    const promise = this.rpc.request("ollo.liquidity.v1.Query", "NumMMOrders", data);
+    return promise.then(data => QueryNumMMOrdersResponse.decode(new _m0.Reader(data)));
   }
 
 }
@@ -167,20 +177,24 @@ export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
   const queryService = new QueryClientImpl(rpc);
   return {
-    liquidityPools(request: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponse> {
-      return queryService.liquidityPools(request);
+    params(request?: QueryParamsRequest): Promise<QueryParamsResponse> {
+      return queryService.params(request);
     },
 
-    liquidityPool(request: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponse> {
-      return queryService.liquidityPool(request);
+    pools(request: QueryPoolsRequest): Promise<QueryPoolsResponse> {
+      return queryService.pools(request);
     },
 
-    liquidityPoolByPoolCoinDenom(request: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponse> {
-      return queryService.liquidityPoolByPoolCoinDenom(request);
+    pool(request: QueryPoolRequest): Promise<QueryPoolResponse> {
+      return queryService.pool(request);
     },
 
-    liquidityPoolByReserveAcc(request: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponse> {
-      return queryService.liquidityPoolByReserveAcc(request);
+    poolByReserveAddress(request: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponse> {
+      return queryService.poolByReserveAddress(request);
+    },
+
+    poolByPoolCoinDenom(request: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponse> {
+      return queryService.poolByPoolCoinDenom(request);
     },
 
     pairs(request: QueryPairsRequest): Promise<QueryPairsResponse> {
@@ -223,8 +237,8 @@ export const createRpcQueryExtension = (base: QueryClient) => {
       return queryService.orderBooks(request);
     },
 
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse> {
-      return queryService.params(request);
+    numMMOrders(request: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponse> {
+      return queryService.numMMOrders(request);
     }
 
   };

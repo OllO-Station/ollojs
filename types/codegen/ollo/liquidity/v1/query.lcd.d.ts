@@ -1,14 +1,15 @@
 import { LCDClient } from "@osmonauts/lcd";
-import { QueryLiquidityPoolsRequest, QueryLiquidityPoolsResponseSDKType, QueryLiquidityPoolRequest, QueryLiquidityPoolResponseSDKType, QueryLiquidityPoolByPoolCoinDenomRequest, QueryLiquidityPoolByReserveAccRequest, QueryPairsRequest, QueryPairsResponseSDKType, QueryPairRequest, QueryPairResponseSDKType, QueryDepositRequestsRequest, QueryDepositRequestsResponseSDKType, QueryDepositRequestRequest, QueryDepositRequestResponseSDKType, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponseSDKType, QueryWithdrawRequestRequest, QueryWithdrawRequestResponseSDKType, QueryOrdersRequest, QueryOrdersResponseSDKType, QueryOrderRequest, QueryOrderResponseSDKType, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponseSDKType, QueryParamsRequest, QueryParamsResponseSDKType } from "./query";
+import { QueryParamsRequest, QueryParamsResponseSDKType, QueryPoolsRequest, QueryPoolsResponseSDKType, QueryPoolRequest, QueryPoolResponseSDKType, QueryPoolByReserveAddressRequest, QueryPoolByPoolCoinDenomRequest, QueryPairsRequest, QueryPairsResponseSDKType, QueryPairRequest, QueryPairResponseSDKType, QueryDepositRequestsRequest, QueryDepositRequestsResponseSDKType, QueryDepositRequestRequest, QueryDepositRequestResponseSDKType, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponseSDKType, QueryWithdrawRequestRequest, QueryWithdrawRequestResponseSDKType, QueryOrdersRequest, QueryOrdersResponseSDKType, QueryOrderRequest, QueryOrderResponseSDKType, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponseSDKType, QueryNumMMOrdersRequest, QueryNumMMOrdersResponseSDKType } from "./query";
 export declare class LCDQueryClient {
     req: LCDClient;
     constructor({ requestClient }: {
         requestClient: LCDClient;
     });
-    liquidityPools(params: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponseSDKType>;
-    liquidityPool(params: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponseSDKType>;
-    liquidityPoolByPoolCoinDenom(params: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponseSDKType>;
-    liquidityPoolByReserveAcc(params: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponseSDKType>;
+    params(_params?: QueryParamsRequest): Promise<QueryParamsResponseSDKType>;
+    pools(params: QueryPoolsRequest): Promise<QueryPoolsResponseSDKType>;
+    pool(params: QueryPoolRequest): Promise<QueryPoolResponseSDKType>;
+    poolByReserveAddress(params: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponseSDKType>;
+    poolByPoolCoinDenom(params: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponseSDKType>;
     pairs(params: QueryPairsRequest): Promise<QueryPairsResponseSDKType>;
     pair(params: QueryPairRequest): Promise<QueryPairResponseSDKType>;
     depositRequests(params: QueryDepositRequestsRequest): Promise<QueryDepositRequestsResponseSDKType>;
@@ -19,5 +20,5 @@ export declare class LCDQueryClient {
     order(params: QueryOrderRequest): Promise<QueryOrderResponseSDKType>;
     ordersByOrderer(params: QueryOrdersByOrdererRequest): Promise<QueryOrdersResponseSDKType>;
     orderBooks(params: QueryOrderBooksRequest): Promise<QueryOrderBooksResponseSDKType>;
-    params(_params?: QueryParamsRequest): Promise<QueryParamsResponseSDKType>;
+    numMMOrders(params: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponseSDKType>;
 }

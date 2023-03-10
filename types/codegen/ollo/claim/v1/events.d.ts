@@ -1,28 +1,28 @@
 import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-export interface EventMissionCompleted {
-    missionId: Long;
+export interface EventGoalCompleted {
+    goalID: Long;
     address: string;
 }
-export interface EventMissionCompletedSDKType {
-    mission_id: Long;
+export interface EventGoalCompletedSDKType {
+    goalID: Long;
     address: string;
 }
-export interface EventMissionClaimed {
-    missionId: Long;
+export interface EventGoalClaimed {
+    goalID: Long;
     claimer: string;
 }
-export interface EventMissionClaimedSDKType {
-    mission_id: Long;
+export interface EventGoalClaimedSDKType {
+    goalID: Long;
     claimer: string;
 }
-export declare const EventMissionCompleted: {
-    encode(message: EventMissionCompleted, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): EventMissionCompleted;
-    fromPartial(object: DeepPartial<EventMissionCompleted>): EventMissionCompleted;
+export declare const EventGoalCompleted: {
+    encode(message: EventGoalCompleted, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventGoalCompleted;
+    fromPartial(object: DeepPartial<EventGoalCompleted>): EventGoalCompleted;
 };
-export declare const EventMissionClaimed: {
-    encode(message: EventMissionClaimed, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): EventMissionClaimed;
-    fromPartial(object: DeepPartial<EventMissionClaimed>): EventMissionClaimed;
+export declare const EventGoalClaimed: {
+    encode(message: EventGoalClaimed, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventGoalClaimed;
+    fromPartial(object: DeepPartial<EventGoalClaimed>): EventGoalClaimed;
 };

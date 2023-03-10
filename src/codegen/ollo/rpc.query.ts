@@ -22,9 +22,15 @@ export const createRPCQueryClient = async ({
         v1beta1: (await import("../cosmos/bank/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       base: {
+        node: {
+          v1beta1: (await import("../cosmos/base/node/v1beta1/query.rpc.Service")).createRpcQueryExtension(client)
+        },
         tendermint: {
           v1beta1: (await import("../cosmos/base/tendermint/v1beta1/query.rpc.Service")).createRpcQueryExtension(client)
         }
+      },
+      consensus: {
+        v1: (await import("../cosmos/consensus/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       distribution: {
         v1beta1: (await import("../cosmos/distribution/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -35,10 +41,6 @@ export const createRPCQueryClient = async ({
       feegrant: {
         v1beta1: (await import("../cosmos/feegrant/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       },
-      gov: {
-        v1: (await import("../cosmos/gov/v1/query.rpc.Query")).createRpcQueryExtension(client),
-        v1beta1: (await import("../cosmos/gov/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
-      },
       group: {
         v1: (await import("../cosmos/group/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
@@ -47,6 +49,11 @@ export const createRPCQueryClient = async ({
       },
       nft: {
         v1beta1: (await import("../cosmos/nft/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      orm: {
+        query: {
+          v1alpha1: (await import("../cosmos/orm/query/v1alpha1/query.rpc.Query")).createRpcQueryExtension(client)
+        }
       },
       params: {
         v1beta1: (await import("../cosmos/params/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -68,17 +75,35 @@ export const createRPCQueryClient = async ({
       claim: {
         v1: (await import("./claim/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
+      emissions: {
+        v1: (await import("./emissions/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      epoch: {
+        v1: (await import("./epoch/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       farming: {
         v1: (await import("./farming/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
+      fees: {
+        v1: (await import("./fees/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       grants: {
         v1: (await import("./grants/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      icq: {
+        v1: (await import("./icq/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      incentive: {
+        v1: (await import("./incentive/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       liquidity: {
         v1: (await import("./liquidity/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       loan: {
         v1: (await import("./loan/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      lock: {
+        v1: (await import("./lock/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       market: {
         v1: (await import("./market/v1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -92,11 +117,20 @@ export const createRPCQueryClient = async ({
       ons: {
         v1: (await import("./ons/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
+      prices: {
+        v1: (await import("./prices/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      ratelimit: {
+        v1: (await import("./ratelimit/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       reserve: {
         v1: (await import("./reserve/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       token: {
         v1: (await import("./token/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      vault: {
+        v1: (await import("./vault/v1/query.rpc.Query")).createRpcQueryExtension(client)
       }
     }
   };

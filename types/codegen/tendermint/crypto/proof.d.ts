@@ -54,6 +54,7 @@ export interface ProofOpSDKType {
 }
 /** ProofOps is Merkle proof defined by the list of ProofOps */
 export interface ProofOps {
+    /** ProofOps is Merkle proof defined by the list of ProofOps */
     ops: ProofOp[];
 }
 /** ProofOps is Merkle proof defined by the list of ProofOps */

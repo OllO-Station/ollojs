@@ -21,9 +21,9 @@ export interface AppSDKType {
   software: string;
 }
 /**
- * Consensus captures the consensus rules for processing a block in the blockchain,
- * including all blockchain data structures and the rules of the application's
- * state transition machine.
+ * Consensus captures the consensus rules for processing a block in the
+ * blockchain, including all blockchain data structures and the rules of the
+ * application's state transition machine.
  */
 
 export interface Consensus {
@@ -31,9 +31,9 @@ export interface Consensus {
   app: Long;
 }
 /**
- * Consensus captures the consensus rules for processing a block in the blockchain,
- * including all blockchain data structures and the rules of the application's
- * state transition machine.
+ * Consensus captures the consensus rules for processing a block in the
+ * blockchain, including all blockchain data structures and the rules of the
+ * application's state transition machine.
  */
 
 export interface ConsensusSDKType {

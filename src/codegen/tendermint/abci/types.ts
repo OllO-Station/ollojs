@@ -453,6 +453,7 @@ export interface ResponseSDKType {
 /** nondeterministic */
 
 export interface ResponseException {
+  /** nondeterministic */
   error: string;
 }
 /** nondeterministic */

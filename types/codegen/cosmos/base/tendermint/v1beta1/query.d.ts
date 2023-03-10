@@ -1,7 +1,11 @@
 import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../query/v1beta1/pagination";
 import { Any, AnySDKType } from "../../../../google/protobuf/any";
 import { BlockID, BlockIDSDKType } from "../../../../tendermint/types/types";
-import { Block, BlockSDKType } from "../../../../tendermint/types/block";
+import { Block as Block1 } from "../../../../tendermint/types/block";
+import { BlockSDKType as Block1SDKType } from "../../../../tendermint/types/block";
+import { Block as Block2 } from "./types";
+import { BlockSDKType as Block2SDKType } from "./types";
+import { DefaultNodeInfo, DefaultNodeInfoSDKType } from "../../../../tendermint/p2p/types";
 import { Long, DeepPartial } from "../../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
@@ -75,12 +79,16 @@ export interface GetBlockByHeightRequestSDKType {
 /** GetBlockByHeightResponse is the response type for the Query/GetBlockByHeight RPC method. */
 export interface GetBlockByHeightResponse {
     blockId?: BlockID;
-    block?: Block;
+    /** Deprecated: please use `sdk_block` instead */
+    block?: Block1;
+    /** Since: cosmos-sdk 0.47 */
+    sdkBlock?: Block2;
 }
 /** GetBlockByHeightResponse is the response type for the Query/GetBlockByHeight RPC method. */
 export interface GetBlockByHeightResponseSDKType {
     block_id?: BlockIDSDKType;
-    block?: BlockSDKType;
+    block?: Block1SDKType;
+    sdk_block?: Block2SDKType;
 }
 /** GetLatestBlockRequest is the request type for the Query/GetLatestBlock RPC method. */
 export interface GetLatestBlockRequest {
@@ -91,12 +99,16 @@ export interface GetLatestBlockRequestSDKType {
 /** GetLatestBlockResponse is the response type for the Query/GetLatestBlock RPC method. */
 export interface GetLatestBlockResponse {
     blockId?: BlockID;
-    block?: Block;
+    /** Deprecated: please use `sdk_block` instead */
+    block?: Block1;
+    /** Since: cosmos-sdk 0.47 */
+    sdkBlock?: Block2;
 }
 /** GetLatestBlockResponse is the response type for the Query/GetLatestBlock RPC method. */
 export interface GetLatestBlockResponseSDKType {
     block_id?: BlockIDSDKType;
-    block?: BlockSDKType;
+    block?: Block1SDKType;
+    sdk_block?: Block2SDKType;
 }
 /** GetSyncingRequest is the request type for the Query/GetSyncing RPC method. */
 export interface GetSyncingRequest {
@@ -120,10 +132,12 @@ export interface GetNodeInfoRequestSDKType {
 }
 /** GetNodeInfoResponse is the response type for the Query/GetNodeInfo RPC method. */
 export interface GetNodeInfoResponse {
+    defaultNodeInfo?: DefaultNodeInfo;
     applicationVersion?: VersionInfo;
 }
 /** GetNodeInfoResponse is the response type for the Query/GetNodeInfo RPC method. */
 export interface GetNodeInfoResponseSDKType {
+    default_node_info?: DefaultNodeInfoSDKType;
     application_version?: VersionInfoSDKType;
 }
 /** VersionInfo is the type for the GetNodeInfoResponse message. */
@@ -163,6 +177,96 @@ export interface ModuleSDKType {
     path: string;
     version: string;
     sum: string;
+}
+/** ABCIQueryRequest defines the request structure for the ABCIQuery gRPC query. */
+export interface ABCIQueryRequest {
+    data: Uint8Array;
+    path: string;
+    height: Long;
+    prove: boolean;
+}
+/** ABCIQueryRequest defines the request structure for the ABCIQuery gRPC query. */
+export interface ABCIQueryRequestSDKType {
+    data: Uint8Array;
+    path: string;
+    height: Long;
+    prove: boolean;
+}
+/**
+ * ABCIQueryResponse defines the response structure for the ABCIQuery gRPC query.
+ *
+ * Note: This type is a duplicate of the ResponseQuery proto type defined in
+ * Tendermint.
+ */
+export interface ABCIQueryResponse {
+    code: number;
+    /** nondeterministic */
+    log: string;
+    /** nondeterministic */
+    info: string;
+    index: Long;
+    key: Uint8Array;
+    value: Uint8Array;
+    proofOps?: ProofOps;
+    height: Long;
+    codespace: string;
+}
+/**
+ * ABCIQueryResponse defines the response structure for the ABCIQuery gRPC query.
+ *
+ * Note: This type is a duplicate of the ResponseQuery proto type defined in
+ * Tendermint.
+ */
+export interface ABCIQueryResponseSDKType {
+    code: number;
+    log: string;
+    info: string;
+    index: Long;
+    key: Uint8Array;
+    value: Uint8Array;
+    proof_ops?: ProofOpsSDKType;
+    height: Long;
+    codespace: string;
+}
+/**
+ * ProofOp defines an operation used for calculating Merkle root. The data could
+ * be arbitrary format, providing necessary data for example neighbouring node
+ * hash.
+ *
+ * Note: This type is a duplicate of the ProofOp proto type defined in Tendermint.
+ */
+export interface ProofOp {
+    type: string;
+    key: Uint8Array;
+    data: Uint8Array;
+}
+/**
+ * ProofOp defines an operation used for calculating Merkle root. The data could
+ * be arbitrary format, providing necessary data for example neighbouring node
+ * hash.
+ *
+ * Note: This type is a duplicate of the ProofOp proto type defined in Tendermint.
+ */
+export interface ProofOpSDKType {
+    type: string;
+    key: Uint8Array;
+    data: Uint8Array;
+}
+/**
+ * ProofOps is Merkle proof defined by the list of ProofOps.
+ *
+ * Note: This type is a duplicate of the ProofOps proto type defined in Tendermint.
+ */
+export interface ProofOps {
+    ops: ProofOp[];
+}
+/**
+ * ProofOps is Merkle proof defined by the list of ProofOps.
+ *
+ * Note: This type is a duplicate of the ProofOps proto type defined in Tendermint.
+ */
+export interface ProofOpsSDKType {
+    ops: ProofOpSDKType[];
 }
 export declare const GetValidatorSetByHeightRequest: {
     encode(message: GetValidatorSetByHeightRequest, writer?: _m0.Writer): _m0.Writer;
@@ -238,4 +342,24 @@ export declare const Module: {
     encode(message: Module, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): Module;
     fromPartial(object: DeepPartial<Module>): Module;
+};
+export declare const ABCIQueryRequest: {
+    encode(message: ABCIQueryRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ABCIQueryRequest;
+    fromPartial(object: DeepPartial<ABCIQueryRequest>): ABCIQueryRequest;
+};
+export declare const ABCIQueryResponse: {
+    encode(message: ABCIQueryResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ABCIQueryResponse;
+    fromPartial(object: DeepPartial<ABCIQueryResponse>): ABCIQueryResponse;
+};
+export declare const ProofOp: {
+    encode(message: ProofOp, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ProofOp;
+    fromPartial(object: DeepPartial<ProofOp>): ProofOp;
+};
+export declare const ProofOps: {
+    encode(message: ProofOps, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ProofOps;
+    fromPartial(object: DeepPartial<ProofOps>): ProofOps;
 };

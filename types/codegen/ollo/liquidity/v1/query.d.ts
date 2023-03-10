@@ -1,286 +1,191 @@
-import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../../cosmos_proto/pagination";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params, ParamsSDKType } from "./params";
-import { Pair, PairSDKType, RequestDeposit, RequestDepositSDKType, RequestWithdraw, RequestWithdrawSDKType, Order, OrderSDKType } from "./liquidity";
-import { Coin, CoinSDKType } from "../../../cosmos_proto/coin";
-import { Long, DeepPartial } from "../../../helpers";
+import { Pair, PairSDKType } from "./pair";
+import { DepositRequest, DepositRequestSDKType, WithdrawRequest, WithdrawRequestSDKType } from "./liquidity";
+import { Order, OrderSDKType } from "./order";
+import { PoolType } from "./pool";
+import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-/**
- * the request type for the QueryLiquidityPool RPC method. requestable specified
- * pool_id.
- */
-export interface QueryLiquidityPoolRequest {
-    poolId: Long;
-}
-/**
- * the request type for the QueryLiquidityPool RPC method. requestable specified
- * pool_id.
- */
-export interface QueryLiquidityPoolRequestSDKType {
-    pool_id: Long;
-}
-/**
- * the response type for the QueryLiquidityPoolResponse RPC method. Returns the
- * liquidity pool that corresponds to the requested pool_id.
- */
-export interface QueryLiquidityPoolResponse {
-    pool?: PoolResponse;
-}
-/**
- * the response type for the QueryLiquidityPoolResponse RPC method. Returns the
- * liquidity pool that corresponds to the requested pool_id.
- */
-export interface QueryLiquidityPoolResponseSDKType {
-    pool?: PoolResponseSDKType;
-}
-/**
- * the request type for the QueryLiquidityByPoolCoinDenomPool RPC method.
- * Requestable specified pool_coin_denom.
- */
-export interface QueryLiquidityPoolByPoolCoinDenomRequest {
-    poolCoinDenom: string;
-}
-/**
- * the request type for the QueryLiquidityByPoolCoinDenomPool RPC method.
- * Requestable specified pool_coin_denom.
- */
-export interface QueryLiquidityPoolByPoolCoinDenomRequestSDKType {
-    pool_coin_denom: string;
-}
-/**
- * the request type for the QueryLiquidityByReserveAcc RPC method. Requestable
- * specified reserve_acc.
- */
-export interface QueryLiquidityPoolByReserveAccRequest {
-    reserveAcc: string;
-}
-/**
- * the request type for the QueryLiquidityByReserveAcc RPC method. Requestable
- * specified reserve_acc.
- */
-export interface QueryLiquidityPoolByReserveAccRequestSDKType {
-    reserve_acc: string;
-}
-/**
- * the request type for the QueryLiquidityPools RPC method. Requestable
- * including pagination offset, limit, key.
- */
-export interface QueryLiquidityPoolsRequest {
-    /** pagination defines an optional pagination for the request. */
-    pairId: Long;
-    inactive: string;
-    pagination?: PageRequest;
-}
-/**
- * the request type for the QueryLiquidityPools RPC method. Requestable
- * including pagination offset, limit, key.
- */
-export interface QueryLiquidityPoolsRequestSDKType {
-    pair_id: Long;
-    inactive: string;
-    pagination?: PageRequestSDKType;
-}
-/**
- * the response type for the QueryLiquidityPoolsResponse RPC method. This
- * includes a list of all existing liquidity pools and paging results that
- * contain next_key and total count.
- */
-export interface QueryLiquidityPoolsResponse {
-    pools: PoolResponse[];
-    /**
-     * pagination defines the pagination in the response. not working on this
-     * version.
-     */
-    pagination?: PageResponse;
-}
-/**
- * the response type for the QueryLiquidityPoolsResponse RPC method. This
- * includes a list of all existing liquidity pools and paging results that
- * contain next_key and total count.
- */
-export interface QueryLiquidityPoolsResponseSDKType {
-    pools: PoolResponseSDKType[];
-    pagination?: PageResponseSDKType;
-}
-/** QueryParamsRequest is request type for the QueryParams RPC method. */
+import { DeepPartial, Long } from "../../../helpers";
+/** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
 }
-/** QueryParamsRequest is request type for the QueryParams RPC method. */
+/** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequestSDKType {
 }
-/**
- * the response type for the QueryParamsResponse RPC method. This includes
- * current parameter of the liquidity module.
- */
+/** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
-    /** params holds all the parameters of this module. */
     params?: Params;
 }
-/**
- * the response type for the QueryParamsResponse RPC method. This includes
- * current parameter of the liquidity module.
- */
+/** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
     params?: ParamsSDKType;
 }
-/** QueryPairsRequest is request type for the Query/v1/pairs RPC method. */
+/** QueryPoolsRequest is request type for the Query/Pools RPC method. */
+export interface QueryPoolsRequest {
+    pairId: Long;
+    disabled: string;
+    pagination?: PageRequest;
+}
+/** QueryPoolsRequest is request type for the Query/Pools RPC method. */
+export interface QueryPoolsRequestSDKType {
+    pair_id: Long;
+    disabled: string;
+    pagination?: PageRequestSDKType;
+}
+/** QueryPoolsResponse is response type for the Query/Pools RPC method. */
+export interface QueryPoolsResponse {
+    pools: PoolResponse[];
+    pagination?: PageResponse;
+}
+/** QueryPoolsResponse is response type for the Query/Pools RPC method. */
+export interface QueryPoolsResponseSDKType {
+    pools: PoolResponseSDKType[];
+    pagination?: PageResponseSDKType;
+}
+/** QueryPoolRequest is request type for the Query/Pool RPC method. */
+export interface QueryPoolRequest {
+    poolId: Long;
+}
+/** QueryPoolRequest is request type for the Query/Pool RPC method. */
+export interface QueryPoolRequestSDKType {
+    pool_id: Long;
+}
+/** QueryPoolResponse is response type for the Query/Pool RPC method. */
+export interface QueryPoolResponse {
+    pool?: PoolResponse;
+}
+/** QueryPoolResponse is response type for the Query/Pool RPC method. */
+export interface QueryPoolResponseSDKType {
+    pool?: PoolResponseSDKType;
+}
+/** QueryPoolByReserveAddressRequest is request type for the Query/PoolByReserveAddress RPC method. */
+export interface QueryPoolByReserveAddressRequest {
+    reserveAddress: string;
+}
+/** QueryPoolByReserveAddressRequest is request type for the Query/PoolByReserveAddress RPC method. */
+export interface QueryPoolByReserveAddressRequestSDKType {
+    reserve_address: string;
+}
+/** QueryPoolByPoolCoinDenomRequest is request type for the Query/PoolByPoolCoinDenom RPC method. */
+export interface QueryPoolByPoolCoinDenomRequest {
+    poolCoinDenom: string;
+}
+/** QueryPoolByPoolCoinDenomRequest is request type for the Query/PoolByPoolCoinDenom RPC method. */
+export interface QueryPoolByPoolCoinDenomRequestSDKType {
+    pool_coin_denom: string;
+}
+/** QueryPairsRequest is request type for the Query/Pairs RPC method. */
 export interface QueryPairsRequest {
     denoms: string[];
     pagination?: PageRequest;
 }
-/** QueryPairsRequest is request type for the Query/v1/pairs RPC method. */
+/** QueryPairsRequest is request type for the Query/Pairs RPC method. */
 export interface QueryPairsRequestSDKType {
     denoms: string[];
     pagination?: PageRequestSDKType;
 }
-/** QueryPairsResponse is response type for the Query/v1/pairs RPC method. */
+/** QueryPairsResponse is response type for the Query/Pairs RPC method. */
 export interface QueryPairsResponse {
     pairs: Pair[];
     pagination?: PageResponse;
 }
-/** QueryPairsResponse is response type for the Query/v1/pairs RPC method. */
+/** QueryPairsResponse is response type for the Query/Pairs RPC method. */
 export interface QueryPairsResponseSDKType {
     pairs: PairSDKType[];
     pagination?: PageResponseSDKType;
 }
-/** QueryPairRequest is request type for the Query/v1/pair RPC method. */
+/** QueryPairRequest is request type for the Query/Pair RPC method. */
 export interface QueryPairRequest {
     pairId: Long;
 }
-/** QueryPairRequest is request type for the Query/v1/pair RPC method. */
+/** QueryPairRequest is request type for the Query/Pair RPC method. */
 export interface QueryPairRequestSDKType {
     pair_id: Long;
 }
-/** QueryPairResponse is response type for the Query/v1/pair RPC method. */
+/** QueryPairResponse is response type for the Query/Pair RPC method. */
 export interface QueryPairResponse {
     pair?: Pair;
 }
-/** QueryPairResponse is response type for the Query/v1/pair RPC method. */
+/** QueryPairResponse is response type for the Query/Pair RPC method. */
 export interface QueryPairResponseSDKType {
     pair?: PairSDKType;
 }
-/**
- * QueryDepositRequestsRequest is request type for the Query/DepositRequests RPC
- * method.
- */
+/** QueryDepositRequestsRequest is request type for the Query/DepositRequests RPC method. */
 export interface QueryDepositRequestsRequest {
     poolId: Long;
     pagination?: PageRequest;
 }
-/**
- * QueryDepositRequestsRequest is request type for the Query/DepositRequests RPC
- * method.
- */
+/** QueryDepositRequestsRequest is request type for the Query/DepositRequests RPC method. */
 export interface QueryDepositRequestsRequestSDKType {
     pool_id: Long;
     pagination?: PageRequestSDKType;
 }
-/**
- * QueryDepositRequestsResponse is response type for the Query/DepositRequests
- * RPC method.
- */
+/** QueryDepositRequestsResponse is response type for the Query/DepositRequests RPC method. */
 export interface QueryDepositRequestsResponse {
-    depositRequests: RequestDeposit[];
+    depositRequests: DepositRequest[];
     pagination?: PageResponse;
 }
-/**
- * QueryDepositRequestsResponse is response type for the Query/DepositRequests
- * RPC method.
- */
+/** QueryDepositRequestsResponse is response type for the Query/DepositRequests RPC method. */
 export interface QueryDepositRequestsResponseSDKType {
-    deposit_requests: RequestDepositSDKType[];
+    deposit_requests: DepositRequestSDKType[];
     pagination?: PageResponseSDKType;
 }
-/**
- * QueryDepositRequestRequest is request type for the Query/DepositRequest RPC
- * method.
- */
+/** QueryDepositRequestRequest is request type for the Query/DepositRequest RPC method. */
 export interface QueryDepositRequestRequest {
     poolId: Long;
     id: Long;
 }
-/**
- * QueryDepositRequestRequest is request type for the Query/DepositRequest RPC
- * method.
- */
+/** QueryDepositRequestRequest is request type for the Query/DepositRequest RPC method. */
 export interface QueryDepositRequestRequestSDKType {
     pool_id: Long;
     id: Long;
 }
-/**
- * QueryDepositRequestResponse is response type for the Query/DepositRequest RPC
- * method.
- */
+/** QueryDepositRequestResponse is response type for the Query/DepositRequest RPC method. */
 export interface QueryDepositRequestResponse {
-    depositRequest?: RequestDeposit;
+    depositRequest?: DepositRequest;
 }
-/**
- * QueryDepositRequestResponse is response type for the Query/DepositRequest RPC
- * method.
- */
+/** QueryDepositRequestResponse is response type for the Query/DepositRequest RPC method. */
 export interface QueryDepositRequestResponseSDKType {
-    deposit_request?: RequestDepositSDKType;
+    deposit_request?: DepositRequestSDKType;
 }
-/**
- * QueryWithdrawRequestsRequest is request type for the Query/WithdrawRequests
- * RPC method.
- */
+/** QueryWithdrawRequestsRequest is request type for the Query/WithdrawRequests RPC method. */
 export interface QueryWithdrawRequestsRequest {
     poolId: Long;
     pagination?: PageRequest;
 }
-/**
- * QueryWithdrawRequestsRequest is request type for the Query/WithdrawRequests
- * RPC method.
- */
+/** QueryWithdrawRequestsRequest is request type for the Query/WithdrawRequests RPC method. */
 export interface QueryWithdrawRequestsRequestSDKType {
     pool_id: Long;
     pagination?: PageRequestSDKType;
 }
-/**
- * QueryWithdrawRequestsResponse is response type for the Query/WithdrawRequests
- * RPC method.
- */
+/** QueryWithdrawRequestsResponse is response type for the Query/WithdrawRequests RPC method. */
 export interface QueryWithdrawRequestsResponse {
-    withdrawRequests: RequestWithdraw[];
+    withdrawRequests: WithdrawRequest[];
     pagination?: PageResponse;
 }
-/**
- * QueryWithdrawRequestsResponse is response type for the Query/WithdrawRequests
- * RPC method.
- */
+/** QueryWithdrawRequestsResponse is response type for the Query/WithdrawRequests RPC method. */
 export interface QueryWithdrawRequestsResponseSDKType {
-    withdraw_requests: RequestWithdrawSDKType[];
+    withdraw_requests: WithdrawRequestSDKType[];
     pagination?: PageResponseSDKType;
 }
-/**
- * QueryWithdrawRequestRequest is request type for the Query/WithdrawRequest RPC
- * method.
- */
+/** QueryWithdrawRequestRequest is request type for the Query/WithdrawRequest RPC method. */
 export interface QueryWithdrawRequestRequest {
     poolId: Long;
     id: Long;
 }
-/**
- * QueryWithdrawRequestRequest is request type for the Query/WithdrawRequest RPC
- * method.
- */
+/** QueryWithdrawRequestRequest is request type for the Query/WithdrawRequest RPC method. */
 export interface QueryWithdrawRequestRequestSDKType {
     pool_id: Long;
     id: Long;
 }
-/**
- * QueryWithdrawRequestResponse is response type for the Query/WithdrawRequest
- * RPC method.
- */
+/** QueryWithdrawRequestResponse is response type for the Query/WithdrawRequest RPC method. */
 export interface QueryWithdrawRequestResponse {
-    withdrawRequest?: RequestWithdraw;
+    withdrawRequest?: WithdrawRequest;
 }
-/**
- * QueryWithdrawRequestResponse is response type for the Query/WithdrawRequest
- * RPC method.
- */
+/** QueryWithdrawRequestResponse is response type for the Query/WithdrawRequest RPC method. */
 export interface QueryWithdrawRequestResponseSDKType {
-    withdraw_request?: RequestWithdrawSDKType;
+    withdraw_request?: WithdrawRequestSDKType;
 }
 /** QueryOrdersRequest is request type for the Query/Orders RPC method. */
 export interface QueryOrdersRequest {
@@ -314,26 +219,19 @@ export interface QueryOrderRequestSDKType {
 }
 /** QueryOrderResponse is response type for the Query/Order RPC method. */
 export interface QueryOrderResponse {
-    /** QueryOrderResponse is response type for the Query/Order RPC method. */
     order?: Order;
 }
 /** QueryOrderResponse is response type for the Query/Order RPC method. */
 export interface QueryOrderResponseSDKType {
     order?: OrderSDKType;
 }
-/**
- * QueryOrdersByOrdererRequest is request type for the Query/OrdersByOrderer RPC
- * method.
- */
+/** QueryOrdersByOrdererRequest is request type for the Query/OrdersByOrderer RPC method. */
 export interface QueryOrdersByOrdererRequest {
     orderer: string;
     pairId: Long;
     pagination?: PageRequest;
 }
-/**
- * QueryOrdersByOrdererRequest is request type for the Query/OrdersByOrderer RPC
- * method.
- */
+/** QueryOrdersByOrdererRequest is request type for the Query/OrdersByOrderer RPC method. */
 export interface QueryOrdersByOrdererRequestSDKType {
     orderer: string;
     pair_id: Long;
@@ -359,10 +257,24 @@ export interface QueryOrderBooksResponse {
 export interface QueryOrderBooksResponseSDKType {
     pairs: OrderBookPairResponseSDKType[];
 }
+export interface QueryNumMMOrdersRequest {
+    orderer: string;
+    pairId: Long;
+}
+export interface QueryNumMMOrdersRequestSDKType {
+    orderer: string;
+    pair_id: Long;
+}
+export interface QueryNumMMOrdersResponse {
+    numMarketMakingOrders: number;
+}
+export interface QueryNumMMOrdersResponseSDKType {
+    num_market_making_orders: number;
+}
 /** PoolResponse defines a custom pool response message. */
 export interface PoolResponse {
+    type: PoolType;
     id: Long;
-    typeId: Long;
     pairId: Long;
     creator: string;
     reserveAddress: string;
@@ -372,14 +284,14 @@ export interface PoolResponse {
     maxPrice: string;
     price: string;
     balances?: PoolBalances;
-    prevDepositRequestId: Long;
-    prevWithdrawRequestId: Long;
-    inactive: boolean;
+    lastDepositRequestId: Long;
+    lastWithdrawRequestId: Long;
+    disabled: boolean;
 }
 /** PoolResponse defines a custom pool response message. */
 export interface PoolResponseSDKType {
+    type: PoolType;
     id: Long;
-    type_id: Long;
     pair_id: Long;
     creator: string;
     reserve_address: string;
@@ -389,9 +301,9 @@ export interface PoolResponseSDKType {
     max_price: string;
     price: string;
     balances?: PoolBalancesSDKType;
-    prev_deposit_request_id: Long;
-    prev_withdraw_request_id: Long;
-    inactive: boolean;
+    last_deposit_request_id: Long;
+    last_withdraw_request_id: Long;
+    disabled: boolean;
 }
 export interface PoolBalances {
     baseCoin?: Coin;
@@ -431,36 +343,6 @@ export interface OrderBookTickResponseSDKType {
     user_order_amount: string;
     pool_order_amount: string;
 }
-export declare const QueryLiquidityPoolRequest: {
-    encode(message: QueryLiquidityPoolRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolRequest;
-    fromPartial(object: DeepPartial<QueryLiquidityPoolRequest>): QueryLiquidityPoolRequest;
-};
-export declare const QueryLiquidityPoolResponse: {
-    encode(message: QueryLiquidityPoolResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolResponse;
-    fromPartial(object: DeepPartial<QueryLiquidityPoolResponse>): QueryLiquidityPoolResponse;
-};
-export declare const QueryLiquidityPoolByPoolCoinDenomRequest: {
-    encode(message: QueryLiquidityPoolByPoolCoinDenomRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolByPoolCoinDenomRequest;
-    fromPartial(object: DeepPartial<QueryLiquidityPoolByPoolCoinDenomRequest>): QueryLiquidityPoolByPoolCoinDenomRequest;
-};
-export declare const QueryLiquidityPoolByReserveAccRequest: {
-    encode(message: QueryLiquidityPoolByReserveAccRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolByReserveAccRequest;
-    fromPartial(object: DeepPartial<QueryLiquidityPoolByReserveAccRequest>): QueryLiquidityPoolByReserveAccRequest;
-};
-export declare const QueryLiquidityPoolsRequest: {
-    encode(message: QueryLiquidityPoolsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolsRequest;
-    fromPartial(object: DeepPartial<QueryLiquidityPoolsRequest>): QueryLiquidityPoolsRequest;
-};
-export declare const QueryLiquidityPoolsResponse: {
-    encode(message: QueryLiquidityPoolsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolsResponse;
-    fromPartial(object: DeepPartial<QueryLiquidityPoolsResponse>): QueryLiquidityPoolsResponse;
-};
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
@@ -470,6 +352,36 @@ export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse;
+};
+export declare const QueryPoolsRequest: {
+    encode(message: QueryPoolsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolsRequest;
+    fromPartial(object: DeepPartial<QueryPoolsRequest>): QueryPoolsRequest;
+};
+export declare const QueryPoolsResponse: {
+    encode(message: QueryPoolsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolsResponse;
+    fromPartial(object: DeepPartial<QueryPoolsResponse>): QueryPoolsResponse;
+};
+export declare const QueryPoolRequest: {
+    encode(message: QueryPoolRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolRequest;
+    fromPartial(object: DeepPartial<QueryPoolRequest>): QueryPoolRequest;
+};
+export declare const QueryPoolResponse: {
+    encode(message: QueryPoolResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolResponse;
+    fromPartial(object: DeepPartial<QueryPoolResponse>): QueryPoolResponse;
+};
+export declare const QueryPoolByReserveAddressRequest: {
+    encode(message: QueryPoolByReserveAddressRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolByReserveAddressRequest;
+    fromPartial(object: DeepPartial<QueryPoolByReserveAddressRequest>): QueryPoolByReserveAddressRequest;
+};
+export declare const QueryPoolByPoolCoinDenomRequest: {
+    encode(message: QueryPoolByPoolCoinDenomRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolByPoolCoinDenomRequest;
+    fromPartial(object: DeepPartial<QueryPoolByPoolCoinDenomRequest>): QueryPoolByPoolCoinDenomRequest;
 };
 export declare const QueryPairsRequest: {
     encode(message: QueryPairsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -565,6 +477,16 @@ export declare const QueryOrderBooksResponse: {
     encode(message: QueryOrderBooksResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryOrderBooksResponse;
     fromPartial(object: DeepPartial<QueryOrderBooksResponse>): QueryOrderBooksResponse;
+};
+export declare const QueryNumMMOrdersRequest: {
+    encode(message: QueryNumMMOrdersRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryNumMMOrdersRequest;
+    fromPartial(object: DeepPartial<QueryNumMMOrdersRequest>): QueryNumMMOrdersRequest;
+};
+export declare const QueryNumMMOrdersResponse: {
+    encode(message: QueryNumMMOrdersResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryNumMMOrdersResponse;
+    fromPartial(object: DeepPartial<QueryNumMMOrdersResponse>): QueryNumMMOrdersResponse;
 };
 export declare const PoolResponse: {
     encode(message: PoolResponse, writer?: _m0.Writer): _m0.Writer;

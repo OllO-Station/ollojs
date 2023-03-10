@@ -70,11 +70,14 @@ export interface EventExec {
     proposalId: Long;
     /** result is the proposal execution result. */
     result: ProposalExecutorResult;
+    /** logs contains error logs in case the execution result is FAILURE. */
+    logs: string;
 }
 /** EventExec is an event emitted when a proposal is executed. */
 export interface EventExecSDKType {
     proposal_id: Long;
     result: ProposalExecutorResult;
+    logs: string;
 }
 /** EventLeaveGroup is an event emitted when group member leaves the group. */
 export interface EventLeaveGroup {

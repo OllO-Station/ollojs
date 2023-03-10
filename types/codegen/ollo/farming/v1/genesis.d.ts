@@ -18,13 +18,16 @@ export interface GenesisState {
     currentEpochRecords: CurrentEpochRecord[];
     totalStakingsRecords: TotalStakingsRecord[];
     /**
-     * reward_pool_coins specifies balance of the reward pool to be distributed in the plans
-     * this param is needed for import/export validation
+     * reward_pool_coins specifies balance of the reward pool to be distributed in
+     * the plans this param is needed for import/export validation
      */
     rewardPoolCoins: Coin[];
     /** last_epoch_time specifies the last executed epoch time of the plans */
     lastEpochTime?: Date;
-    /** current_epoch_days specifies the epoch used when allocating farming rewards in end blocker */
+    /**
+     * current_epoch_days specifies the epoch used when allocating farming rewards
+     * in end blocker
+     */
     currentEpochDays: number;
 }
 /** GenesisState defines the farming module's genesis state. */
@@ -84,11 +87,15 @@ export interface QueuedStakingRecordSDKType {
 /** TotalStakingsRecord is used for import/export via genesis json. */
 export interface TotalStakingsRecord {
     stakingCoinDenom: string;
-    /** amount specifies total amount of the staking for the staking coin denom except queued staking */
+    /**
+     * amount specifies total amount of the staking for the staking coin denom
+     * except queued staking
+     */
     amount: string;
     /**
-     * staking_reserve_coins specifies balance of the staking reserve account where staking and queued staking for the
-     * staking coin denom is stored this param is needed for import/export validation
+     * staking_reserve_coins specifies balance of the staking reserve account
+     * where staking and queued staking for the staking coin denom is stored this
+     * param is needed for import/export validation
      */
     stakingReserveCoins: Coin[];
 }

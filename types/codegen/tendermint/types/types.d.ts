@@ -141,14 +141,20 @@ export interface VoteSDKType {
     validator_index: number;
     signature: Uint8Array;
 }
-/** Commit contains the evidence that a block was committed by a set of validators. */
+/**
+ * Commit contains the evidence that a block was committed by a set of
+ * validators.
+ */
 export interface Commit {
     height: Long;
     round: number;
     blockId?: BlockID;
     signatures: CommitSig[];
 }
-/** Commit contains the evidence that a block was committed by a set of validators. */
+/**
+ * Commit contains the evidence that a block was committed by a set of
+ * validators.
+ */
 export interface CommitSDKType {
     height: Long;
     round: number;
@@ -215,13 +221,19 @@ export interface BlockMetaSDKType {
     header?: HeaderSDKType;
     num_txs: Long;
 }
-/** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
+/**
+ * TxProof represents a Merkle proof of the presence of a transaction in the
+ * Merkle tree.
+ */
 export interface TxProof {
     rootHash: Uint8Array;
     data: Uint8Array;
     proof?: Proof;
 }
-/** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
+/**
+ * TxProof represents a Merkle proof of the presence of a transaction in the
+ * Merkle tree.
+ */
 export interface TxProofSDKType {
     root_hash: Uint8Array;
     data: Uint8Array;

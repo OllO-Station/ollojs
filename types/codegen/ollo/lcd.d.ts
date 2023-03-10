@@ -12,9 +12,15 @@ export declare const createLCDClient: ({ restEndpoint }: {
             v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
         };
         base: {
+            node: {
+                v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+            };
             tendermint: {
                 v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
             };
+        };
+        consensus: {
+            v1: import("../cosmos/consensus/v1/query.lcd").LCDQueryClient;
         };
         distribution: {
             v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
@@ -24,10 +30,6 @@ export declare const createLCDClient: ({ restEndpoint }: {
         };
         feegrant: {
             v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
-        };
-        gov: {
-            v1: import("../cosmos/gov/v1/query.lcd").LCDQueryClient;
-            v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
         };
         group: {
             v1: import("../cosmos/group/v1/query.lcd").LCDQueryClient;
@@ -58,17 +60,35 @@ export declare const createLCDClient: ({ restEndpoint }: {
         claim: {
             v1: import("./claim/v1/query.lcd").LCDQueryClient;
         };
+        emissions: {
+            v1: import("./emissions/v1/query.lcd").LCDQueryClient;
+        };
+        epoch: {
+            v1: import("./epoch/v1/query.lcd").LCDQueryClient;
+        };
         farming: {
             v1: import("./farming/v1/query.lcd").LCDQueryClient;
         };
+        fees: {
+            v1: import("./fees/v1/query.lcd").LCDQueryClient;
+        };
         grants: {
             v1: import("./grants/v1/query.lcd").LCDQueryClient;
+        };
+        icq: {
+            v1: import("./icq/v1/query.lcd").LCDQueryClient;
+        };
+        incentive: {
+            v1: import("./incentive/v1/query.lcd").LCDQueryClient;
         };
         liquidity: {
             v1: import("./liquidity/v1/query.lcd").LCDQueryClient;
         };
         loan: {
             v1: import("./loan/v1/query.lcd").LCDQueryClient;
+        };
+        lock: {
+            v1: import("./lock/v1/query.lcd").LCDQueryClient;
         };
         market: {
             v1: import("./market/v1/query.lcd").LCDQueryClient;
@@ -82,11 +102,20 @@ export declare const createLCDClient: ({ restEndpoint }: {
         ons: {
             v1: import("./ons/v1/query.lcd").LCDQueryClient;
         };
+        prices: {
+            v1: import("./prices/v1/query.lcd").LCDQueryClient;
+        };
+        ratelimit: {
+            v1: import("./ratelimit/v1/query.lcd").LCDQueryClient;
+        };
         reserve: {
             v1: import("./reserve/v1/query.lcd").LCDQueryClient;
         };
         token: {
             v1: import("./token/v1/query.lcd").LCDQueryClient;
+        };
+        vault: {
+            v1: import("./vault/v1/query.lcd").LCDQueryClient;
         };
     };
 }>;

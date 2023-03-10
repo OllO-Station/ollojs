@@ -1,18 +1,18 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreatePool, MsgCreatePair, MsgCreatePoolCapped, MsgDeposit, MsgWithdraw, MsgOrderLimit, MsgOrderMarket, MsgOrderMarketMaking, MsgCancelOrder, MsgCancelAllOrders, MsgCancelMarketMakingOrder } from "./tx";
+import { MsgCreatePair, MsgCreatePool, MsgCreateRangedPool, MsgDeposit, MsgWithdraw, MsgLimitOrder, MsgMarketOrder, MsgMMOrder, MsgCancelOrder, MsgCancelAllOrders } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
     encoded: {
-        createPool(value: MsgCreatePool): {
-            typeUrl: string;
-            value: Uint8Array;
-        };
         createPair(value: MsgCreatePair): {
             typeUrl: string;
             value: Uint8Array;
         };
-        createPoolCapped(value: MsgCreatePoolCapped): {
+        createPool(value: MsgCreatePool): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        createRangedPool(value: MsgCreateRangedPool): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -24,15 +24,15 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: Uint8Array;
         };
-        orderLimit(value: MsgOrderLimit): {
+        limitOrder(value: MsgLimitOrder): {
             typeUrl: string;
             value: Uint8Array;
         };
-        orderMarket(value: MsgOrderMarket): {
+        marketOrder(value: MsgMarketOrder): {
             typeUrl: string;
             value: Uint8Array;
         };
-        orderMarketMaking(value: MsgOrderMarketMaking): {
+        mMOrder(value: MsgMMOrder): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -41,26 +41,22 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         cancelAllOrders(value: MsgCancelAllOrders): {
-            typeUrl: string;
-            value: Uint8Array;
-        };
-        cancelMarketMakingOrder(value: MsgCancelMarketMakingOrder): {
             typeUrl: string;
             value: Uint8Array;
         };
     };
     withTypeUrl: {
-        createPool(value: MsgCreatePool): {
-            typeUrl: string;
-            value: MsgCreatePool;
-        };
         createPair(value: MsgCreatePair): {
             typeUrl: string;
             value: MsgCreatePair;
         };
-        createPoolCapped(value: MsgCreatePoolCapped): {
+        createPool(value: MsgCreatePool): {
             typeUrl: string;
-            value: MsgCreatePoolCapped;
+            value: MsgCreatePool;
+        };
+        createRangedPool(value: MsgCreateRangedPool): {
+            typeUrl: string;
+            value: MsgCreateRangedPool;
         };
         deposit(value: MsgDeposit): {
             typeUrl: string;
@@ -70,17 +66,17 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgWithdraw;
         };
-        orderLimit(value: MsgOrderLimit): {
+        limitOrder(value: MsgLimitOrder): {
             typeUrl: string;
-            value: MsgOrderLimit;
+            value: MsgLimitOrder;
         };
-        orderMarket(value: MsgOrderMarket): {
+        marketOrder(value: MsgMarketOrder): {
             typeUrl: string;
-            value: MsgOrderMarket;
+            value: MsgMarketOrder;
         };
-        orderMarketMaking(value: MsgOrderMarketMaking): {
+        mMOrder(value: MsgMMOrder): {
             typeUrl: string;
-            value: MsgOrderMarketMaking;
+            value: MsgMMOrder;
         };
         cancelOrder(value: MsgCancelOrder): {
             typeUrl: string;
@@ -89,24 +85,20 @@ export declare const MessageComposer: {
         cancelAllOrders(value: MsgCancelAllOrders): {
             typeUrl: string;
             value: MsgCancelAllOrders;
-        };
-        cancelMarketMakingOrder(value: MsgCancelMarketMakingOrder): {
-            typeUrl: string;
-            value: MsgCancelMarketMakingOrder;
         };
     };
     fromPartial: {
-        createPool(value: MsgCreatePool): {
-            typeUrl: string;
-            value: MsgCreatePool;
-        };
         createPair(value: MsgCreatePair): {
             typeUrl: string;
             value: MsgCreatePair;
         };
-        createPoolCapped(value: MsgCreatePoolCapped): {
+        createPool(value: MsgCreatePool): {
             typeUrl: string;
-            value: MsgCreatePoolCapped;
+            value: MsgCreatePool;
+        };
+        createRangedPool(value: MsgCreateRangedPool): {
+            typeUrl: string;
+            value: MsgCreateRangedPool;
         };
         deposit(value: MsgDeposit): {
             typeUrl: string;
@@ -116,17 +108,17 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgWithdraw;
         };
-        orderLimit(value: MsgOrderLimit): {
+        limitOrder(value: MsgLimitOrder): {
             typeUrl: string;
-            value: MsgOrderLimit;
+            value: MsgLimitOrder;
         };
-        orderMarket(value: MsgOrderMarket): {
+        marketOrder(value: MsgMarketOrder): {
             typeUrl: string;
-            value: MsgOrderMarket;
+            value: MsgMarketOrder;
         };
-        orderMarketMaking(value: MsgOrderMarketMaking): {
+        mMOrder(value: MsgMMOrder): {
             typeUrl: string;
-            value: MsgOrderMarketMaking;
+            value: MsgMMOrder;
         };
         cancelOrder(value: MsgCancelOrder): {
             typeUrl: string;
@@ -135,10 +127,6 @@ export declare const MessageComposer: {
         cancelAllOrders(value: MsgCancelAllOrders): {
             typeUrl: string;
             value: MsgCancelAllOrders;
-        };
-        cancelMarketMakingOrder(value: MsgCancelMarketMakingOrder): {
-            typeUrl: string;
-            value: MsgCancelMarketMakingOrder;
         };
     };
 };

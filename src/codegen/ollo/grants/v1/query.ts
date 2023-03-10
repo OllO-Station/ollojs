@@ -53,6 +53,7 @@ export interface QueryAuctionsResponseSDKType {
 /** QueryAuctionRequest is the request type for the Query/Auction RPC method. */
 
 export interface QueryAuctionRequest {
+  /** QueryAuctionRequest is the request type for the Query/Auction RPC method. */
   auctionId: Long;
 }
 /** QueryAuctionRequest is the request type for the Query/Auction RPC method. */
@@ -199,6 +200,7 @@ export interface QueryBidResponseSDKType {
 /** QueryVestingsRequest is request type for the Query/Vestings RPC method. */
 
 export interface QueryVestingsRequest {
+  /** QueryVestingsRequest is request type for the Query/Vestings RPC method. */
   auctionId: Long;
 }
 /** QueryVestingsRequest is request type for the Query/Vestings RPC method. */

@@ -3,11 +3,17 @@ export declare const createRPCMsgClient: ({ rpc }: {
     rpc: Rpc;
 }) => Promise<{
     cosmos: {
+        auth: {
+            v1beta1: import("../cosmos/auth/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
         authz: {
             v1beta1: import("../cosmos/authz/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         bank: {
             v1beta1: import("../cosmos/bank/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
+        consensus: {
+            v1: import("../cosmos/consensus/v1/tx.rpc.msg").MsgClientImpl;
         };
         crisis: {
             v1beta1: import("../cosmos/crisis/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -21,12 +27,11 @@ export declare const createRPCMsgClient: ({ rpc }: {
         feegrant: {
             v1beta1: import("../cosmos/feegrant/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
-        gov: {
-            v1: import("../cosmos/gov/v1/tx.rpc.msg").MsgClientImpl;
-            v1beta1: import("../cosmos/gov/v1beta1/tx.rpc.msg").MsgClientImpl;
-        };
         group: {
             v1: import("../cosmos/group/v1/tx.rpc.msg").MsgClientImpl;
+        };
+        mint: {
+            v1beta1: import("../cosmos/mint/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         nft: {
             v1beta1: import("../cosmos/nft/v1beta1/tx.rpc.msg").MsgClientImpl;

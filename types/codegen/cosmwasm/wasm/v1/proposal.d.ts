@@ -14,6 +14,20 @@ export interface StoreCodeProposal {
     wasmByteCode: Uint8Array;
     /** InstantiatePermission to apply on contract creation, optional */
     instantiatePermission?: AccessConfig;
+    /** UnpinCode code on upload, optional */
+    unpinCode: boolean;
+    /** Source is the URL where the code is hosted */
+    source: string;
+    /**
+     * Builder is the docker image used to build the code deterministically, used
+     * for smart contract verification
+     */
+    builder: string;
+    /**
+     * CodeHash is the SHA256 sum of the code outputted by builder, used for smart
+     * contract verification
+     */
+    codeHash: Uint8Array;
 }
 /** StoreCodeProposal gov proposal content type to submit WASM code to the system */
 export interface StoreCodeProposalSDKType {
@@ -22,6 +36,10 @@ export interface StoreCodeProposalSDKType {
     run_as: string;
     wasm_byte_code: Uint8Array;
     instantiate_permission?: AccessConfigSDKType;
+    unpin_code: boolean;
+    source: string;
+    builder: string;
+    code_hash: Uint8Array;
 }
 /**
  * InstantiateContractProposal gov proposal content type to instantiate a
@@ -59,6 +77,51 @@ export interface InstantiateContractProposalSDKType {
     msg: Uint8Array;
     funds: CoinSDKType[];
 }
+/**
+ * InstantiateContract2Proposal gov proposal content type to instantiate
+ * contract 2
+ */
+export interface InstantiateContract2Proposal {
+    /** Title is a short summary */
+    title: string;
+    /** Description is a human readable text */
+    description: string;
+    /** RunAs is the address that is passed to the contract's enviroment as sender */
+    runAs: string;
+    /** Admin is an optional address that can execute migrations */
+    admin: string;
+    /** CodeID is the reference to the stored WASM code */
+    codeId: Long;
+    /** Label is optional metadata to be stored with a constract instance. */
+    label: string;
+    /** Msg json encode message to be passed to the contract on instantiation */
+    msg: Uint8Array;
+    /** Funds coins that are transferred to the contract on instantiation */
+    funds: Coin[];
+    /** Salt is an arbitrary value provided by the sender. Size can be 1 to 64. */
+    salt: Uint8Array;
+    /**
+     * FixMsg include the msg value into the hash for the predictable address.
+     * Default is false
+     */
+    fixMsg: boolean;
+}
+/**
+ * InstantiateContract2Proposal gov proposal content type to instantiate
+ * contract 2
+ */
+export interface InstantiateContract2ProposalSDKType {
+    title: string;
+    description: string;
+    run_as: string;
+    admin: string;
+    code_id: Long;
+    label: string;
+    msg: Uint8Array;
+    funds: CoinSDKType[];
+    salt: Uint8Array;
+    fix_msg: boolean;
+}
 /** MigrateContractProposal gov proposal content type to migrate a contract. */
 export interface MigrateContractProposal {
     /** Title is a short summary */
@@ -67,7 +130,7 @@ export interface MigrateContractProposal {
     description: string;
     /** Contract is the address of the smart contract */
     contract: string;
-    /** CodeID references the new WASM codesudo */
+    /** CodeID references the new WASM code */
     codeId: Long;
     /** Msg json encoded message to be passed to the contract on migration */
     msg: Uint8Array;
@@ -209,6 +272,105 @@ export interface UnpinCodesProposalSDKType {
     description: string;
     code_ids: Long[];
 }
+/**
+ * AccessConfigUpdate contains the code id and the access config to be
+ * applied.
+ */
+export interface AccessConfigUpdate {
+    /** CodeID is the reference to the stored WASM code to be updated */
+    codeId: Long;
+    /** InstantiatePermission to apply to the set of code ids */
+    instantiatePermission?: AccessConfig;
+}
+/**
+ * AccessConfigUpdate contains the code id and the access config to be
+ * applied.
+ */
+export interface AccessConfigUpdateSDKType {
+    code_id: Long;
+    instantiate_permission?: AccessConfigSDKType;
+}
+/**
+ * UpdateInstantiateConfigProposal gov proposal content type to update
+ * instantiate config to a  set of code ids.
+ */
+export interface UpdateInstantiateConfigProposal {
+    /** Title is a short summary */
+    title: string;
+    /** Description is a human readable text */
+    description: string;
+    /**
+     * AccessConfigUpdate contains the list of code ids and the access config
+     * to be applied.
+     */
+    accessConfigUpdates: AccessConfigUpdate[];
+}
+/**
+ * UpdateInstantiateConfigProposal gov proposal content type to update
+ * instantiate config to a  set of code ids.
+ */
+export interface UpdateInstantiateConfigProposalSDKType {
+    title: string;
+    description: string;
+    access_config_updates: AccessConfigUpdateSDKType[];
+}
+/**
+ * StoreAndInstantiateContractProposal gov proposal content type to store
+ * and instantiate the contract.
+ */
+export interface StoreAndInstantiateContractProposal {
+    /** Title is a short summary */
+    title: string;
+    /** Description is a human readable text */
+    description: string;
+    /** RunAs is the address that is passed to the contract's environment as sender */
+    runAs: string;
+    /** WASMByteCode can be raw or gzip compressed */
+    wasmByteCode: Uint8Array;
+    /** InstantiatePermission to apply on contract creation, optional */
+    instantiatePermission?: AccessConfig;
+    /** UnpinCode code on upload, optional */
+    unpinCode: boolean;
+    /** Admin is an optional address that can execute migrations */
+    admin: string;
+    /** Label is optional metadata to be stored with a constract instance. */
+    label: string;
+    /** Msg json encoded message to be passed to the contract on instantiation */
+    msg: Uint8Array;
+    /** Funds coins that are transferred to the contract on instantiation */
+    funds: Coin[];
+    /** Source is the URL where the code is hosted */
+    source: string;
+    /**
+     * Builder is the docker image used to build the code deterministically, used
+     * for smart contract verification
+     */
+    builder: string;
+    /**
+     * CodeHash is the SHA256 sum of the code outputted by builder, used for smart
+     * contract verification
+     */
+    codeHash: Uint8Array;
+}
+/**
+ * StoreAndInstantiateContractProposal gov proposal content type to store
+ * and instantiate the contract.
+ */
+export interface StoreAndInstantiateContractProposalSDKType {
+    title: string;
+    description: string;
+    run_as: string;
+    wasm_byte_code: Uint8Array;
+    instantiate_permission?: AccessConfigSDKType;
+    unpin_code: boolean;
+    admin: string;
+    label: string;
+    msg: Uint8Array;
+    funds: CoinSDKType[];
+    source: string;
+    builder: string;
+    code_hash: Uint8Array;
+}
 export declare const StoreCodeProposal: {
     encode(message: StoreCodeProposal, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): StoreCodeProposal;
@@ -218,6 +380,11 @@ export declare const InstantiateContractProposal: {
     encode(message: InstantiateContractProposal, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): InstantiateContractProposal;
     fromPartial(object: DeepPartial<InstantiateContractProposal>): InstantiateContractProposal;
+};
+export declare const InstantiateContract2Proposal: {
+    encode(message: InstantiateContract2Proposal, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): InstantiateContract2Proposal;
+    fromPartial(object: DeepPartial<InstantiateContract2Proposal>): InstantiateContract2Proposal;
 };
 export declare const MigrateContractProposal: {
     encode(message: MigrateContractProposal, writer?: _m0.Writer): _m0.Writer;
@@ -253,4 +420,19 @@ export declare const UnpinCodesProposal: {
     encode(message: UnpinCodesProposal, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): UnpinCodesProposal;
     fromPartial(object: DeepPartial<UnpinCodesProposal>): UnpinCodesProposal;
+};
+export declare const AccessConfigUpdate: {
+    encode(message: AccessConfigUpdate, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AccessConfigUpdate;
+    fromPartial(object: DeepPartial<AccessConfigUpdate>): AccessConfigUpdate;
+};
+export declare const UpdateInstantiateConfigProposal: {
+    encode(message: UpdateInstantiateConfigProposal, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateInstantiateConfigProposal;
+    fromPartial(object: DeepPartial<UpdateInstantiateConfigProposal>): UpdateInstantiateConfigProposal;
+};
+export declare const StoreAndInstantiateContractProposal: {
+    encode(message: StoreAndInstantiateContractProposal, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): StoreAndInstantiateContractProposal;
+    fromPartial(object: DeepPartial<StoreAndInstantiateContractProposal>): StoreAndInstantiateContractProposal;
 };

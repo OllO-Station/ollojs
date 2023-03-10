@@ -34,13 +34,19 @@ export interface MsgIssueDenomResponse {
 /** MsgIssueDenomResponse defines the MsgIssueDenom response type. */
 export interface MsgIssueDenomResponseSDKType {
 }
-/** MsgTransferDenom defines an SDK message for transferring a denom to a recipient. */
+/**
+ * MsgTransferDenom defines an SDK message for transferring a denom to a
+ * recipient.
+ */
 export interface MsgTransferDenom {
     id: string;
     sender: string;
     recipient: string;
 }
-/** MsgTransferDenom defines an SDK message for transferring a denom to a recipient. */
+/**
+ * MsgTransferDenom defines an SDK message for transferring a denom to a
+ * recipient.
+ */
 export interface MsgTransferDenomSDKType {
     id: string;
     sender: string;

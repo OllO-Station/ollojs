@@ -1,34 +1,36 @@
-import * as _96 from "./wasm/v1/genesis";
-import * as _97 from "./wasm/v1/ibc";
-import * as _98 from "./wasm/v1/proposal";
-import * as _99 from "./wasm/v1/query";
-import * as _100 from "./wasm/v1/tx";
-import * as _101 from "./wasm/v1/types";
-import * as _289 from "./wasm/v1/tx.amino";
-import * as _290 from "./wasm/v1/tx.registry";
-import * as _291 from "./wasm/v1/query.lcd";
-import * as _292 from "./wasm/v1/query.rpc.Query";
-import * as _293 from "./wasm/v1/tx.rpc.msg";
-import * as _367 from "./lcd";
-import * as _368 from "./rpc.query";
-import * as _369 from "./rpc.tx";
+import * as _118 from "./wasm/v1/authz";
+import * as _119 from "./wasm/v1/genesis";
+import * as _120 from "./wasm/v1/ibc";
+import * as _121 from "./wasm/v1/proposal";
+import * as _122 from "./wasm/v1/query";
+import * as _123 from "./wasm/v1/tx";
+import * as _124 from "./wasm/v1/types";
+import * as _396 from "./wasm/v1/tx.amino";
+import * as _397 from "./wasm/v1/tx.registry";
+import * as _398 from "./wasm/v1/query.lcd";
+import * as _399 from "./wasm/v1/query.rpc.Query";
+import * as _400 from "./wasm/v1/tx.rpc.msg";
+import * as _519 from "./lcd";
+import * as _520 from "./rpc.query";
+import * as _521 from "./rpc.tx";
 export namespace cosmwasm {
   export namespace wasm {
-    export const v1 = { ..._96,
-      ..._97,
-      ..._98,
-      ..._99,
-      ..._100,
-      ..._101,
-      ..._289,
-      ..._290,
-      ..._291,
-      ..._292,
-      ..._293
+    export const v1 = { ..._118,
+      ..._119,
+      ..._120,
+      ..._121,
+      ..._122,
+      ..._123,
+      ..._124,
+      ..._396,
+      ..._397,
+      ..._398,
+      ..._399,
+      ..._400
     };
   }
-  export const ClientFactory = { ..._367,
-    ..._368,
-    ..._369
+  export const ClientFactory = { ..._519,
+    ..._520,
+    ..._521
   };
 }

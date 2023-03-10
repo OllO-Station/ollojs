@@ -86,12 +86,16 @@ export interface EventExec {
   /** result is the proposal execution result. */
 
   result: ProposalExecutorResult;
+  /** logs contains error logs in case the execution result is FAILURE. */
+
+  logs: string;
 }
 /** EventExec is an event emitted when a proposal is executed. */
 
 export interface EventExecSDKType {
   proposal_id: Long;
   result: ProposalExecutorResult;
+  logs: string;
 }
 /** EventLeaveGroup is an event emitted when group member leaves the group. */
 
@@ -427,7 +431,8 @@ export const EventVote = {
 function createBaseEventExec(): EventExec {
   return {
     proposalId: Long.UZERO,
-    result: 0
+    result: 0,
+    logs: ""
   };
 }
 
@@ -439,6 +444,10 @@ export const EventExec = {
 
     if (message.result !== 0) {
       writer.uint32(16).int32(message.result);
+    }
+
+    if (message.logs !== "") {
+      writer.uint32(26).string(message.logs);
     }
 
     return writer;
@@ -461,6 +470,10 @@ export const EventExec = {
           message.result = (reader.int32() as any);
           break;
 
+        case 3:
+          message.logs = reader.string();
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -474,6 +487,7 @@ export const EventExec = {
     const message = createBaseEventExec();
     message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO;
     message.result = object.result ?? 0;
+    message.logs = object.logs ?? "";
     return message;
   }
 

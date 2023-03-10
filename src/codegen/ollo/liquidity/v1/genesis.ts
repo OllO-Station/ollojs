@@ -1,48 +1,68 @@
 import { Params, ParamsSDKType } from "./params";
-import { Pair, PairSDKType, Pool, PoolSDKType, Order, OrderSDKType, RequestDeposit, RequestDepositSDKType, RequestWithdraw, RequestWithdrawSDKType, MarketMakingOrderId, MarketMakingOrderIdSDKType } from "./liquidity";
+import { Pair, PairSDKType } from "./pair";
+import { Pool, PoolSDKType } from "./pool";
+import { DepositRequest, DepositRequestSDKType, WithdrawRequest, WithdrawRequestSDKType } from "./liquidity";
+import { Order, OrderSDKType } from "./order";
 import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 /** GenesisState defines the liquidity module's genesis state. */
 
 export interface GenesisState {
   params?: Params;
+  lastPairId: Long;
+  lastPoolId: Long;
   pairs: Pair[];
   pools: Pool[];
-  requests?: GenesisRequestsState;
-  prevPoolId: Long;
-  prevPairId: Long;
+  depositRequests: DepositRequest[];
+  withdrawRequests: WithdrawRequest[];
+  orders: Order[];
+  numMarketMakingOrdersRecords: NumMMOrdersRecord[];
 }
 /** GenesisState defines the liquidity module's genesis state. */
 
 export interface GenesisStateSDKType {
   params?: ParamsSDKType;
+  last_pair_id: Long;
+  last_pool_id: Long;
   pairs: PairSDKType[];
   pools: PoolSDKType[];
-  requests?: GenesisRequestsStateSDKType;
-  prev_pool_id: Long;
-  prev_pair_id: Long;
-}
-export interface GenesisRequestsState {
-  orders: Order[];
-  deposits: RequestDeposit[];
-  withdrawals: RequestWithdraw[];
-  marketMakingOrderIds: MarketMakingOrderId[];
-}
-export interface GenesisRequestsStateSDKType {
+  deposit_requests: DepositRequestSDKType[];
+  withdraw_requests: WithdrawRequestSDKType[];
   orders: OrderSDKType[];
-  deposits: RequestDepositSDKType[];
-  withdrawals: RequestWithdrawSDKType[];
-  market_making_order_ids: MarketMakingOrderIdSDKType[];
+  num_market_making_orders_records: NumMMOrdersRecordSDKType[];
+}
+/**
+ * NumMMOrdersRecord holds information about how many MM orders an orderer
+ * ordered per pair.
+ */
+
+export interface NumMMOrdersRecord {
+  orderer: string;
+  pairId: Long;
+  numMarketMakingOrders: number;
+}
+/**
+ * NumMMOrdersRecord holds information about how many MM orders an orderer
+ * ordered per pair.
+ */
+
+export interface NumMMOrdersRecordSDKType {
+  orderer: string;
+  pair_id: Long;
+  num_market_making_orders: number;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
+    lastPairId: Long.UZERO,
+    lastPoolId: Long.UZERO,
     pairs: [],
     pools: [],
-    requests: undefined,
-    prevPoolId: Long.UZERO,
-    prevPairId: Long.UZERO
+    depositRequests: [],
+    withdrawRequests: [],
+    orders: [],
+    numMarketMakingOrdersRecords: []
   };
 }
 
@@ -52,24 +72,36 @@ export const GenesisState = {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
 
+    if (!message.lastPairId.isZero()) {
+      writer.uint32(16).uint64(message.lastPairId);
+    }
+
+    if (!message.lastPoolId.isZero()) {
+      writer.uint32(24).uint64(message.lastPoolId);
+    }
+
     for (const v of message.pairs) {
-      Pair.encode(v!, writer.uint32(18).fork()).ldelim();
+      Pair.encode(v!, writer.uint32(34).fork()).ldelim();
     }
 
     for (const v of message.pools) {
-      Pool.encode(v!, writer.uint32(26).fork()).ldelim();
+      Pool.encode(v!, writer.uint32(42).fork()).ldelim();
     }
 
-    if (message.requests !== undefined) {
-      GenesisRequestsState.encode(message.requests, writer.uint32(34).fork()).ldelim();
+    for (const v of message.depositRequests) {
+      DepositRequest.encode(v!, writer.uint32(50).fork()).ldelim();
     }
 
-    if (!message.prevPoolId.isZero()) {
-      writer.uint32(40).uint64(message.prevPoolId);
+    for (const v of message.withdrawRequests) {
+      WithdrawRequest.encode(v!, writer.uint32(58).fork()).ldelim();
     }
 
-    if (!message.prevPairId.isZero()) {
-      writer.uint32(48).uint64(message.prevPairId);
+    for (const v of message.orders) {
+      Order.encode(v!, writer.uint32(66).fork()).ldelim();
+    }
+
+    for (const v of message.numMarketMakingOrdersRecords) {
+      NumMMOrdersRecord.encode(v!, writer.uint32(74).fork()).ldelim();
     }
 
     return writer;
@@ -89,23 +121,35 @@ export const GenesisState = {
           break;
 
         case 2:
-          message.pairs.push(Pair.decode(reader, reader.uint32()));
+          message.lastPairId = (reader.uint64() as Long);
           break;
 
         case 3:
-          message.pools.push(Pool.decode(reader, reader.uint32()));
+          message.lastPoolId = (reader.uint64() as Long);
           break;
 
         case 4:
-          message.requests = GenesisRequestsState.decode(reader, reader.uint32());
+          message.pairs.push(Pair.decode(reader, reader.uint32()));
           break;
 
         case 5:
-          message.prevPoolId = (reader.uint64() as Long);
+          message.pools.push(Pool.decode(reader, reader.uint32()));
           break;
 
         case 6:
-          message.prevPairId = (reader.uint64() as Long);
+          message.depositRequests.push(DepositRequest.decode(reader, reader.uint32()));
+          break;
+
+        case 7:
+          message.withdrawRequests.push(WithdrawRequest.decode(reader, reader.uint32()));
+          break;
+
+        case 8:
+          message.orders.push(Order.decode(reader, reader.uint32()));
+          break;
+
+        case 9:
+          message.numMarketMakingOrdersRecords.push(NumMMOrdersRecord.decode(reader, reader.uint32()));
           break;
 
         default:
@@ -120,69 +164,63 @@ export const GenesisState = {
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    message.lastPairId = object.lastPairId !== undefined && object.lastPairId !== null ? Long.fromValue(object.lastPairId) : Long.UZERO;
+    message.lastPoolId = object.lastPoolId !== undefined && object.lastPoolId !== null ? Long.fromValue(object.lastPoolId) : Long.UZERO;
     message.pairs = object.pairs?.map(e => Pair.fromPartial(e)) || [];
     message.pools = object.pools?.map(e => Pool.fromPartial(e)) || [];
-    message.requests = object.requests !== undefined && object.requests !== null ? GenesisRequestsState.fromPartial(object.requests) : undefined;
-    message.prevPoolId = object.prevPoolId !== undefined && object.prevPoolId !== null ? Long.fromValue(object.prevPoolId) : Long.UZERO;
-    message.prevPairId = object.prevPairId !== undefined && object.prevPairId !== null ? Long.fromValue(object.prevPairId) : Long.UZERO;
+    message.depositRequests = object.depositRequests?.map(e => DepositRequest.fromPartial(e)) || [];
+    message.withdrawRequests = object.withdrawRequests?.map(e => WithdrawRequest.fromPartial(e)) || [];
+    message.orders = object.orders?.map(e => Order.fromPartial(e)) || [];
+    message.numMarketMakingOrdersRecords = object.numMarketMakingOrdersRecords?.map(e => NumMMOrdersRecord.fromPartial(e)) || [];
     return message;
   }
 
 };
 
-function createBaseGenesisRequestsState(): GenesisRequestsState {
+function createBaseNumMMOrdersRecord(): NumMMOrdersRecord {
   return {
-    orders: [],
-    deposits: [],
-    withdrawals: [],
-    marketMakingOrderIds: []
+    orderer: "",
+    pairId: Long.UZERO,
+    numMarketMakingOrders: 0
   };
 }
 
-export const GenesisRequestsState = {
-  encode(message: GenesisRequestsState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.orders) {
-      Order.encode(v!, writer.uint32(10).fork()).ldelim();
+export const NumMMOrdersRecord = {
+  encode(message: NumMMOrdersRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
     }
 
-    for (const v of message.deposits) {
-      RequestDeposit.encode(v!, writer.uint32(18).fork()).ldelim();
+    if (!message.pairId.isZero()) {
+      writer.uint32(16).uint64(message.pairId);
     }
 
-    for (const v of message.withdrawals) {
-      RequestWithdraw.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-
-    for (const v of message.marketMakingOrderIds) {
-      MarketMakingOrderId.encode(v!, writer.uint32(34).fork()).ldelim();
+    if (message.numMarketMakingOrders !== 0) {
+      writer.uint32(24).uint32(message.numMarketMakingOrders);
     }
 
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): GenesisRequestsState {
+  decode(input: _m0.Reader | Uint8Array, length?: number): NumMMOrdersRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGenesisRequestsState();
+    const message = createBaseNumMMOrdersRecord();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
 
       switch (tag >>> 3) {
         case 1:
-          message.orders.push(Order.decode(reader, reader.uint32()));
+          message.orderer = reader.string();
           break;
 
         case 2:
-          message.deposits.push(RequestDeposit.decode(reader, reader.uint32()));
+          message.pairId = (reader.uint64() as Long);
           break;
 
         case 3:
-          message.withdrawals.push(RequestWithdraw.decode(reader, reader.uint32()));
-          break;
-
-        case 4:
-          message.marketMakingOrderIds.push(MarketMakingOrderId.decode(reader, reader.uint32()));
+          message.numMarketMakingOrders = reader.uint32();
           break;
 
         default:
@@ -194,12 +232,11 @@ export const GenesisRequestsState = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<GenesisRequestsState>): GenesisRequestsState {
-    const message = createBaseGenesisRequestsState();
-    message.orders = object.orders?.map(e => Order.fromPartial(e)) || [];
-    message.deposits = object.deposits?.map(e => RequestDeposit.fromPartial(e)) || [];
-    message.withdrawals = object.withdrawals?.map(e => RequestWithdraw.fromPartial(e)) || [];
-    message.marketMakingOrderIds = object.marketMakingOrderIds?.map(e => MarketMakingOrderId.fromPartial(e)) || [];
+  fromPartial(object: DeepPartial<NumMMOrdersRecord>): NumMMOrdersRecord {
+    const message = createBaseNumMMOrdersRecord();
+    message.orderer = object.orderer ?? "";
+    message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
+    message.numMarketMakingOrders = object.numMarketMakingOrders ?? 0;
     return message;
   }
 

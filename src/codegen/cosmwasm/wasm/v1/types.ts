@@ -10,11 +10,17 @@ export enum AccessType {
   /** ACCESS_TYPE_NOBODY - AccessTypeNobody forbidden */
   ACCESS_TYPE_NOBODY = 1,
 
-  /** ACCESS_TYPE_ONLY_ADDRESS - AccessTypeOnlyAddress restricted to an address */
+  /**
+   * ACCESS_TYPE_ONLY_ADDRESS - AccessTypeOnlyAddress restricted to a single address
+   * Deprecated: use AccessTypeAnyOfAddresses instead
+   */
   ACCESS_TYPE_ONLY_ADDRESS = 2,
 
   /** ACCESS_TYPE_EVERYBODY - AccessTypeEverybody unrestricted */
   ACCESS_TYPE_EVERYBODY = 3,
+
+  /** ACCESS_TYPE_ANY_OF_ADDRESSES - AccessTypeAnyOfAddresses allow any of the addresses */
+  ACCESS_TYPE_ANY_OF_ADDRESSES = 4,
   UNRECOGNIZED = -1,
 }
 export const AccessTypeSDKType = AccessType;
@@ -36,6 +42,10 @@ export function accessTypeFromJSON(object: any): AccessType {
     case "ACCESS_TYPE_EVERYBODY":
       return AccessType.ACCESS_TYPE_EVERYBODY;
 
+    case 4:
+    case "ACCESS_TYPE_ANY_OF_ADDRESSES":
+      return AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES;
+
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -55,6 +65,9 @@ export function accessTypeToJSON(object: AccessType): string {
 
     case AccessType.ACCESS_TYPE_EVERYBODY:
       return "ACCESS_TYPE_EVERYBODY";
+
+    case AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES:
+      return "ACCESS_TYPE_ANY_OF_ADDRESSES";
 
     case AccessType.UNRECOGNIZED:
     default:
@@ -135,27 +148,32 @@ export interface AccessTypeParamSDKType {
 
 export interface AccessConfig {
   permission: AccessType;
+  /**
+   * Address
+   * Deprecated: replaced by addresses
+   */
+
   address: string;
+  addresses: string[];
 }
 /** AccessConfig access control type. */
 
 export interface AccessConfigSDKType {
   permission: AccessType;
   address: string;
+  addresses: string[];
 }
 /** Params defines the set of wasm parameters. */
 
 export interface Params {
   codeUploadAccess?: AccessConfig;
   instantiateDefaultPermission: AccessType;
-  maxWasmCodeSize: Long;
 }
 /** Params defines the set of wasm parameters. */
 
 export interface ParamsSDKType {
   code_upload_access?: AccessConfigSDKType;
   instantiate_default_permission: AccessType;
-  max_wasm_code_size: Long;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
 
@@ -190,11 +208,7 @@ export interface ContractInfo {
   /** Label is optional metadata to be stored with a contract instance. */
 
   label: string;
-  /**
-   * Created Tx position when the contract was instantiated.
-   * This data should kept internal and not be exposed via query results. Just
-   * use for sorting
-   */
+  /** Created Tx position when the contract was instantiated. */
 
   created?: AbsoluteTxPosition;
   ibcPortId: string;
@@ -324,7 +338,8 @@ export const AccessTypeParam = {
 function createBaseAccessConfig(): AccessConfig {
   return {
     permission: 0,
-    address: ""
+    address: "",
+    addresses: []
   };
 }
 
@@ -336,6 +351,10 @@ export const AccessConfig = {
 
     if (message.address !== "") {
       writer.uint32(18).string(message.address);
+    }
+
+    for (const v of message.addresses) {
+      writer.uint32(26).string(v!);
     }
 
     return writer;
@@ -358,6 +377,10 @@ export const AccessConfig = {
           message.address = reader.string();
           break;
 
+        case 3:
+          message.addresses.push(reader.string());
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -371,6 +394,7 @@ export const AccessConfig = {
     const message = createBaseAccessConfig();
     message.permission = object.permission ?? 0;
     message.address = object.address ?? "";
+    message.addresses = object.addresses?.map(e => e) || [];
     return message;
   }
 
@@ -379,8 +403,7 @@ export const AccessConfig = {
 function createBaseParams(): Params {
   return {
     codeUploadAccess: undefined,
-    instantiateDefaultPermission: 0,
-    maxWasmCodeSize: Long.UZERO
+    instantiateDefaultPermission: 0
   };
 }
 
@@ -392,10 +415,6 @@ export const Params = {
 
     if (message.instantiateDefaultPermission !== 0) {
       writer.uint32(16).int32(message.instantiateDefaultPermission);
-    }
-
-    if (!message.maxWasmCodeSize.isZero()) {
-      writer.uint32(24).uint64(message.maxWasmCodeSize);
     }
 
     return writer;
@@ -418,10 +437,6 @@ export const Params = {
           message.instantiateDefaultPermission = (reader.int32() as any);
           break;
 
-        case 3:
-          message.maxWasmCodeSize = (reader.uint64() as Long);
-          break;
-
         default:
           reader.skipType(tag & 7);
           break;
@@ -435,7 +450,6 @@ export const Params = {
     const message = createBaseParams();
     message.codeUploadAccess = object.codeUploadAccess !== undefined && object.codeUploadAccess !== null ? AccessConfig.fromPartial(object.codeUploadAccess) : undefined;
     message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
-    message.maxWasmCodeSize = object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null ? Long.fromValue(object.maxWasmCodeSize) : Long.UZERO;
     return message;
   }
 

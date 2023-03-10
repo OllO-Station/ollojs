@@ -1,8 +1,10 @@
-import { Coin, CoinSDKType } from "../../../cosmos_proto/coin";
-import { OrderDirection } from "./liquidity";
+import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { OrderDirection } from "./order";
 import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Long } from "../../../helpers";
+/** MsgCreatePair defines an SDK message for creating a pair. */
+
 export interface MsgCreatePair {
   /** creator specifies the bech32-encoded address that is the pair creator. */
   creator: string;
@@ -13,6 +15,8 @@ export interface MsgCreatePair {
 
   quoteCoinDenom: string;
 }
+/** MsgCreatePair defines an SDK message for creating a pair. */
+
 export interface MsgCreatePairSDKType {
   creator: string;
   base_coin_denom: string;
@@ -20,38 +24,34 @@ export interface MsgCreatePairSDKType {
 }
 export interface MsgCreatePairResponse {}
 export interface MsgCreatePairResponseSDKType {}
-/**
- * MsgCreatePool defines an sdk.Msg type that supports submitting a create
- * liquidity pool tx.
- * https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
+/** MsgCreatePool defines an SDK message for creating a pool. */
 
 export interface MsgCreatePool {
+  /** creator specifies the bech32-encoded address that is the pool creator */
   creator: string;
-  /**
-   * id of the target pool type, must match the value in the pool. Only
-   * pool-type-id 1 is supported.
-   */
+  /** pair_id specifies the pair id. */
 
-  typeId: Long;
   pairId: Long;
+  /** deposit_coins specifies the amount of coins to deposit. */
+
   depositCoins: Coin[];
 }
-/**
- * MsgCreatePool defines an sdk.Msg type that supports submitting a create
- * liquidity pool tx.
- * https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
+/** MsgCreatePool defines an SDK message for creating a pool. */
 
 export interface MsgCreatePoolSDKType {
   creator: string;
-  type_id: Long;
   pair_id: Long;
   deposit_coins: CoinSDKType[];
 }
+/** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
+
 export interface MsgCreatePoolResponse {}
+/** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
+
 export interface MsgCreatePoolResponseSDKType {}
-export interface MsgCreatePoolCapped {
+/** MsgCreateRangedPool defines an SDK message for creating a ranged pool. */
+
+export interface MsgCreateRangedPool {
   /** creator specifies the bech32-encoded address that is the pool creator */
   creator: string;
   /** pair_id specifies the pair id. */
@@ -64,7 +64,9 @@ export interface MsgCreatePoolCapped {
   maxPrice: string;
   initialPrice: string;
 }
-export interface MsgCreatePoolCappedSDKType {
+/** MsgCreateRangedPool defines an SDK message for creating a ranged pool. */
+
+export interface MsgCreateRangedPoolSDKType {
   creator: string;
   pair_id: Long;
   deposit_coins: CoinSDKType[];
@@ -72,15 +74,16 @@ export interface MsgCreatePoolCappedSDKType {
   max_price: string;
   initial_price: string;
 }
-export interface MsgCreatePoolCappedResponse {}
-export interface MsgCreatePoolCappedResponseSDKType {}
+/** MsgCreateRangedPoolResponse defines the Msg/CreateRangedPool response type. */
+
+export interface MsgCreateRangedPoolResponse {}
+/** MsgCreateRangedPoolResponse defines the Msg/CreateRangedPool response type. */
+
+export interface MsgCreateRangedPoolResponseSDKType {}
 /** MsgDeposit defines an SDK message for depositing coins to the pool */
 
 export interface MsgDeposit {
-  /**
-   * depositor specifies the bech32-encoded address that makes a deposit to the
-   * pool
-   */
+  /** depositor specifies the bech32-encoded address that makes a deposit to the pool */
   depositor: string;
   /** pool_id specifies the pool id */
 
@@ -105,18 +108,12 @@ export interface MsgDepositResponseSDKType {}
 /** MsgWithdraw defines an SDK message for withdrawing pool coin from the pool */
 
 export interface MsgWithdraw {
-  /**
-   * withdrawer specifies the bech32-encoded address that withdraws pool coin
-   * from the pool
-   */
+  /** withdrawer specifies the bech32-encoded address that withdraws pool coin from the pool */
   withdrawer: string;
   /** pool_id specifies the pool id */
 
   poolId: Long;
-  /**
-   * pool_coin specifies the pool coin that is a proof of liquidity provider for
-   * the pool
-   */
+  /** pool_coin specifies the pool coin that is a proof of liquidity provider for the pool */
 
   poolCoin?: Coin;
 }
@@ -133,9 +130,9 @@ export interface MsgWithdrawResponse {}
 /** MsgWithdrawResponse defines the Msg/Withdraw response type. */
 
 export interface MsgWithdrawResponseSDKType {}
-/** MsgOrderLimit defines an SDK message for making a limit order */
+/** MsgLimitOrder defines an SDK message for making a limit order */
 
-export interface MsgOrderLimit {
+export interface MsgLimitOrder {
   /** orderer specifies the bech32-encoded address that makes an order */
   orderer: string;
   /** pair_id specifies the pair id */
@@ -160,9 +157,9 @@ export interface MsgOrderLimit {
 
   orderLifespan?: Duration;
 }
-/** MsgOrderLimit defines an SDK message for making a limit order */
+/** MsgLimitOrder defines an SDK message for making a limit order */
 
-export interface MsgOrderLimitSDKType {
+export interface MsgLimitOrderSDKType {
   orderer: string;
   pair_id: Long;
   direction: OrderDirection;
@@ -172,15 +169,15 @@ export interface MsgOrderLimitSDKType {
   amount: string;
   order_lifespan?: DurationSDKType;
 }
-/** MsgOrderLimitResponse defines the Msg/OrderLimit response type. */
+/** MsgLimitOrderResponse defines the Msg/LimitOrder response type. */
 
-export interface MsgOrderLimitResponse {}
-/** MsgOrderLimitResponse defines the Msg/OrderLimit response type. */
+export interface MsgLimitOrderResponse {}
+/** MsgLimitOrderResponse defines the Msg/LimitOrder response type. */
 
-export interface MsgOrderLimitResponseSDKType {}
-/** MsgOrderMarket defines an SDK message for making a market order */
+export interface MsgLimitOrderResponseSDKType {}
+/** MsgMarketOrder defines an SDK message for making a market order */
 
-export interface MsgOrderMarket {
+export interface MsgMarketOrder {
   /** orderer specifies the bech32-encoded address that makes an order */
   orderer: string;
   /** pair_id specifies the pair id */
@@ -202,9 +199,9 @@ export interface MsgOrderMarket {
 
   orderLifespan?: Duration;
 }
-/** MsgOrderMarket defines an SDK message for making a market order */
+/** MsgMarketOrder defines an SDK message for making a market order */
 
-export interface MsgOrderMarketSDKType {
+export interface MsgMarketOrderSDKType {
   orderer: string;
   pair_id: Long;
   direction: OrderDirection;
@@ -213,86 +210,95 @@ export interface MsgOrderMarketSDKType {
   amount: string;
   order_lifespan?: DurationSDKType;
 }
-/** MsgOrderMarketResponse defines the Msg/OrderMarket response type. */
+/** MsgMarketOrderResponse defines the Msg/MarketOrder response type. */
 
-export interface MsgOrderMarketResponse {}
-/** MsgOrderMarketResponse defines the Msg/OrderMarket response type. */
+export interface MsgMarketOrderResponse {}
+/** MsgMarketOrderResponse defines the Msg/MarketOrder response type. */
 
-export interface MsgOrderMarketResponseSDKType {}
-/**
- * MsgOrderMarketMaking defines an SDK message for making a MM(market making)
- * order.
- */
+export interface MsgMarketOrderResponseSDKType {}
+/** MsgMMOrder defines an SDK message for making a MM(market making) order. */
 
-export interface MsgOrderMarketMaking {
+export interface MsgMMOrder {
   /** orderer specifies the bech32-encoded address that makes an order */
   orderer: string;
   /** pair_id specifies the pair id */
 
   pairId: Long;
-  /** max_sell_price specifies the maximum sell price */
+  /** direction specifies the order direction(buy or sell) */
 
-  maxSellPrice: string;
-  /** min_sell_price specifies the minimum sell price */
+  direction: OrderDirection;
+  /** offer_coin specifies the amount of coin the orderer offers */
 
-  minSellPrice: string;
-  /** sell_amount specifies the total amount of base coin of sell orders */
+  offerCoin?: Coin;
+  /** demand_coin_denom specifies the demand coin denom */
 
-  sellAmount: string;
-  /** max_buy_price specifies the maximum buy price */
+  demandCoinDenom: string;
+  /** price specifies the order price */
 
-  maxBuyPrice: string;
-  /** min_buy_price specifies the minimum buy price */
+  price: string;
+  /** amount specifies the amount of base coin the orderer wants to buy or sell */
 
-  minBuyPrice: string;
-  /** buy_amount specifies the total amount of base coin of buy orders */
-
-  buyAmount: string;
+  amount: string;
   /** order_lifespan specifies the order lifespan */
 
   orderLifespan?: Duration;
 }
-/**
- * MsgOrderMarketMaking defines an SDK message for making a MM(market making)
- * order.
- */
+/** MsgMMOrder defines an SDK message for making a MM(market making) order. */
 
-export interface MsgOrderMarketMakingSDKType {
+export interface MsgMMOrderSDKType {
   orderer: string;
   pair_id: Long;
-  max_sell_price: string;
-  min_sell_price: string;
-  sell_amount: string;
-  max_buy_price: string;
-  min_buy_price: string;
-  buy_amount: string;
+  direction: OrderDirection;
+  offer_coin?: CoinSDKType;
+  demand_coin_denom: string;
+  price: string;
+  amount: string;
   order_lifespan?: DurationSDKType;
 }
-/** MsgOrderMarketMakingResponse defines the Msg/OrderMarketMaking response type. */
+/** MsgMMOrderResponse defines the Msg/MMOrder response type. */
 
-export interface MsgOrderMarketMakingResponse {}
-/** MsgOrderMarketMakingResponse defines the Msg/OrderMarketMaking response type. */
+export interface MsgMMOrderResponse {}
+/** MsgMMOrderResponse defines the Msg/MMOrder response type. */
 
-export interface MsgOrderMarketMakingResponseSDKType {}
-/**
- * MsgCancelOrder defines an SDK message for cancelling an order
- * MsgCancelAllOrders defines an SDK message for cancelling all orders
- */
+export interface MsgMMOrderResponseSDKType {}
+/** MsgCancelOrder defines an SDK message for cancelling an order */
+
+export interface MsgCancelOrder {
+  /** orderer specifies the bech32-encoded address that makes an order */
+  orderer: string;
+  /** pair_id specifies the pair id */
+
+  pairId: Long;
+  /** order_id specifies the order id */
+
+  orderId: Long;
+}
+/** MsgCancelOrder defines an SDK message for cancelling an order */
+
+export interface MsgCancelOrderSDKType {
+  orderer: string;
+  pair_id: Long;
+  order_id: Long;
+}
+/** MsgCancelOrderResponse defines the Msg/CancelOrder response type. */
+
+export interface MsgCancelOrderResponse {}
+/** MsgCancelOrderResponse defines the Msg/CancelOrder response type. */
+
+export interface MsgCancelOrderResponseSDKType {}
+/** MsgCancelAllOrders defines an SDK message for cancelling all orders */
 
 export interface MsgCancelAllOrders {
   /** orderer specifies the bech32-encoded address that makes an order */
-  orderAddr: string;
+  orderer: string;
   /** pair_ids specifies pair ids to cancel orders */
 
   pairIds: Long[];
 }
-/**
- * MsgCancelOrder defines an SDK message for cancelling an order
- * MsgCancelAllOrders defines an SDK message for cancelling all orders
- */
+/** MsgCancelAllOrders defines an SDK message for cancelling all orders */
 
 export interface MsgCancelAllOrdersSDKType {
-  order_addr: string;
+  orderer: string;
   pair_ids: Long[];
 }
 /** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
@@ -301,68 +307,6 @@ export interface MsgCancelAllOrdersResponse {}
 /** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
 
 export interface MsgCancelAllOrdersResponseSDKType {}
-/**
- * MsgCancelOrder defines an SDK message for cancelling all market
- * making orders
- */
-
-export interface MsgCancelOrder {
-  /** orderer specifies the bech32-encoded address that makes an order */
-  orderAddr: string;
-  /** pair_id specifies the pair id to cancel orders */
-
-  pairId: Long;
-  orderId: Long;
-}
-/**
- * MsgCancelOrder defines an SDK message for cancelling all market
- * making orders
- */
-
-export interface MsgCancelOrderSDKType {
-  order_addr: string;
-  pair_id: Long;
-  order_id: Long;
-}
-/**
- * MsgCancelOrderResponse defines the Msg/CancelOrder
- * response type.
- */
-
-export interface MsgCancelOrderResponse {}
-/**
- * MsgCancelOrderResponse defines the Msg/CancelOrder
- * response type.
- */
-
-export interface MsgCancelOrderResponseSDKType {}
-/**
- * MsgCancelMMOrder defines an SDK message for cancelling all market making
- * orders
- */
-
-export interface MsgCancelMarketMakingOrder {
-  /** orderer specifies the bech32-encoded address that makes an order */
-  orderer: string;
-  /** pair_id specifies the pair id to cancel orders */
-
-  pairId: Long;
-}
-/**
- * MsgCancelMMOrder defines an SDK message for cancelling all market making
- * orders
- */
-
-export interface MsgCancelMarketMakingOrderSDKType {
-  orderer: string;
-  pair_id: Long;
-}
-/** MsgCancelMMOrderResponse defines the Msg/CancelMMOrder response type. */
-
-export interface MsgCancelMarketMakingOrderResponse {}
-/** MsgCancelMMOrderResponse defines the Msg/CancelMMOrder response type. */
-
-export interface MsgCancelMarketMakingOrderResponseSDKType {}
 
 function createBaseMsgCreatePair(): MsgCreatePair {
   return {
@@ -466,7 +410,6 @@ export const MsgCreatePairResponse = {
 function createBaseMsgCreatePool(): MsgCreatePool {
   return {
     creator: "",
-    typeId: Long.UZERO,
     pairId: Long.UZERO,
     depositCoins: []
   };
@@ -478,16 +421,12 @@ export const MsgCreatePool = {
       writer.uint32(10).string(message.creator);
     }
 
-    if (!message.typeId.isZero()) {
-      writer.uint32(16).uint64(message.typeId);
-    }
-
     if (!message.pairId.isZero()) {
-      writer.uint32(24).uint64(message.pairId);
+      writer.uint32(16).uint64(message.pairId);
     }
 
     for (const v of message.depositCoins) {
-      Coin.encode(v!, writer.uint32(34).fork()).ldelim();
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
 
     return writer;
@@ -507,14 +446,10 @@ export const MsgCreatePool = {
           break;
 
         case 2:
-          message.typeId = (reader.uint64() as Long);
-          break;
-
-        case 3:
           message.pairId = (reader.uint64() as Long);
           break;
 
-        case 4:
+        case 3:
           message.depositCoins.push(Coin.decode(reader, reader.uint32()));
           break;
 
@@ -530,7 +465,6 @@ export const MsgCreatePool = {
   fromPartial(object: DeepPartial<MsgCreatePool>): MsgCreatePool {
     const message = createBaseMsgCreatePool();
     message.creator = object.creator ?? "";
-    message.typeId = object.typeId !== undefined && object.typeId !== null ? Long.fromValue(object.typeId) : Long.UZERO;
     message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
     message.depositCoins = object.depositCoins?.map(e => Coin.fromPartial(e)) || [];
     return message;
@@ -572,7 +506,7 @@ export const MsgCreatePoolResponse = {
 
 };
 
-function createBaseMsgCreatePoolCapped(): MsgCreatePoolCapped {
+function createBaseMsgCreateRangedPool(): MsgCreateRangedPool {
   return {
     creator: "",
     pairId: Long.UZERO,
@@ -583,8 +517,8 @@ function createBaseMsgCreatePoolCapped(): MsgCreatePoolCapped {
   };
 }
 
-export const MsgCreatePoolCapped = {
-  encode(message: MsgCreatePoolCapped, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgCreateRangedPool = {
+  encode(message: MsgCreateRangedPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -612,10 +546,10 @@ export const MsgCreatePoolCapped = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePoolCapped {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateRangedPool {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCreatePoolCapped();
+    const message = createBaseMsgCreateRangedPool();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -654,8 +588,8 @@ export const MsgCreatePoolCapped = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<MsgCreatePoolCapped>): MsgCreatePoolCapped {
-    const message = createBaseMsgCreatePoolCapped();
+  fromPartial(object: DeepPartial<MsgCreateRangedPool>): MsgCreateRangedPool {
+    const message = createBaseMsgCreateRangedPool();
     message.creator = object.creator ?? "";
     message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
     message.depositCoins = object.depositCoins?.map(e => Coin.fromPartial(e)) || [];
@@ -667,19 +601,19 @@ export const MsgCreatePoolCapped = {
 
 };
 
-function createBaseMsgCreatePoolCappedResponse(): MsgCreatePoolCappedResponse {
+function createBaseMsgCreateRangedPoolResponse(): MsgCreateRangedPoolResponse {
   return {};
 }
 
-export const MsgCreatePoolCappedResponse = {
-  encode(_: MsgCreatePoolCappedResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgCreateRangedPoolResponse = {
+  encode(_: MsgCreateRangedPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePoolCappedResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateRangedPoolResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCreatePoolCappedResponse();
+    const message = createBaseMsgCreateRangedPoolResponse();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -694,8 +628,8 @@ export const MsgCreatePoolCappedResponse = {
     return message;
   },
 
-  fromPartial(_: DeepPartial<MsgCreatePoolCappedResponse>): MsgCreatePoolCappedResponse {
-    const message = createBaseMsgCreatePoolCappedResponse();
+  fromPartial(_: DeepPartial<MsgCreateRangedPoolResponse>): MsgCreateRangedPoolResponse {
+    const message = createBaseMsgCreateRangedPoolResponse();
     return message;
   }
 
@@ -899,7 +833,7 @@ export const MsgWithdrawResponse = {
 
 };
 
-function createBaseMsgOrderLimit(): MsgOrderLimit {
+function createBaseMsgLimitOrder(): MsgLimitOrder {
   return {
     orderer: "",
     pairId: Long.UZERO,
@@ -912,8 +846,8 @@ function createBaseMsgOrderLimit(): MsgOrderLimit {
   };
 }
 
-export const MsgOrderLimit = {
-  encode(message: MsgOrderLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgLimitOrder = {
+  encode(message: MsgLimitOrder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.orderer !== "") {
       writer.uint32(10).string(message.orderer);
     }
@@ -949,10 +883,10 @@ export const MsgOrderLimit = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOrderLimit {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgLimitOrder {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgOrderLimit();
+    const message = createBaseMsgLimitOrder();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -999,8 +933,8 @@ export const MsgOrderLimit = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<MsgOrderLimit>): MsgOrderLimit {
-    const message = createBaseMsgOrderLimit();
+  fromPartial(object: DeepPartial<MsgLimitOrder>): MsgLimitOrder {
+    const message = createBaseMsgLimitOrder();
     message.orderer = object.orderer ?? "";
     message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
     message.direction = object.direction ?? 0;
@@ -1014,19 +948,19 @@ export const MsgOrderLimit = {
 
 };
 
-function createBaseMsgOrderLimitResponse(): MsgOrderLimitResponse {
+function createBaseMsgLimitOrderResponse(): MsgLimitOrderResponse {
   return {};
 }
 
-export const MsgOrderLimitResponse = {
-  encode(_: MsgOrderLimitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgLimitOrderResponse = {
+  encode(_: MsgLimitOrderResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOrderLimitResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgLimitOrderResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgOrderLimitResponse();
+    const message = createBaseMsgLimitOrderResponse();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1041,14 +975,14 @@ export const MsgOrderLimitResponse = {
     return message;
   },
 
-  fromPartial(_: DeepPartial<MsgOrderLimitResponse>): MsgOrderLimitResponse {
-    const message = createBaseMsgOrderLimitResponse();
+  fromPartial(_: DeepPartial<MsgLimitOrderResponse>): MsgLimitOrderResponse {
+    const message = createBaseMsgLimitOrderResponse();
     return message;
   }
 
 };
 
-function createBaseMsgOrderMarket(): MsgOrderMarket {
+function createBaseMsgMarketOrder(): MsgMarketOrder {
   return {
     orderer: "",
     pairId: Long.UZERO,
@@ -1060,8 +994,8 @@ function createBaseMsgOrderMarket(): MsgOrderMarket {
   };
 }
 
-export const MsgOrderMarket = {
-  encode(message: MsgOrderMarket, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgMarketOrder = {
+  encode(message: MsgMarketOrder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.orderer !== "") {
       writer.uint32(10).string(message.orderer);
     }
@@ -1093,10 +1027,10 @@ export const MsgOrderMarket = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOrderMarket {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMarketOrder {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgOrderMarket();
+    const message = createBaseMsgMarketOrder();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1139,8 +1073,8 @@ export const MsgOrderMarket = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<MsgOrderMarket>): MsgOrderMarket {
-    const message = createBaseMsgOrderMarket();
+  fromPartial(object: DeepPartial<MsgMarketOrder>): MsgMarketOrder {
+    const message = createBaseMsgMarketOrder();
     message.orderer = object.orderer ?? "";
     message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
     message.direction = object.direction ?? 0;
@@ -1153,19 +1087,19 @@ export const MsgOrderMarket = {
 
 };
 
-function createBaseMsgOrderMarketResponse(): MsgOrderMarketResponse {
+function createBaseMsgMarketOrderResponse(): MsgMarketOrderResponse {
   return {};
 }
 
-export const MsgOrderMarketResponse = {
-  encode(_: MsgOrderMarketResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgMarketOrderResponse = {
+  encode(_: MsgMarketOrderResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOrderMarketResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMarketOrderResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgOrderMarketResponse();
+    const message = createBaseMsgMarketOrderResponse();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1180,29 +1114,28 @@ export const MsgOrderMarketResponse = {
     return message;
   },
 
-  fromPartial(_: DeepPartial<MsgOrderMarketResponse>): MsgOrderMarketResponse {
-    const message = createBaseMsgOrderMarketResponse();
+  fromPartial(_: DeepPartial<MsgMarketOrderResponse>): MsgMarketOrderResponse {
+    const message = createBaseMsgMarketOrderResponse();
     return message;
   }
 
 };
 
-function createBaseMsgOrderMarketMaking(): MsgOrderMarketMaking {
+function createBaseMsgMMOrder(): MsgMMOrder {
   return {
     orderer: "",
     pairId: Long.UZERO,
-    maxSellPrice: "",
-    minSellPrice: "",
-    sellAmount: "",
-    maxBuyPrice: "",
-    minBuyPrice: "",
-    buyAmount: "",
+    direction: 0,
+    offerCoin: undefined,
+    demandCoinDenom: "",
+    price: "",
+    amount: "",
     orderLifespan: undefined
   };
 }
 
-export const MsgOrderMarketMaking = {
-  encode(message: MsgOrderMarketMaking, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgMMOrder = {
+  encode(message: MsgMMOrder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.orderer !== "") {
       writer.uint32(10).string(message.orderer);
     }
@@ -1211,41 +1144,37 @@ export const MsgOrderMarketMaking = {
       writer.uint32(16).uint64(message.pairId);
     }
 
-    if (message.maxSellPrice !== "") {
-      writer.uint32(26).string(message.maxSellPrice);
+    if (message.direction !== 0) {
+      writer.uint32(24).int32(message.direction);
     }
 
-    if (message.minSellPrice !== "") {
-      writer.uint32(34).string(message.minSellPrice);
+    if (message.offerCoin !== undefined) {
+      Coin.encode(message.offerCoin, writer.uint32(34).fork()).ldelim();
     }
 
-    if (message.sellAmount !== "") {
-      writer.uint32(42).string(message.sellAmount);
+    if (message.demandCoinDenom !== "") {
+      writer.uint32(42).string(message.demandCoinDenom);
     }
 
-    if (message.maxBuyPrice !== "") {
-      writer.uint32(50).string(message.maxBuyPrice);
+    if (message.price !== "") {
+      writer.uint32(50).string(message.price);
     }
 
-    if (message.minBuyPrice !== "") {
-      writer.uint32(58).string(message.minBuyPrice);
-    }
-
-    if (message.buyAmount !== "") {
-      writer.uint32(66).string(message.buyAmount);
+    if (message.amount !== "") {
+      writer.uint32(58).string(message.amount);
     }
 
     if (message.orderLifespan !== undefined) {
-      Duration.encode(message.orderLifespan, writer.uint32(74).fork()).ldelim();
+      Duration.encode(message.orderLifespan, writer.uint32(66).fork()).ldelim();
     }
 
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOrderMarketMaking {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMMOrder {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgOrderMarketMaking();
+    const message = createBaseMsgMMOrder();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1260,30 +1189,26 @@ export const MsgOrderMarketMaking = {
           break;
 
         case 3:
-          message.maxSellPrice = reader.string();
+          message.direction = (reader.int32() as any);
           break;
 
         case 4:
-          message.minSellPrice = reader.string();
+          message.offerCoin = Coin.decode(reader, reader.uint32());
           break;
 
         case 5:
-          message.sellAmount = reader.string();
+          message.demandCoinDenom = reader.string();
           break;
 
         case 6:
-          message.maxBuyPrice = reader.string();
+          message.price = reader.string();
           break;
 
         case 7:
-          message.minBuyPrice = reader.string();
+          message.amount = reader.string();
           break;
 
         case 8:
-          message.buyAmount = reader.string();
-          break;
-
-        case 9:
           message.orderLifespan = Duration.decode(reader, reader.uint32());
           break;
 
@@ -1296,35 +1221,34 @@ export const MsgOrderMarketMaking = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<MsgOrderMarketMaking>): MsgOrderMarketMaking {
-    const message = createBaseMsgOrderMarketMaking();
+  fromPartial(object: DeepPartial<MsgMMOrder>): MsgMMOrder {
+    const message = createBaseMsgMMOrder();
     message.orderer = object.orderer ?? "";
     message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
-    message.maxSellPrice = object.maxSellPrice ?? "";
-    message.minSellPrice = object.minSellPrice ?? "";
-    message.sellAmount = object.sellAmount ?? "";
-    message.maxBuyPrice = object.maxBuyPrice ?? "";
-    message.minBuyPrice = object.minBuyPrice ?? "";
-    message.buyAmount = object.buyAmount ?? "";
+    message.direction = object.direction ?? 0;
+    message.offerCoin = object.offerCoin !== undefined && object.offerCoin !== null ? Coin.fromPartial(object.offerCoin) : undefined;
+    message.demandCoinDenom = object.demandCoinDenom ?? "";
+    message.price = object.price ?? "";
+    message.amount = object.amount ?? "";
     message.orderLifespan = object.orderLifespan !== undefined && object.orderLifespan !== null ? Duration.fromPartial(object.orderLifespan) : undefined;
     return message;
   }
 
 };
 
-function createBaseMsgOrderMarketMakingResponse(): MsgOrderMarketMakingResponse {
+function createBaseMsgMMOrderResponse(): MsgMMOrderResponse {
   return {};
 }
 
-export const MsgOrderMarketMakingResponse = {
-  encode(_: MsgOrderMarketMakingResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgMMOrderResponse = {
+  encode(_: MsgMMOrderResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOrderMarketMakingResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMMOrderResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgOrderMarketMakingResponse();
+    const message = createBaseMsgMMOrderResponse();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1339,109 +1263,8 @@ export const MsgOrderMarketMakingResponse = {
     return message;
   },
 
-  fromPartial(_: DeepPartial<MsgOrderMarketMakingResponse>): MsgOrderMarketMakingResponse {
-    const message = createBaseMsgOrderMarketMakingResponse();
-    return message;
-  }
-
-};
-
-function createBaseMsgCancelAllOrders(): MsgCancelAllOrders {
-  return {
-    orderAddr: "",
-    pairIds: []
-  };
-}
-
-export const MsgCancelAllOrders = {
-  encode(message: MsgCancelAllOrders, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.orderAddr !== "") {
-      writer.uint32(10).string(message.orderAddr);
-    }
-
-    writer.uint32(18).fork();
-
-    for (const v of message.pairIds) {
-      writer.uint64(v);
-    }
-
-    writer.ldelim();
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelAllOrders {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCancelAllOrders();
-
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-
-      switch (tag >>> 3) {
-        case 1:
-          message.orderAddr = reader.string();
-          break;
-
-        case 2:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-
-            while (reader.pos < end2) {
-              message.pairIds.push((reader.uint64() as Long));
-            }
-          } else {
-            message.pairIds.push((reader.uint64() as Long));
-          }
-
-          break;
-
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-
-    return message;
-  },
-
-  fromPartial(object: DeepPartial<MsgCancelAllOrders>): MsgCancelAllOrders {
-    const message = createBaseMsgCancelAllOrders();
-    message.orderAddr = object.orderAddr ?? "";
-    message.pairIds = object.pairIds?.map(e => Long.fromValue(e)) || [];
-    return message;
-  }
-
-};
-
-function createBaseMsgCancelAllOrdersResponse(): MsgCancelAllOrdersResponse {
-  return {};
-}
-
-export const MsgCancelAllOrdersResponse = {
-  encode(_: MsgCancelAllOrdersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelAllOrdersResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCancelAllOrdersResponse();
-
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-
-    return message;
-  },
-
-  fromPartial(_: DeepPartial<MsgCancelAllOrdersResponse>): MsgCancelAllOrdersResponse {
-    const message = createBaseMsgCancelAllOrdersResponse();
+  fromPartial(_: DeepPartial<MsgMMOrderResponse>): MsgMMOrderResponse {
+    const message = createBaseMsgMMOrderResponse();
     return message;
   }
 
@@ -1449,7 +1272,7 @@ export const MsgCancelAllOrdersResponse = {
 
 function createBaseMsgCancelOrder(): MsgCancelOrder {
   return {
-    orderAddr: "",
+    orderer: "",
     pairId: Long.UZERO,
     orderId: Long.UZERO
   };
@@ -1457,8 +1280,8 @@ function createBaseMsgCancelOrder(): MsgCancelOrder {
 
 export const MsgCancelOrder = {
   encode(message: MsgCancelOrder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.orderAddr !== "") {
-      writer.uint32(10).string(message.orderAddr);
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
     }
 
     if (!message.pairId.isZero()) {
@@ -1482,7 +1305,7 @@ export const MsgCancelOrder = {
 
       switch (tag >>> 3) {
         case 1:
-          message.orderAddr = reader.string();
+          message.orderer = reader.string();
           break;
 
         case 2:
@@ -1504,7 +1327,7 @@ export const MsgCancelOrder = {
 
   fromPartial(object: DeepPartial<MsgCancelOrder>): MsgCancelOrder {
     const message = createBaseMsgCancelOrder();
-    message.orderAddr = object.orderAddr ?? "";
+    message.orderer = object.orderer ?? "";
     message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
     message.orderId = object.orderId !== undefined && object.orderId !== null ? Long.fromValue(object.orderId) : Long.UZERO;
     return message;
@@ -1546,30 +1369,33 @@ export const MsgCancelOrderResponse = {
 
 };
 
-function createBaseMsgCancelMarketMakingOrder(): MsgCancelMarketMakingOrder {
+function createBaseMsgCancelAllOrders(): MsgCancelAllOrders {
   return {
     orderer: "",
-    pairId: Long.UZERO
+    pairIds: []
   };
 }
 
-export const MsgCancelMarketMakingOrder = {
-  encode(message: MsgCancelMarketMakingOrder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgCancelAllOrders = {
+  encode(message: MsgCancelAllOrders, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.orderer !== "") {
       writer.uint32(10).string(message.orderer);
     }
 
-    if (!message.pairId.isZero()) {
-      writer.uint32(16).uint64(message.pairId);
+    writer.uint32(18).fork();
+
+    for (const v of message.pairIds) {
+      writer.uint64(v);
     }
 
+    writer.ldelim();
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelMarketMakingOrder {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelAllOrders {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCancelMarketMakingOrder();
+    const message = createBaseMsgCancelAllOrders();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1580,7 +1406,16 @@ export const MsgCancelMarketMakingOrder = {
           break;
 
         case 2:
-          message.pairId = (reader.uint64() as Long);
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+
+            while (reader.pos < end2) {
+              message.pairIds.push((reader.uint64() as Long));
+            }
+          } else {
+            message.pairIds.push((reader.uint64() as Long));
+          }
+
           break;
 
         default:
@@ -1592,28 +1427,28 @@ export const MsgCancelMarketMakingOrder = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<MsgCancelMarketMakingOrder>): MsgCancelMarketMakingOrder {
-    const message = createBaseMsgCancelMarketMakingOrder();
+  fromPartial(object: DeepPartial<MsgCancelAllOrders>): MsgCancelAllOrders {
+    const message = createBaseMsgCancelAllOrders();
     message.orderer = object.orderer ?? "";
-    message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
+    message.pairIds = object.pairIds?.map(e => Long.fromValue(e)) || [];
     return message;
   }
 
 };
 
-function createBaseMsgCancelMarketMakingOrderResponse(): MsgCancelMarketMakingOrderResponse {
+function createBaseMsgCancelAllOrdersResponse(): MsgCancelAllOrdersResponse {
   return {};
 }
 
-export const MsgCancelMarketMakingOrderResponse = {
-  encode(_: MsgCancelMarketMakingOrderResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgCancelAllOrdersResponse = {
+  encode(_: MsgCancelAllOrdersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelMarketMakingOrderResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelAllOrdersResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCancelMarketMakingOrderResponse();
+    const message = createBaseMsgCancelAllOrdersResponse();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1628,8 +1463,8 @@ export const MsgCancelMarketMakingOrderResponse = {
     return message;
   },
 
-  fromPartial(_: DeepPartial<MsgCancelMarketMakingOrderResponse>): MsgCancelMarketMakingOrderResponse {
-    const message = createBaseMsgCancelMarketMakingOrderResponse();
+  fromPartial(_: DeepPartial<MsgCancelAllOrdersResponse>): MsgCancelAllOrdersResponse {
+    const message = createBaseMsgCancelAllOrdersResponse();
     return message;
   }
 

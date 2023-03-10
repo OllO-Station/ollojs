@@ -3,8 +3,8 @@ import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } fr
 import { TxResponse, TxResponseSDKType, GasInfo, GasInfoSDKType, Result, ResultSDKType } from "../../base/abci/v1beta1/abci";
 import { BlockID, BlockIDSDKType } from "../../../tendermint/types/types";
 import { Block, BlockSDKType } from "../../../tendermint/types/block";
+import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Long } from "../../../helpers";
 /** OrderBy defines the sorting order */
 
 export enum OrderBy {
@@ -62,8 +62,8 @@ export enum BroadcastMode {
   BROADCAST_MODE_UNSPECIFIED = 0,
 
   /**
-   * BROADCAST_MODE_BLOCK - BROADCAST_MODE_BLOCK defines a tx broadcasting mode where the client waits for
-   * the tx to be committed in a block.
+   * BROADCAST_MODE_BLOCK - DEPRECATED: use BROADCAST_MODE_SYNC instead,
+   * BROADCAST_MODE_BLOCK is not supported by the SDK from v0.47.x onwards.
    */
   BROADCAST_MODE_BLOCK = 1,
 
@@ -132,10 +132,24 @@ export function broadcastModeToJSON(object: BroadcastMode): string {
 export interface GetTxsEventRequest {
   /** events is the list of transaction event type. */
   events: string[];
-  /** pagination defines a pagination for the request. */
+  /**
+   * pagination defines a pagination for the request.
+   * Deprecated post v0.46.x: use page and limit instead.
+   */
+
+  /** @deprecated */
 
   pagination?: PageRequest;
   orderBy: OrderBy;
+  /** page is the page number to query, starts at 1. If not provided, will default to first page. */
+
+  page: Long;
+  /**
+   * limit is the total number of results to be returned in the result page.
+   * If left empty it will default to a value to be set by each app.
+   */
+
+  limit: Long;
 }
 /**
  * GetTxsEventRequest is the request type for the Service.TxsByEvents
@@ -144,8 +158,12 @@ export interface GetTxsEventRequest {
 
 export interface GetTxsEventRequestSDKType {
   events: string[];
+  /** @deprecated */
+
   pagination?: PageRequestSDKType;
   order_by: OrderBy;
+  page: Long;
+  limit: Long;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -158,9 +176,17 @@ export interface GetTxsEventResponse {
   /** tx_responses is the list of queried TxResponses. */
 
   txResponses: TxResponse[];
-  /** pagination defines a pagination for the response. */
+  /**
+   * pagination defines a pagination for the response.
+   * Deprecated post v0.46.x: use total instead.
+   */
+
+  /** @deprecated */
 
   pagination?: PageResponse;
+  /** total is total number of results available */
+
+  total: Long;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -170,7 +196,10 @@ export interface GetTxsEventResponse {
 export interface GetTxsEventResponseSDKType {
   txs: TxSDKType[];
   tx_responses: TxResponseSDKType[];
+  /** @deprecated */
+
   pagination?: PageResponseSDKType;
+  total: Long;
 }
 /**
  * BroadcastTxRequest is the request type for the Service.BroadcastTxRequest
@@ -349,7 +378,9 @@ function createBaseGetTxsEventRequest(): GetTxsEventRequest {
   return {
     events: [],
     pagination: undefined,
-    orderBy: 0
+    orderBy: 0,
+    page: Long.UZERO,
+    limit: Long.UZERO
   };
 }
 
@@ -365,6 +396,14 @@ export const GetTxsEventRequest = {
 
     if (message.orderBy !== 0) {
       writer.uint32(24).int32(message.orderBy);
+    }
+
+    if (!message.page.isZero()) {
+      writer.uint32(32).uint64(message.page);
+    }
+
+    if (!message.limit.isZero()) {
+      writer.uint32(40).uint64(message.limit);
     }
 
     return writer;
@@ -391,6 +430,14 @@ export const GetTxsEventRequest = {
           message.orderBy = (reader.int32() as any);
           break;
 
+        case 4:
+          message.page = (reader.uint64() as Long);
+          break;
+
+        case 5:
+          message.limit = (reader.uint64() as Long);
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -405,6 +452,8 @@ export const GetTxsEventRequest = {
     message.events = object.events?.map(e => e) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
     message.orderBy = object.orderBy ?? 0;
+    message.page = object.page !== undefined && object.page !== null ? Long.fromValue(object.page) : Long.UZERO;
+    message.limit = object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
     return message;
   }
 
@@ -414,7 +463,8 @@ function createBaseGetTxsEventResponse(): GetTxsEventResponse {
   return {
     txs: [],
     txResponses: [],
-    pagination: undefined
+    pagination: undefined,
+    total: Long.UZERO
   };
 }
 
@@ -430,6 +480,10 @@ export const GetTxsEventResponse = {
 
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+    }
+
+    if (!message.total.isZero()) {
+      writer.uint32(32).uint64(message.total);
     }
 
     return writer;
@@ -456,6 +510,10 @@ export const GetTxsEventResponse = {
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
 
+        case 4:
+          message.total = (reader.uint64() as Long);
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -470,6 +528,7 @@ export const GetTxsEventResponse = {
     message.txs = object.txs?.map(e => Tx.fromPartial(e)) || [];
     message.txResponses = object.txResponses?.map(e => TxResponse.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
+    message.total = object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
     return message;
   }
 

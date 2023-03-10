@@ -25,7 +25,11 @@ export interface Metadata {
 export interface MetadataSDKType {
     chunk_hashes: Uint8Array[];
 }
-/** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
+/**
+ * SnapshotItem is an item contained in a rootmulti.Store snapshot.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotItem {
     store?: SnapshotStoreItem;
     iavl?: SnapshotIAVLItem;
@@ -34,7 +38,11 @@ export interface SnapshotItem {
     kv?: SnapshotKVItem;
     schema?: SnapshotSchema;
 }
-/** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
+/**
+ * SnapshotItem is an item contained in a rootmulti.Store snapshot.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotItemSDKType {
     store?: SnapshotStoreItemSDKType;
     iavl?: SnapshotIAVLItemSDKType;
@@ -43,15 +51,27 @@ export interface SnapshotItemSDKType {
     kv?: SnapshotKVItemSDKType;
     schema?: SnapshotSchemaSDKType;
 }
-/** SnapshotStoreItem contains metadata about a snapshotted store. */
+/**
+ * SnapshotStoreItem contains metadata about a snapshotted store.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotStoreItem {
     name: string;
 }
-/** SnapshotStoreItem contains metadata about a snapshotted store. */
+/**
+ * SnapshotStoreItem contains metadata about a snapshotted store.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotStoreItemSDKType {
     name: string;
 }
-/** SnapshotIAVLItem is an exported IAVL node. */
+/**
+ * SnapshotIAVLItem is an exported IAVL node.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotIAVLItem {
     key: Uint8Array;
     value: Uint8Array;
@@ -60,46 +80,82 @@ export interface SnapshotIAVLItem {
     /** height is depth of the tree. */
     height: number;
 }
-/** SnapshotIAVLItem is an exported IAVL node. */
+/**
+ * SnapshotIAVLItem is an exported IAVL node.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotIAVLItemSDKType {
     key: Uint8Array;
     value: Uint8Array;
     version: Long;
     height: number;
 }
-/** SnapshotExtensionMeta contains metadata about an external snapshotter. */
+/**
+ * SnapshotExtensionMeta contains metadata about an external snapshotter.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotExtensionMeta {
     name: string;
     format: number;
 }
-/** SnapshotExtensionMeta contains metadata about an external snapshotter. */
+/**
+ * SnapshotExtensionMeta contains metadata about an external snapshotter.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotExtensionMetaSDKType {
     name: string;
     format: number;
 }
-/** SnapshotExtensionPayload contains payloads of an external snapshotter. */
+/**
+ * SnapshotExtensionPayload contains payloads of an external snapshotter.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotExtensionPayload {
     payload: Uint8Array;
 }
-/** SnapshotExtensionPayload contains payloads of an external snapshotter. */
+/**
+ * SnapshotExtensionPayload contains payloads of an external snapshotter.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotExtensionPayloadSDKType {
     payload: Uint8Array;
 }
-/** SnapshotKVItem is an exported Key/Value Pair */
+/**
+ * SnapshotKVItem is an exported Key/Value Pair
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotKVItem {
     key: Uint8Array;
     value: Uint8Array;
 }
-/** SnapshotKVItem is an exported Key/Value Pair */
+/**
+ * SnapshotKVItem is an exported Key/Value Pair
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotKVItemSDKType {
     key: Uint8Array;
     value: Uint8Array;
 }
-/** SnapshotSchema is an exported schema of smt store */
+/**
+ * SnapshotSchema is an exported schema of smt store
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotSchema {
     keys: Uint8Array[];
 }
-/** SnapshotSchema is an exported schema of smt store */
+/**
+ * SnapshotSchema is an exported schema of smt store
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface SnapshotSchemaSDKType {
     keys: Uint8Array[];
 }

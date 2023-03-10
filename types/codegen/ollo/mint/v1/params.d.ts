@@ -13,12 +13,19 @@ export interface Params {
     inflationMin: string;
     /** goal of percent bonded coins */
     goalBonded: string;
-    /** expected blocks per year */
+    /**
+     * expected blocks per year
+     * TODO epochs
+     */
     blocksPerYear: Long;
     /** distribution_proportions defines the proportion of the minted denom */
     distributionProportions?: DistributionProportions;
     /** list of funded addresses */
     fundedAddresses: WeightedAddress[];
+    reduceFactor: string;
+    mintDistributionEpochStart: Long;
+    genesisEpochProvisions: string;
+    epochId: string;
 }
 /** Params holds parameters for the mint module. */
 export interface ParamsSDKType {
@@ -30,6 +37,10 @@ export interface ParamsSDKType {
     blocks_per_year: Long;
     distribution_proportions?: DistributionProportionsSDKType;
     funded_addresses: WeightedAddressSDKType[];
+    reduce_factor: string;
+    mint_distribution_epoch_start: Long;
+    genesis_epoch_provisions: string;
+    epoch_id: string;
 }
 export declare const Params: {
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;

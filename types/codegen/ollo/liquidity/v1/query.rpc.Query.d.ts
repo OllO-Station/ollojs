@@ -1,16 +1,18 @@
 import { Rpc } from "../../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
-import { QueryLiquidityPoolsRequest, QueryLiquidityPoolsResponse, QueryLiquidityPoolRequest, QueryLiquidityPoolResponse, QueryLiquidityPoolByPoolCoinDenomRequest, QueryLiquidityPoolByReserveAccRequest, QueryPairsRequest, QueryPairsResponse, QueryPairRequest, QueryPairResponse, QueryDepositRequestsRequest, QueryDepositRequestsResponse, QueryDepositRequestRequest, QueryDepositRequestResponse, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponse, QueryWithdrawRequestRequest, QueryWithdrawRequestResponse, QueryOrdersRequest, QueryOrdersResponse, QueryOrderRequest, QueryOrderResponse, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponse, QueryParamsRequest, QueryParamsResponse } from "./query";
-/** Query defines the gRPC query service for the liquidity module. */
+import { QueryParamsRequest, QueryParamsResponse, QueryPoolsRequest, QueryPoolsResponse, QueryPoolRequest, QueryPoolResponse, QueryPoolByReserveAddressRequest, QueryPoolByPoolCoinDenomRequest, QueryPairsRequest, QueryPairsResponse, QueryPairRequest, QueryPairResponse, QueryDepositRequestsRequest, QueryDepositRequestsResponse, QueryDepositRequestRequest, QueryDepositRequestResponse, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponse, QueryWithdrawRequestRequest, QueryWithdrawRequestResponse, QueryOrdersRequest, QueryOrdersResponse, QueryOrderRequest, QueryOrderResponse, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponse, QueryNumMMOrdersRequest, QueryNumMMOrdersResponse } from "./query";
+/** Query defines the gRPC querier service. */
 export interface Query {
-    /** "Returns a list of all liquidity pools with pagination */
-    liquidityPools(request: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponse>;
-    /** Returns the liquidity pool that corresponds to the pool_id." */
-    liquidityPool(request: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponse>;
-    /** Get specific liquidity pool corresponding to the pool_coin_denom. */
-    liquidityPoolByPoolCoinDenom(request: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponse>;
-    /** Get specific liquidity pool corresponding to the reserve account. */
-    liquidityPoolByReserveAcc(request: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponse>;
+    /** Params returns parameters of the module. */
+    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    /** Pools returns all liquidity pools. */
+    pools(request: QueryPoolsRequest): Promise<QueryPoolsResponse>;
+    /** Pool returns the specific liquidity pool. */
+    pool(request: QueryPoolRequest): Promise<QueryPoolResponse>;
+    /** PoolByReserveAddress returns all pools that correspond to the reserve account. */
+    poolByReserveAddress(request: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponse>;
+    /** PoolByPoolCoinDenom returns all pools that correspond to the pool coin denom. */
+    poolByPoolCoinDenom(request: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponse>;
     /** Pairs returns all liquidity pairs. */
     pairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
     /** Pair returns the specific pair. */
@@ -29,18 +31,19 @@ export interface Query {
     order(request: QueryOrderRequest): Promise<QueryOrderResponse>;
     /** OrdersByOrderer returns orders made by an orderer. */
     ordersByOrderer(request: QueryOrdersByOrdererRequest): Promise<QueryOrdersResponse>;
-    /** Get all order books of the liquidity module. */
+    /** OrderBooks returns an order book representation of orders. */
     orderBooks(request: QueryOrderBooksRequest): Promise<QueryOrderBooksResponse>;
-    /** Get all parameters of the liquidity module. */
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    /** NumMMOrders returns the number of active market making orders. */
+    numMMOrders(request: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
-    liquidityPools(request: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponse>;
-    liquidityPool(request: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponse>;
-    liquidityPoolByPoolCoinDenom(request: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponse>;
-    liquidityPoolByReserveAcc(request: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponse>;
+    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    pools(request: QueryPoolsRequest): Promise<QueryPoolsResponse>;
+    pool(request: QueryPoolRequest): Promise<QueryPoolResponse>;
+    poolByReserveAddress(request: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponse>;
+    poolByPoolCoinDenom(request: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponse>;
     pairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
     pair(request: QueryPairRequest): Promise<QueryPairResponse>;
     depositRequests(request: QueryDepositRequestsRequest): Promise<QueryDepositRequestsResponse>;
@@ -51,13 +54,14 @@ export declare class QueryClientImpl implements Query {
     order(request: QueryOrderRequest): Promise<QueryOrderResponse>;
     ordersByOrderer(request: QueryOrdersByOrdererRequest): Promise<QueryOrdersResponse>;
     orderBooks(request: QueryOrderBooksRequest): Promise<QueryOrderBooksResponse>;
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    numMMOrders(request: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
-    liquidityPools(request: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponse>;
-    liquidityPool(request: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponse>;
-    liquidityPoolByPoolCoinDenom(request: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponse>;
-    liquidityPoolByReserveAcc(request: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponse>;
+    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    pools(request: QueryPoolsRequest): Promise<QueryPoolsResponse>;
+    pool(request: QueryPoolRequest): Promise<QueryPoolResponse>;
+    poolByReserveAddress(request: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponse>;
+    poolByPoolCoinDenom(request: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponse>;
     pairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
     pair(request: QueryPairRequest): Promise<QueryPairResponse>;
     depositRequests(request: QueryDepositRequestsRequest): Promise<QueryDepositRequestsResponse>;
@@ -68,5 +72,5 @@ export declare const createRpcQueryExtension: (base: QueryClient) => {
     order(request: QueryOrderRequest): Promise<QueryOrderResponse>;
     ordersByOrderer(request: QueryOrdersByOrdererRequest): Promise<QueryOrdersResponse>;
     orderBooks(request: QueryOrderBooksRequest): Promise<QueryOrderBooksResponse>;
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    numMMOrders(request: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponse>;
 };

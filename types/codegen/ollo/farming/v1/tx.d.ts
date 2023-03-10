@@ -9,8 +9,8 @@ export interface MsgCreateFixedAmountPlan {
     /** name specifies the name for the plan */
     name: string;
     /**
-     * creator defines the bech32-encoded address of the creator for the private plan, termination address is also set to
-     * this creator.
+     * creator defines the bech32-encoded address of the creator for the private
+     * plan, termination address is also set to this creator.
      */
     creator: string;
     /** staking_coin_weights specifies coins weight for the plan */
@@ -34,10 +34,16 @@ export interface MsgCreateFixedAmountPlanSDKType {
     end_time?: Date;
     epoch_amount: CoinSDKType[];
 }
-/** MsgCreateFixedAmountPlanResponse defines the MsgCreateFixedAmountPlanResponse response type. */
+/**
+ * MsgCreateFixedAmountPlanResponse defines the MsgCreateFixedAmountPlanResponse
+ * response type.
+ */
 export interface MsgCreateFixedAmountPlanResponse {
 }
-/** MsgCreateFixedAmountPlanResponse defines the MsgCreateFixedAmountPlanResponse response type. */
+/**
+ * MsgCreateFixedAmountPlanResponse defines the MsgCreateFixedAmountPlanResponse
+ * response type.
+ */
 export interface MsgCreateFixedAmountPlanResponseSDKType {
 }
 /**
@@ -48,8 +54,8 @@ export interface MsgCreateRatioPlan {
     /** name specifies the name for the plan */
     name: string;
     /**
-     * creator defines the bech32-encoded address of the creator for the private plan, termination address is also set to
-     * this creator.
+     * creator defines the bech32-encoded address of the creator for the private
+     * plan, termination address is also set to this creator.
      */
     creator: string;
     /** staking_coin_weights specifies coins weight for the plan */
@@ -132,8 +138,8 @@ export interface MsgHarvest {
     /** farmer defines the bech32-encoded address of the farmer */
     farmer: string;
     /**
-     * staking_coin_denoms is the set of denoms of staked coins as a source of the reward for
-     * harvesting
+     * staking_coin_denoms is the set of denoms of staked coins as a source of the
+     * reward for harvesting
      */
     stakingCoinDenoms: string[];
 }

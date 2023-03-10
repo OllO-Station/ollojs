@@ -1,5 +1,171 @@
 import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
+export enum ClaimAction {
+  ClaimActionUnspecified = 0,
+  ClaimActionInitialClaim = 1,
+  ClaimActionStake = 2,
+  ClaimActionCastVote = 3,
+  ClaimActionDepositLiquidity = 4,
+  ClaimActionLockLiquidity = 5,
+  ClaimActionMintNft = 6,
+  ClaimActionAuctionNft = 7,
+  ClaimActionDepositExternalAsset = 8,
+  ClaimActionSwap = 9,
+  ClaimActionBorrow = 10,
+  UNRECOGNIZED = -1,
+}
+export const ClaimActionSDKType = ClaimAction;
+export function claimActionFromJSON(object: any): ClaimAction {
+  switch (object) {
+    case 0:
+    case "ClaimActionUnspecified":
+      return ClaimAction.ClaimActionUnspecified;
+
+    case 1:
+    case "ClaimActionInitialClaim":
+      return ClaimAction.ClaimActionInitialClaim;
+
+    case 2:
+    case "ClaimActionStake":
+      return ClaimAction.ClaimActionStake;
+
+    case 3:
+    case "ClaimActionCastVote":
+      return ClaimAction.ClaimActionCastVote;
+
+    case 4:
+    case "ClaimActionDepositLiquidity":
+      return ClaimAction.ClaimActionDepositLiquidity;
+
+    case 5:
+    case "ClaimActionLockLiquidity":
+      return ClaimAction.ClaimActionLockLiquidity;
+
+    case 6:
+    case "ClaimActionMintNft":
+      return ClaimAction.ClaimActionMintNft;
+
+    case 7:
+    case "ClaimActionAuctionNft":
+      return ClaimAction.ClaimActionAuctionNft;
+
+    case 8:
+    case "ClaimActionDepositExternalAsset":
+      return ClaimAction.ClaimActionDepositExternalAsset;
+
+    case 9:
+    case "ClaimActionSwap":
+      return ClaimAction.ClaimActionSwap;
+
+    case 10:
+    case "ClaimActionBorrow":
+      return ClaimAction.ClaimActionBorrow;
+
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ClaimAction.UNRECOGNIZED;
+  }
+}
+export function claimActionToJSON(object: ClaimAction): string {
+  switch (object) {
+    case ClaimAction.ClaimActionUnspecified:
+      return "ClaimActionUnspecified";
+
+    case ClaimAction.ClaimActionInitialClaim:
+      return "ClaimActionInitialClaim";
+
+    case ClaimAction.ClaimActionStake:
+      return "ClaimActionStake";
+
+    case ClaimAction.ClaimActionCastVote:
+      return "ClaimActionCastVote";
+
+    case ClaimAction.ClaimActionDepositLiquidity:
+      return "ClaimActionDepositLiquidity";
+
+    case ClaimAction.ClaimActionLockLiquidity:
+      return "ClaimActionLockLiquidity";
+
+    case ClaimAction.ClaimActionMintNft:
+      return "ClaimActionMintNft";
+
+    case ClaimAction.ClaimActionAuctionNft:
+      return "ClaimActionAuctionNft";
+
+    case ClaimAction.ClaimActionDepositExternalAsset:
+      return "ClaimActionDepositExternalAsset";
+
+    case ClaimAction.ClaimActionSwap:
+      return "ClaimActionSwap";
+
+    case ClaimAction.ClaimActionBorrow:
+      return "ClaimActionBorrow";
+
+    case ClaimAction.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+export enum ClaimStatus {
+  ClaimStatusUnspecified = 0,
+  ClaimStatusPending = 1,
+  ClaimStatusClaimed = 2,
+  ClaimStatusActive = 3,
+  ClaimStatusExpired = 4,
+  UNRECOGNIZED = -1,
+}
+export const ClaimStatusSDKType = ClaimStatus;
+export function claimStatusFromJSON(object: any): ClaimStatus {
+  switch (object) {
+    case 0:
+    case "ClaimStatusUnspecified":
+      return ClaimStatus.ClaimStatusUnspecified;
+
+    case 1:
+    case "ClaimStatusPending":
+      return ClaimStatus.ClaimStatusPending;
+
+    case 2:
+    case "ClaimStatusClaimed":
+      return ClaimStatus.ClaimStatusClaimed;
+
+    case 3:
+    case "ClaimStatusActive":
+      return ClaimStatus.ClaimStatusActive;
+
+    case 4:
+    case "ClaimStatusExpired":
+      return ClaimStatus.ClaimStatusExpired;
+
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ClaimStatus.UNRECOGNIZED;
+  }
+}
+export function claimStatusToJSON(object: ClaimStatus): string {
+  switch (object) {
+    case ClaimStatus.ClaimStatusUnspecified:
+      return "ClaimStatusUnspecified";
+
+    case ClaimStatus.ClaimStatusPending:
+      return "ClaimStatusPending";
+
+    case ClaimStatus.ClaimStatusClaimed:
+      return "ClaimStatusClaimed";
+
+    case ClaimStatus.ClaimStatusActive:
+      return "ClaimStatusActive";
+
+    case ClaimStatus.ClaimStatusExpired:
+      return "ClaimStatusExpired";
+
+    case ClaimStatus.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
 export interface InitialClaim {
   enabled: boolean;
   goalId: Long;

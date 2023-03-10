@@ -1,44 +1,59 @@
 import { Params, ParamsSDKType } from "./params";
-import { Pair, PairSDKType, Pool, PoolSDKType, Order, OrderSDKType, RequestDeposit, RequestDepositSDKType, RequestWithdraw, RequestWithdrawSDKType, MarketMakingOrderId, MarketMakingOrderIdSDKType } from "./liquidity";
+import { Pair, PairSDKType } from "./pair";
+import { Pool, PoolSDKType } from "./pool";
+import { DepositRequest, DepositRequestSDKType, WithdrawRequest, WithdrawRequestSDKType } from "./liquidity";
+import { Order, OrderSDKType } from "./order";
 import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 /** GenesisState defines the liquidity module's genesis state. */
 export interface GenesisState {
     params?: Params;
+    lastPairId: Long;
+    lastPoolId: Long;
     pairs: Pair[];
     pools: Pool[];
-    requests?: GenesisRequestsState;
-    prevPoolId: Long;
-    prevPairId: Long;
+    depositRequests: DepositRequest[];
+    withdrawRequests: WithdrawRequest[];
+    orders: Order[];
+    numMarketMakingOrdersRecords: NumMMOrdersRecord[];
 }
 /** GenesisState defines the liquidity module's genesis state. */
 export interface GenesisStateSDKType {
     params?: ParamsSDKType;
+    last_pair_id: Long;
+    last_pool_id: Long;
     pairs: PairSDKType[];
     pools: PoolSDKType[];
-    requests?: GenesisRequestsStateSDKType;
-    prev_pool_id: Long;
-    prev_pair_id: Long;
-}
-export interface GenesisRequestsState {
-    orders: Order[];
-    deposits: RequestDeposit[];
-    withdrawals: RequestWithdraw[];
-    marketMakingOrderIds: MarketMakingOrderId[];
-}
-export interface GenesisRequestsStateSDKType {
+    deposit_requests: DepositRequestSDKType[];
+    withdraw_requests: WithdrawRequestSDKType[];
     orders: OrderSDKType[];
-    deposits: RequestDepositSDKType[];
-    withdrawals: RequestWithdrawSDKType[];
-    market_making_order_ids: MarketMakingOrderIdSDKType[];
+    num_market_making_orders_records: NumMMOrdersRecordSDKType[];
+}
+/**
+ * NumMMOrdersRecord holds information about how many MM orders an orderer
+ * ordered per pair.
+ */
+export interface NumMMOrdersRecord {
+    orderer: string;
+    pairId: Long;
+    numMarketMakingOrders: number;
+}
+/**
+ * NumMMOrdersRecord holds information about how many MM orders an orderer
+ * ordered per pair.
+ */
+export interface NumMMOrdersRecordSDKType {
+    orderer: string;
+    pair_id: Long;
+    num_market_making_orders: number;
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState;
     fromPartial(object: DeepPartial<GenesisState>): GenesisState;
 };
-export declare const GenesisRequestsState: {
-    encode(message: GenesisRequestsState, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): GenesisRequestsState;
-    fromPartial(object: DeepPartial<GenesisRequestsState>): GenesisRequestsState;
+export declare const NumMMOrdersRecord: {
+    encode(message: NumMMOrdersRecord, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): NumMMOrdersRecord;
+    fromPartial(object: DeepPartial<NumMMOrdersRecord>): NumMMOrdersRecord;
 };

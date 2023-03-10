@@ -1,33 +1,33 @@
 import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-export interface EventMissionCompleted {
-  missionId: Long;
+export interface EventGoalCompleted {
+  goalID: Long;
   address: string;
 }
-export interface EventMissionCompletedSDKType {
-  mission_id: Long;
+export interface EventGoalCompletedSDKType {
+  goalID: Long;
   address: string;
 }
-export interface EventMissionClaimed {
-  missionId: Long;
+export interface EventGoalClaimed {
+  goalID: Long;
   claimer: string;
 }
-export interface EventMissionClaimedSDKType {
-  mission_id: Long;
+export interface EventGoalClaimedSDKType {
+  goalID: Long;
   claimer: string;
 }
 
-function createBaseEventMissionCompleted(): EventMissionCompleted {
+function createBaseEventGoalCompleted(): EventGoalCompleted {
   return {
-    missionId: Long.UZERO,
+    goalID: Long.UZERO,
     address: ""
   };
 }
 
-export const EventMissionCompleted = {
-  encode(message: EventMissionCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.missionId.isZero()) {
-      writer.uint32(8).uint64(message.missionId);
+export const EventGoalCompleted = {
+  encode(message: EventGoalCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.goalID.isZero()) {
+      writer.uint32(8).uint64(message.goalID);
     }
 
     if (message.address !== "") {
@@ -37,17 +37,17 @@ export const EventMissionCompleted = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): EventMissionCompleted {
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventGoalCompleted {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseEventMissionCompleted();
+    const message = createBaseEventGoalCompleted();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
 
       switch (tag >>> 3) {
         case 1:
-          message.missionId = (reader.uint64() as Long);
+          message.goalID = (reader.uint64() as Long);
           break;
 
         case 2:
@@ -63,26 +63,26 @@ export const EventMissionCompleted = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<EventMissionCompleted>): EventMissionCompleted {
-    const message = createBaseEventMissionCompleted();
-    message.missionId = object.missionId !== undefined && object.missionId !== null ? Long.fromValue(object.missionId) : Long.UZERO;
+  fromPartial(object: DeepPartial<EventGoalCompleted>): EventGoalCompleted {
+    const message = createBaseEventGoalCompleted();
+    message.goalID = object.goalID !== undefined && object.goalID !== null ? Long.fromValue(object.goalID) : Long.UZERO;
     message.address = object.address ?? "";
     return message;
   }
 
 };
 
-function createBaseEventMissionClaimed(): EventMissionClaimed {
+function createBaseEventGoalClaimed(): EventGoalClaimed {
   return {
-    missionId: Long.UZERO,
+    goalID: Long.UZERO,
     claimer: ""
   };
 }
 
-export const EventMissionClaimed = {
-  encode(message: EventMissionClaimed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.missionId.isZero()) {
-      writer.uint32(8).uint64(message.missionId);
+export const EventGoalClaimed = {
+  encode(message: EventGoalClaimed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.goalID.isZero()) {
+      writer.uint32(8).uint64(message.goalID);
     }
 
     if (message.claimer !== "") {
@@ -92,17 +92,17 @@ export const EventMissionClaimed = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): EventMissionClaimed {
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventGoalClaimed {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseEventMissionClaimed();
+    const message = createBaseEventGoalClaimed();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
 
       switch (tag >>> 3) {
         case 1:
-          message.missionId = (reader.uint64() as Long);
+          message.goalID = (reader.uint64() as Long);
           break;
 
         case 2:
@@ -118,9 +118,9 @@ export const EventMissionClaimed = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<EventMissionClaimed>): EventMissionClaimed {
-    const message = createBaseEventMissionClaimed();
-    message.missionId = object.missionId !== undefined && object.missionId !== null ? Long.fromValue(object.missionId) : Long.UZERO;
+  fromPartial(object: DeepPartial<EventGoalClaimed>): EventGoalClaimed {
+    const message = createBaseEventGoalClaimed();
+    message.goalID = object.goalID !== undefined && object.goalID !== null ? Long.fromValue(object.goalID) : Long.UZERO;
     message.claimer = object.claimer ?? "";
     return message;
   }

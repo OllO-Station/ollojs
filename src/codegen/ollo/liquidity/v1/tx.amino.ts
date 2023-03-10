@@ -1,19 +1,7 @@
-import { orderDirectionFromJSON } from "./liquidity";
+import { orderDirectionFromJSON } from "./order";
 import { AminoMsg } from "@cosmjs/amino";
 import { Long } from "../../../helpers";
-import { MsgCreatePool, MsgCreatePair, MsgCreatePoolCapped, MsgDeposit, MsgWithdraw, MsgOrderLimit, MsgOrderMarket, MsgOrderMarketMaking, MsgCancelOrder, MsgCancelAllOrders, MsgCancelMarketMakingOrder } from "./tx";
-export interface AminoMsgCreatePool extends AminoMsg {
-  type: "/ollo.liquidity.v1.MsgCreatePool";
-  value: {
-    creator: string;
-    type_id: string;
-    pair_id: string;
-    deposit_coins: {
-      denom: string;
-      amount: string;
-    }[];
-  };
-}
+import { MsgCreatePair, MsgCreatePool, MsgCreateRangedPool, MsgDeposit, MsgWithdraw, MsgLimitOrder, MsgMarketOrder, MsgMMOrder, MsgCancelOrder, MsgCancelAllOrders } from "./tx";
 export interface AminoMsgCreatePair extends AminoMsg {
   type: "/ollo.liquidity.v1.MsgCreatePair";
   value: {
@@ -22,8 +10,19 @@ export interface AminoMsgCreatePair extends AminoMsg {
     quote_coin_denom: string;
   };
 }
-export interface AminoMsgCreatePoolCapped extends AminoMsg {
-  type: "/ollo.liquidity.v1.MsgCreatePoolCapped";
+export interface AminoMsgCreatePool extends AminoMsg {
+  type: "/ollo.liquidity.v1.MsgCreatePool";
+  value: {
+    creator: string;
+    pair_id: string;
+    deposit_coins: {
+      denom: string;
+      amount: string;
+    }[];
+  };
+}
+export interface AminoMsgCreateRangedPool extends AminoMsg {
+  type: "/ollo.liquidity.v1.MsgCreateRangedPool";
   value: {
     creator: string;
     pair_id: string;
@@ -58,8 +57,8 @@ export interface AminoMsgWithdraw extends AminoMsg {
     };
   };
 }
-export interface AminoMsgOrderLimit extends AminoMsg {
-  type: "/ollo.liquidity.v1.MsgOrderLimit";
+export interface AminoMsgLimitOrder extends AminoMsg {
+  type: "/ollo.liquidity.v1.MsgLimitOrder";
   value: {
     orderer: string;
     pair_id: string;
@@ -77,8 +76,8 @@ export interface AminoMsgOrderLimit extends AminoMsg {
     };
   };
 }
-export interface AminoMsgOrderMarket extends AminoMsg {
-  type: "/ollo.liquidity.v1.MsgOrderMarket";
+export interface AminoMsgMarketOrder extends AminoMsg {
+  type: "/ollo.liquidity.v1.MsgMarketOrder";
   value: {
     orderer: string;
     pair_id: string;
@@ -95,17 +94,19 @@ export interface AminoMsgOrderMarket extends AminoMsg {
     };
   };
 }
-export interface AminoMsgOrderMarketMaking extends AminoMsg {
-  type: "/ollo.liquidity.v1.MsgOrderMarketMaking";
+export interface AminoMsgMMOrder extends AminoMsg {
+  type: "/ollo.liquidity.v1.MsgMMOrder";
   value: {
     orderer: string;
     pair_id: string;
-    max_sell_price: string;
-    min_sell_price: string;
-    sell_amount: string;
-    max_buy_price: string;
-    min_buy_price: string;
-    buy_amount: string;
+    direction: number;
+    offer_coin: {
+      denom: string;
+      amount: string;
+    };
+    demand_coin_denom: string;
+    price: string;
+    amount: string;
     order_lifespan: {
       seconds: string;
       nanos: number;
@@ -115,7 +116,7 @@ export interface AminoMsgOrderMarketMaking extends AminoMsg {
 export interface AminoMsgCancelOrder extends AminoMsg {
   type: "/ollo.liquidity.v1.MsgCancelOrder";
   value: {
-    order_addr: string;
+    orderer: string;
     pair_id: string;
     order_id: string;
   };
@@ -123,53 +124,11 @@ export interface AminoMsgCancelOrder extends AminoMsg {
 export interface AminoMsgCancelAllOrders extends AminoMsg {
   type: "/ollo.liquidity.v1.MsgCancelAllOrders";
   value: {
-    order_addr: string;
+    orderer: string;
     pair_ids: string[];
   };
 }
-export interface AminoMsgCancelMarketMakingOrder extends AminoMsg {
-  type: "/ollo.liquidity.v1.MsgCancelMarketMakingOrder";
-  value: {
-    orderer: string;
-    pair_id: string;
-  };
-}
 export const AminoConverter = {
-  "/ollo.liquidity.v1.MsgCreatePool": {
-    aminoType: "/ollo.liquidity.v1.MsgCreatePool",
-    toAmino: ({
-      creator,
-      typeId,
-      pairId,
-      depositCoins
-    }: MsgCreatePool): AminoMsgCreatePool["value"] => {
-      return {
-        creator,
-        type_id: typeId.toString(),
-        pair_id: pairId.toString(),
-        deposit_coins: depositCoins.map(el0 => ({
-          denom: el0.denom,
-          amount: el0.amount
-        }))
-      };
-    },
-    fromAmino: ({
-      creator,
-      type_id,
-      pair_id,
-      deposit_coins
-    }: AminoMsgCreatePool["value"]): MsgCreatePool => {
-      return {
-        creator,
-        typeId: Long.fromString(type_id),
-        pairId: Long.fromString(pair_id),
-        depositCoins: deposit_coins.map(el0 => ({
-          denom: el0.denom,
-          amount: el0.amount
-        }))
-      };
-    }
-  },
   "/ollo.liquidity.v1.MsgCreatePair": {
     aminoType: "/ollo.liquidity.v1.MsgCreatePair",
     toAmino: ({
@@ -195,8 +154,39 @@ export const AminoConverter = {
       };
     }
   },
-  "/ollo.liquidity.v1.MsgCreatePoolCapped": {
-    aminoType: "/ollo.liquidity.v1.MsgCreatePoolCapped",
+  "/ollo.liquidity.v1.MsgCreatePool": {
+    aminoType: "/ollo.liquidity.v1.MsgCreatePool",
+    toAmino: ({
+      creator,
+      pairId,
+      depositCoins
+    }: MsgCreatePool): AminoMsgCreatePool["value"] => {
+      return {
+        creator,
+        pair_id: pairId.toString(),
+        deposit_coins: depositCoins.map(el0 => ({
+          denom: el0.denom,
+          amount: el0.amount
+        }))
+      };
+    },
+    fromAmino: ({
+      creator,
+      pair_id,
+      deposit_coins
+    }: AminoMsgCreatePool["value"]): MsgCreatePool => {
+      return {
+        creator,
+        pairId: Long.fromString(pair_id),
+        depositCoins: deposit_coins.map(el0 => ({
+          denom: el0.denom,
+          amount: el0.amount
+        }))
+      };
+    }
+  },
+  "/ollo.liquidity.v1.MsgCreateRangedPool": {
+    aminoType: "/ollo.liquidity.v1.MsgCreateRangedPool",
     toAmino: ({
       creator,
       pairId,
@@ -204,7 +194,7 @@ export const AminoConverter = {
       minPrice,
       maxPrice,
       initialPrice
-    }: MsgCreatePoolCapped): AminoMsgCreatePoolCapped["value"] => {
+    }: MsgCreateRangedPool): AminoMsgCreateRangedPool["value"] => {
       return {
         creator,
         pair_id: pairId.toString(),
@@ -224,7 +214,7 @@ export const AminoConverter = {
       min_price,
       max_price,
       initial_price
-    }: AminoMsgCreatePoolCapped["value"]): MsgCreatePoolCapped => {
+    }: AminoMsgCreateRangedPool["value"]): MsgCreateRangedPool => {
       return {
         creator,
         pairId: Long.fromString(pair_id),
@@ -300,8 +290,8 @@ export const AminoConverter = {
       };
     }
   },
-  "/ollo.liquidity.v1.MsgOrderLimit": {
-    aminoType: "/ollo.liquidity.v1.MsgOrderLimit",
+  "/ollo.liquidity.v1.MsgLimitOrder": {
+    aminoType: "/ollo.liquidity.v1.MsgLimitOrder",
     toAmino: ({
       orderer,
       pairId,
@@ -311,7 +301,7 @@ export const AminoConverter = {
       price,
       amount,
       orderLifespan
-    }: MsgOrderLimit): AminoMsgOrderLimit["value"] => {
+    }: MsgLimitOrder): AminoMsgLimitOrder["value"] => {
       return {
         orderer,
         pair_id: pairId.toString(),
@@ -335,7 +325,7 @@ export const AminoConverter = {
       price,
       amount,
       order_lifespan
-    }: AminoMsgOrderLimit["value"]): MsgOrderLimit => {
+    }: AminoMsgLimitOrder["value"]): MsgLimitOrder => {
       return {
         orderer,
         pairId: Long.fromString(pair_id),
@@ -354,8 +344,8 @@ export const AminoConverter = {
       };
     }
   },
-  "/ollo.liquidity.v1.MsgOrderMarket": {
-    aminoType: "/ollo.liquidity.v1.MsgOrderMarket",
+  "/ollo.liquidity.v1.MsgMarketOrder": {
+    aminoType: "/ollo.liquidity.v1.MsgMarketOrder",
     toAmino: ({
       orderer,
       pairId,
@@ -364,7 +354,7 @@ export const AminoConverter = {
       demandCoinDenom,
       amount,
       orderLifespan
-    }: MsgOrderMarket): AminoMsgOrderMarket["value"] => {
+    }: MsgMarketOrder): AminoMsgMarketOrder["value"] => {
       return {
         orderer,
         pair_id: pairId.toString(),
@@ -386,7 +376,7 @@ export const AminoConverter = {
       demand_coin_denom,
       amount,
       order_lifespan
-    }: AminoMsgOrderMarket["value"]): MsgOrderMarket => {
+    }: AminoMsgMarketOrder["value"]): MsgMarketOrder => {
       return {
         orderer,
         pairId: Long.fromString(pair_id),
@@ -404,51 +394,53 @@ export const AminoConverter = {
       };
     }
   },
-  "/ollo.liquidity.v1.MsgOrderMarketMaking": {
-    aminoType: "/ollo.liquidity.v1.MsgOrderMarketMaking",
+  "/ollo.liquidity.v1.MsgMMOrder": {
+    aminoType: "/ollo.liquidity.v1.MsgMMOrder",
     toAmino: ({
       orderer,
       pairId,
-      maxSellPrice,
-      minSellPrice,
-      sellAmount,
-      maxBuyPrice,
-      minBuyPrice,
-      buyAmount,
+      direction,
+      offerCoin,
+      demandCoinDenom,
+      price,
+      amount,
       orderLifespan
-    }: MsgOrderMarketMaking): AminoMsgOrderMarketMaking["value"] => {
+    }: MsgMMOrder): AminoMsgMMOrder["value"] => {
       return {
         orderer,
         pair_id: pairId.toString(),
-        max_sell_price: maxSellPrice,
-        min_sell_price: minSellPrice,
-        sell_amount: sellAmount,
-        max_buy_price: maxBuyPrice,
-        min_buy_price: minBuyPrice,
-        buy_amount: buyAmount,
+        direction,
+        offer_coin: {
+          denom: offerCoin.denom,
+          amount: Long.fromValue(offerCoin.amount).toString()
+        },
+        demand_coin_denom: demandCoinDenom,
+        price,
+        amount,
         order_lifespan: (orderLifespan * 1_000_000_000).toString()
       };
     },
     fromAmino: ({
       orderer,
       pair_id,
-      max_sell_price,
-      min_sell_price,
-      sell_amount,
-      max_buy_price,
-      min_buy_price,
-      buy_amount,
+      direction,
+      offer_coin,
+      demand_coin_denom,
+      price,
+      amount,
       order_lifespan
-    }: AminoMsgOrderMarketMaking["value"]): MsgOrderMarketMaking => {
+    }: AminoMsgMMOrder["value"]): MsgMMOrder => {
       return {
         orderer,
         pairId: Long.fromString(pair_id),
-        maxSellPrice: max_sell_price,
-        minSellPrice: min_sell_price,
-        sellAmount: sell_amount,
-        maxBuyPrice: max_buy_price,
-        minBuyPrice: min_buy_price,
-        buyAmount: buy_amount,
+        direction: orderDirectionFromJSON(direction),
+        offerCoin: {
+          denom: offer_coin.denom,
+          amount: offer_coin.amount
+        },
+        demandCoinDenom: demand_coin_denom,
+        price,
+        amount,
         orderLifespan: {
           seconds: Long.fromNumber(Math.floor(parseInt(order_lifespan) / 1_000_000_000)),
           nanos: parseInt(order_lifespan) % 1_000_000_000
@@ -459,23 +451,23 @@ export const AminoConverter = {
   "/ollo.liquidity.v1.MsgCancelOrder": {
     aminoType: "/ollo.liquidity.v1.MsgCancelOrder",
     toAmino: ({
-      orderAddr,
+      orderer,
       pairId,
       orderId
     }: MsgCancelOrder): AminoMsgCancelOrder["value"] => {
       return {
-        order_addr: orderAddr,
+        orderer,
         pair_id: pairId.toString(),
         order_id: orderId.toString()
       };
     },
     fromAmino: ({
-      order_addr,
+      orderer,
       pair_id,
       order_id
     }: AminoMsgCancelOrder["value"]): MsgCancelOrder => {
       return {
-        orderAddr: order_addr,
+        orderer,
         pairId: Long.fromString(pair_id),
         orderId: Long.fromString(order_id)
       };
@@ -484,42 +476,21 @@ export const AminoConverter = {
   "/ollo.liquidity.v1.MsgCancelAllOrders": {
     aminoType: "/ollo.liquidity.v1.MsgCancelAllOrders",
     toAmino: ({
-      orderAddr,
+      orderer,
       pairIds
     }: MsgCancelAllOrders): AminoMsgCancelAllOrders["value"] => {
       return {
-        order_addr: orderAddr,
+        orderer,
         pair_ids: pairIds.map(el0 => el0.toString())
       };
     },
     fromAmino: ({
-      order_addr,
+      orderer,
       pair_ids
     }: AminoMsgCancelAllOrders["value"]): MsgCancelAllOrders => {
       return {
-        orderAddr: order_addr,
+        orderer,
         pairIds: pair_ids.map(el0 => Long.fromString(el0))
-      };
-    }
-  },
-  "/ollo.liquidity.v1.MsgCancelMarketMakingOrder": {
-    aminoType: "/ollo.liquidity.v1.MsgCancelMarketMakingOrder",
-    toAmino: ({
-      orderer,
-      pairId
-    }: MsgCancelMarketMakingOrder): AminoMsgCancelMarketMakingOrder["value"] => {
-      return {
-        orderer,
-        pair_id: pairId.toString()
-      };
-    },
-    fromAmino: ({
-      orderer,
-      pair_id
-    }: AminoMsgCancelMarketMakingOrder["value"]): MsgCancelMarketMakingOrder => {
-      return {
-        orderer,
-        pairId: Long.fromString(pair_id)
       };
     }
   }

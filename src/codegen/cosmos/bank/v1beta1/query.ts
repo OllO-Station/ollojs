@@ -1,6 +1,6 @@
 import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
 import { Coin, CoinSDKType } from "../../base/v1beta1/coin";
-import { Params, ParamsSDKType, Metadata, MetadataSDKType } from "./bank";
+import { Params, ParamsSDKType, Metadata, MetadataSDKType, SendEnabled, SendEnabledSDKType } from "./bank";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../../helpers";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
@@ -68,6 +68,8 @@ export interface QueryAllBalancesResponseSDKType {
 /**
  * QuerySpendableBalancesRequest defines the gRPC request structure for querying
  * an account's spendable balances.
+ * 
+ * Since: cosmos-sdk 0.46
  */
 
 export interface QuerySpendableBalancesRequest {
@@ -80,6 +82,8 @@ export interface QuerySpendableBalancesRequest {
 /**
  * QuerySpendableBalancesRequest defines the gRPC request structure for querying
  * an account's spendable balances.
+ * 
+ * Since: cosmos-sdk 0.46
  */
 
 export interface QuerySpendableBalancesRequestSDKType {
@@ -89,6 +93,8 @@ export interface QuerySpendableBalancesRequestSDKType {
 /**
  * QuerySpendableBalancesResponse defines the gRPC response structure for querying
  * an account's spendable balances.
+ * 
+ * Since: cosmos-sdk 0.46
  */
 
 export interface QuerySpendableBalancesResponse {
@@ -101,6 +107,8 @@ export interface QuerySpendableBalancesResponse {
 /**
  * QuerySpendableBalancesResponse defines the gRPC response structure for querying
  * an account's spendable balances.
+ * 
+ * Since: cosmos-sdk 0.46
  */
 
 export interface QuerySpendableBalancesResponseSDKType {
@@ -278,6 +286,8 @@ export interface QueryDenomOwnersRequestSDKType {
  * DenomOwner defines structure representing an account that owns or holds a
  * particular denominated token. It contains the account address and account
  * balance of the denominated token.
+ * 
+ * Since: cosmos-sdk 0.46
  */
 
 export interface DenomOwner {
@@ -291,13 +301,19 @@ export interface DenomOwner {
  * DenomOwner defines structure representing an account that owns or holds a
  * particular denominated token. It contains the account address and account
  * balance of the denominated token.
+ * 
+ * Since: cosmos-sdk 0.46
  */
 
 export interface DenomOwnerSDKType {
   address: string;
   balance?: CoinSDKType;
 }
-/** QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query. */
+/**
+ * QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
+ * 
+ * Since: cosmos-sdk 0.46
+ */
 
 export interface QueryDenomOwnersResponse {
   denomOwners: DenomOwner[];
@@ -305,10 +321,65 @@ export interface QueryDenomOwnersResponse {
 
   pagination?: PageResponse;
 }
-/** QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query. */
+/**
+ * QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
+ * 
+ * Since: cosmos-sdk 0.46
+ */
 
 export interface QueryDenomOwnersResponseSDKType {
   denom_owners: DenomOwnerSDKType[];
+  pagination?: PageResponseSDKType;
+}
+/**
+ * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+
+export interface QuerySendEnabledRequest {
+  /** denoms is the specific denoms you want look up. Leave empty to get all entries. */
+  denoms: string[];
+  /**
+   * pagination defines an optional pagination for the request. This field is
+   * only read if the denoms field is empty.
+   */
+
+  pagination?: PageRequest;
+}
+/**
+ * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+
+export interface QuerySendEnabledRequestSDKType {
+  denoms: string[];
+  pagination?: PageRequestSDKType;
+}
+/**
+ * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+
+export interface QuerySendEnabledResponse {
+  sendEnabled: SendEnabled[];
+  /**
+   * pagination defines the pagination in the response. This field is only
+   * populated if the denoms field in the request is empty.
+   */
+
+  pagination?: PageResponse;
+}
+/**
+ * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+
+export interface QuerySendEnabledResponseSDKType {
+  send_enabled: SendEnabledSDKType[];
   pagination?: PageResponseSDKType;
 }
 
@@ -1250,6 +1321,116 @@ export const QueryDenomOwnersResponse = {
   fromPartial(object: DeepPartial<QueryDenomOwnersResponse>): QueryDenomOwnersResponse {
     const message = createBaseQueryDenomOwnersResponse();
     message.denomOwners = object.denomOwners?.map(e => DenomOwner.fromPartial(e)) || [];
+    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
+    return message;
+  }
+
+};
+
+function createBaseQuerySendEnabledRequest(): QuerySendEnabledRequest {
+  return {
+    denoms: [],
+    pagination: undefined
+  };
+}
+
+export const QuerySendEnabledRequest = {
+  encode(message: QuerySendEnabledRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.denoms) {
+      writer.uint32(10).string(v!);
+    }
+
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(794).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QuerySendEnabledRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySendEnabledRequest();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.denoms.push(reader.string());
+          break;
+
+        case 99:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<QuerySendEnabledRequest>): QuerySendEnabledRequest {
+    const message = createBaseQuerySendEnabledRequest();
+    message.denoms = object.denoms?.map(e => e) || [];
+    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
+    return message;
+  }
+
+};
+
+function createBaseQuerySendEnabledResponse(): QuerySendEnabledResponse {
+  return {
+    sendEnabled: [],
+    pagination: undefined
+  };
+}
+
+export const QuerySendEnabledResponse = {
+  encode(message: QuerySendEnabledResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.sendEnabled) {
+      SendEnabled.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(794).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QuerySendEnabledResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySendEnabledResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
+          break;
+
+        case 99:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<QuerySendEnabledResponse>): QuerySendEnabledResponse {
+    const message = createBaseQuerySendEnabledResponse();
+    message.sendEnabled = object.sendEnabled?.map(e => SendEnabled.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
     return message;
   }

@@ -1,8 +1,62 @@
-import { PoolType, PoolTypeSDKType } from "./liquidity";
 import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-export interface PoolA {
-  type?: PoolType;
+/** PoolType enumerates pool types. */
+
+export enum PoolType {
+  /** POOL_TYPE_UNSPECIFIED - POOL_TYPE_UNSPECIFIED specifies unknown pool type */
+  POOL_TYPE_UNSPECIFIED = 0,
+
+  /** POOL_TYPE_BASIC - POOL_TYPE_BASIC specifies the basic pool type */
+  POOL_TYPE_BASIC = 1,
+
+  /** POOL_TYPE_RANGED - POOL_TYPE_RANGED specifies the ranged pool type */
+  POOL_TYPE_RANGED = 2,
+  UNRECOGNIZED = -1,
+}
+export const PoolTypeSDKType = PoolType;
+export function poolTypeFromJSON(object: any): PoolType {
+  switch (object) {
+    case 0:
+    case "POOL_TYPE_UNSPECIFIED":
+      return PoolType.POOL_TYPE_UNSPECIFIED;
+
+    case 1:
+    case "POOL_TYPE_BASIC":
+      return PoolType.POOL_TYPE_BASIC;
+
+    case 2:
+    case "POOL_TYPE_RANGED":
+      return PoolType.POOL_TYPE_RANGED;
+
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return PoolType.UNRECOGNIZED;
+  }
+}
+export function poolTypeToJSON(object: PoolType): string {
+  switch (object) {
+    case PoolType.POOL_TYPE_UNSPECIFIED:
+      return "POOL_TYPE_UNSPECIFIED";
+
+    case PoolType.POOL_TYPE_BASIC:
+      return "POOL_TYPE_BASIC";
+
+    case PoolType.POOL_TYPE_RANGED:
+      return "POOL_TYPE_RANGED";
+
+    case PoolType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+/**
+ * Pool defines generic liquidity pool object which can be either a basic pool or a
+ * ranged pool.
+ */
+
+export interface Pool {
+  type: PoolType;
   id: Long;
   pairId: Long;
   creator: string;
@@ -14,8 +68,13 @@ export interface PoolA {
   lastWithdrawRequestId: Long;
   disabled: boolean;
 }
-export interface PoolASDKType {
-  type?: PoolTypeSDKType;
+/**
+ * Pool defines generic liquidity pool object which can be either a basic pool or a
+ * ranged pool.
+ */
+
+export interface PoolSDKType {
+  type: PoolType;
   id: Long;
   pair_id: Long;
   creator: string;
@@ -28,9 +87,9 @@ export interface PoolASDKType {
   disabled: boolean;
 }
 
-function createBasePoolA(): PoolA {
+function createBasePool(): Pool {
   return {
-    type: undefined,
+    type: 0,
     id: Long.UZERO,
     pairId: Long.UZERO,
     creator: "",
@@ -44,10 +103,10 @@ function createBasePoolA(): PoolA {
   };
 }
 
-export const PoolA = {
-  encode(message: PoolA, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.type !== undefined) {
-      PoolType.encode(message.type, writer.uint32(10).fork()).ldelim();
+export const Pool = {
+  encode(message: Pool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.type !== 0) {
+      writer.uint32(8).int32(message.type);
     }
 
     if (!message.id.isZero()) {
@@ -93,17 +152,17 @@ export const PoolA = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): PoolA {
+  decode(input: _m0.Reader | Uint8Array, length?: number): Pool {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePoolA();
+    const message = createBasePool();
 
     while (reader.pos < end) {
       const tag = reader.uint32();
 
       switch (tag >>> 3) {
         case 1:
-          message.type = PoolType.decode(reader, reader.uint32());
+          message.type = (reader.int32() as any);
           break;
 
         case 2:
@@ -155,9 +214,9 @@ export const PoolA = {
     return message;
   },
 
-  fromPartial(object: DeepPartial<PoolA>): PoolA {
-    const message = createBasePoolA();
-    message.type = object.type !== undefined && object.type !== null ? PoolType.fromPartial(object.type) : undefined;
+  fromPartial(object: DeepPartial<Pool>): Pool {
+    const message = createBasePool();
+    message.type = object.type ?? 0;
     message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
     message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
     message.creator = object.creator ?? "";

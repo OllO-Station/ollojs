@@ -1,8 +1,8 @@
 import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
 import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Params, ParamsSDKType } from "./auth";
+import { Params, ParamsSDKType, BaseAccount, BaseAccountSDKType } from "./auth";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial } from "../../../helpers";
+import { DeepPartial, Long } from "../../../helpers";
 /**
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
  *
@@ -49,10 +49,18 @@ export interface QueryAccountRequest {
 export interface QueryAccountRequestSDKType {
     address: string;
 }
-/** QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method. */
+/**
+ * QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface QueryModuleAccountsRequest {
 }
-/** QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method. */
+/**
+ * QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface QueryModuleAccountsRequestSDKType {
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
@@ -79,59 +87,186 @@ export interface QueryParamsRequest {
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequestSDKType {
 }
-/** QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method. */
+/**
+ * QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface QueryModuleAccountsResponse {
     accounts: Any[];
 }
-/** QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method. */
+/**
+ * QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface QueryModuleAccountsResponseSDKType {
     accounts: AnySDKType[];
 }
-/** Bech32PrefixRequest is the request type for Bech32Prefix rpc method */
+/**
+ * Bech32PrefixRequest is the request type for Bech32Prefix rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface Bech32PrefixRequest {
 }
-/** Bech32PrefixRequest is the request type for Bech32Prefix rpc method */
+/**
+ * Bech32PrefixRequest is the request type for Bech32Prefix rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface Bech32PrefixRequestSDKType {
 }
-/** Bech32PrefixResponse is the response type for Bech32Prefix rpc method */
+/**
+ * Bech32PrefixResponse is the response type for Bech32Prefix rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface Bech32PrefixResponse {
     bech32Prefix: string;
 }
-/** Bech32PrefixResponse is the response type for Bech32Prefix rpc method */
+/**
+ * Bech32PrefixResponse is the response type for Bech32Prefix rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface Bech32PrefixResponseSDKType {
     bech32_prefix: string;
 }
-/** AddressBytesToStringRequest is the request type for AddressString rpc method */
+/**
+ * AddressBytesToStringRequest is the request type for AddressString rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressBytesToStringRequest {
     addressBytes: Uint8Array;
 }
-/** AddressBytesToStringRequest is the request type for AddressString rpc method */
+/**
+ * AddressBytesToStringRequest is the request type for AddressString rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressBytesToStringRequestSDKType {
     address_bytes: Uint8Array;
 }
-/** AddressBytesToStringResponse is the response type for AddressString rpc method */
+/**
+ * AddressBytesToStringResponse is the response type for AddressString rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressBytesToStringResponse {
     addressString: string;
 }
-/** AddressBytesToStringResponse is the response type for AddressString rpc method */
+/**
+ * AddressBytesToStringResponse is the response type for AddressString rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressBytesToStringResponseSDKType {
     address_string: string;
 }
-/** AddressStringToBytesRequest is the request type for AccountBytes rpc method */
+/**
+ * AddressStringToBytesRequest is the request type for AccountBytes rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressStringToBytesRequest {
     addressString: string;
 }
-/** AddressStringToBytesRequest is the request type for AccountBytes rpc method */
+/**
+ * AddressStringToBytesRequest is the request type for AccountBytes rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressStringToBytesRequestSDKType {
     address_string: string;
 }
-/** AddressStringToBytesResponse is the response type for AddressBytes rpc method */
+/**
+ * AddressStringToBytesResponse is the response type for AddressBytes rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressStringToBytesResponse {
     addressBytes: Uint8Array;
 }
-/** AddressStringToBytesResponse is the response type for AddressBytes rpc method */
+/**
+ * AddressStringToBytesResponse is the response type for AddressBytes rpc method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
 export interface AddressStringToBytesResponseSDKType {
     address_bytes: Uint8Array;
+}
+/**
+ * QueryAccountAddressByIDRequest is the request type for AccountAddressByID rpc method
+ *
+ * Since: cosmos-sdk 0.46.2
+ */
+export interface QueryAccountAddressByIDRequest {
+    /**
+     * id is the account number of the address to be queried. This field
+     * should have been an uint64 (like all account numbers), and will be
+     * updated to uint64 in a future version of the auth query.
+     */
+    id: Long;
+}
+/**
+ * QueryAccountAddressByIDRequest is the request type for AccountAddressByID rpc method
+ *
+ * Since: cosmos-sdk 0.46.2
+ */
+export interface QueryAccountAddressByIDRequestSDKType {
+    id: Long;
+}
+/**
+ * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
+ *
+ * Since: cosmos-sdk 0.46.2
+ */
+export interface QueryAccountAddressByIDResponse {
+    accountAddress: string;
+}
+/**
+ * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
+ *
+ * Since: cosmos-sdk 0.46.2
+ */
+export interface QueryAccountAddressByIDResponseSDKType {
+    account_address: string;
+}
+/**
+ * QueryAccountInfoRequest is the Query/AccountInfo request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QueryAccountInfoRequest {
+    /** address is the account address string. */
+    address: string;
+}
+/**
+ * QueryAccountInfoRequest is the Query/AccountInfo request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QueryAccountInfoRequestSDKType {
+    address: string;
+}
+/**
+ * QueryAccountInfoResponse is the Query/AccountInfo response type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QueryAccountInfoResponse {
+    /** info is the account info which is represented by BaseAccount. */
+    info?: BaseAccount;
+}
+/**
+ * QueryAccountInfoResponse is the Query/AccountInfo response type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QueryAccountInfoResponseSDKType {
+    info?: BaseAccountSDKType;
 }
 export declare const QueryAccountsRequest: {
     encode(message: QueryAccountsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -202,4 +337,24 @@ export declare const AddressStringToBytesResponse: {
     encode(message: AddressStringToBytesResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): AddressStringToBytesResponse;
     fromPartial(object: DeepPartial<AddressStringToBytesResponse>): AddressStringToBytesResponse;
+};
+export declare const QueryAccountAddressByIDRequest: {
+    encode(message: QueryAccountAddressByIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountAddressByIDRequest;
+    fromPartial(object: DeepPartial<QueryAccountAddressByIDRequest>): QueryAccountAddressByIDRequest;
+};
+export declare const QueryAccountAddressByIDResponse: {
+    encode(message: QueryAccountAddressByIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountAddressByIDResponse;
+    fromPartial(object: DeepPartial<QueryAccountAddressByIDResponse>): QueryAccountAddressByIDResponse;
+};
+export declare const QueryAccountInfoRequest: {
+    encode(message: QueryAccountInfoRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountInfoRequest;
+    fromPartial(object: DeepPartial<QueryAccountInfoRequest>): QueryAccountInfoRequest;
+};
+export declare const QueryAccountInfoResponse: {
+    encode(message: QueryAccountInfoResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountInfoResponse;
+    fromPartial(object: DeepPartial<QueryAccountInfoResponse>): QueryAccountInfoResponse;
 };

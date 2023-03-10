@@ -95,8 +95,8 @@ export function addressTypeToJSON(object: AddressType): string {
 /**
  * BasePlan defines a base plan type and contains the required fields
  * for basic farming plan functionality. Any custom farming plan type must
- * extend this type for additional functionality (for example, fixed amount plan, ratio
- * plan).
+ * extend this type for additional functionality (for example, fixed amount
+ * plan, ratio plan).
  */
 
 export interface BasePlan {
@@ -116,9 +116,9 @@ export interface BasePlan {
 
   farmingPoolAddress: string;
   /**
-   * termination_address defines the Bech32-encoded address that terminates the plan
-   * when the plan ends after the end time, the balance of the farming pool address
-   * is transferred to the termination address
+   * termination_address defines the Bech32-encoded address that terminates the
+   * plan when the plan ends after the end time, the balance of the farming pool
+   * address is transferred to the termination address
    */
 
   terminationAddress: string;
@@ -144,8 +144,8 @@ export interface BasePlan {
 /**
  * BasePlan defines a base plan type and contains the required fields
  * for basic farming plan functionality. Any custom farming plan type must
- * extend this type for additional functionality (for example, fixed amount plan, ratio
- * plan).
+ * extend this type for additional functionality (for example, fixed amount
+ * plan, ratio plan).
  */
 
 export interface BasePlanSDKType {
@@ -233,12 +233,18 @@ export interface TotalStakings {
 export interface TotalStakingsSDKType {
   amount: string;
 }
-/** HistoricalRewards defines the cumulative unit rewards for a given staking coin denom and an epoch number. */
+/**
+ * HistoricalRewards defines the cumulative unit rewards for a given staking
+ * coin denom and an epoch number.
+ */
 
 export interface HistoricalRewards {
   cumulativeUnitRewards: DecCoin[];
 }
-/** HistoricalRewards defines the cumulative unit rewards for a given staking coin denom and an epoch number. */
+/**
+ * HistoricalRewards defines the cumulative unit rewards for a given staking
+ * coin denom and an epoch number.
+ */
 
 export interface HistoricalRewardsSDKType {
   cumulative_unit_rewards: DecCoinSDKType[];

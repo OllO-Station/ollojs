@@ -3,16 +3,15 @@ package ollo.loan.v1;
 
 // this line is used by starport scaffolding # proto/packet/import
 
-option go_package = "ollo/x/loan/types";
+option go_package = "github.com/ollo-station/ollo/x/loan/types";
 
 message LoanPacketData {
   oneof packet {
     NoData no_data = 1;
-      // this line is used by starport scaffolding # ibc/packet/proto/field
+    // this line is used by starport scaffolding # ibc/packet/proto/field
   }
 }
 
-message NoData {
-}
+message NoData {}
 
 // this line is used by starport scaffolding # ibc/packet/proto/message

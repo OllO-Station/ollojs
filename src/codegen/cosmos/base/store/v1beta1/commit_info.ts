@@ -37,7 +37,7 @@ export interface StoreInfoSDKType {
   commit_id?: CommitIDSDKType;
 }
 /**
- * CommitID defines the committment information when a specific store is
+ * CommitID defines the commitment information when a specific store is
  * committed.
  */
 
@@ -46,7 +46,7 @@ export interface CommitID {
   hash: Uint8Array;
 }
 /**
- * CommitID defines the committment information when a specific store is
+ * CommitID defines the commitment information when a specific store is
  * committed.
  */
 

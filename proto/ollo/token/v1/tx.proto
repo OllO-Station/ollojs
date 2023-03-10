@@ -10,7 +10,7 @@ import "cosmos_proto/cosmos.proto";
 import "ollo/token/v1/params.proto";
 import "ollo/token/v1/token.proto";
 
-option go_package = "ollo/x/token/types";
+option go_package = "github.com/ollo-station/ollo/x/token/types";
 
 // Msg defines the token module message service
 service Msg {
@@ -26,10 +26,10 @@ service Msg {
 
   // BurnToken defines a method for burning some tokens
   rpc BurnToken(MsgBurnToken) returns (MsgBurnTokenResponse);
-  
+
   // TransferTokenOwner defines a method for minting some tokens
   rpc TransferTokenOwner(MsgTransferTokenOwner)
-    returns (MsgTransferTokenOwnerResponse);
+      returns (MsgTransferTokenOwnerResponse);
 }
 
 // MsgIssueToken defines an SDK message for issuing a new token

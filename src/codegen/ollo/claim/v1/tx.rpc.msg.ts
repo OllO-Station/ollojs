@@ -4,6 +4,7 @@ import { MsgClaim, MsgClaimResponse } from "./tx";
 /** Msg defines the Msg service. */
 
 export interface Msg {
+  /** Msg defines the Msg service. */
   claim(request: MsgClaim): Promise<MsgClaimResponse>;
 }
 export class MsgClientImpl implements Msg {

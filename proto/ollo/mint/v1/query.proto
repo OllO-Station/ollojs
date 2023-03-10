@@ -9,7 +9,7 @@ import "cosmos_proto/cosmos.proto";
 import "ollo/mint/v1/mint.proto";
 import "ollo/mint/v1/params.proto";
 
-option go_package = "ollo/x/mint/types";
+option go_package = "github.com/ollo-station/ollo/x/mint/types";
 
 // Query provides defines the gRPC querier service.
 service Query {
@@ -34,16 +34,16 @@ service Query {
 
   // Distribution returns distribution breakdown of current minting
   rpc Distribution(QueryDistributionRequest)
-    returns (QueryDistributionResponse) {
+      returns (QueryDistributionResponse) {
     option (google.api.http).get = "/ollo/mint/v1/distribution";
   }
 
   // LastBlockTime returns last block time
-  rpc LastBlockTime(QueryLastBlockTimeRequest) returns (QueryLastBlockTimeResponse) {
+  rpc LastBlockTime(QueryLastBlockTimeRequest)
+      returns (QueryLastBlockTimeResponse) {
     option (google.api.http).get = "/ollo/mint/v1/last_block_time";
   }
 }
-
 
 // QueryParamsRequest is the request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -64,6 +64,7 @@ message QueryInflationResponse {
   bytes inflation = 1 [
     (gogoproto.nullable) = false,
     (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.moretags) = "yaml:\"inflation\"",
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"
   ];
 }
@@ -78,6 +79,7 @@ message QueryAnnualProvisionsResponse {
   // annual_provisions is the current minting annual provisions value.
   bytes annual_provisions = 1 [
     (gogoproto.nullable) = false,
+    (gogoproto.moretags) = "yaml:\"annual_provisions\"",
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
     (cosmos_proto.scalar) = "cosmos.Dec"
   ];
@@ -85,14 +87,17 @@ message QueryAnnualProvisionsResponse {
 
 message QueryDistributionRequest {}
 
-message QueryDistributionResponse {
-}
+message QueryDistributionResponse {}
 
-// QueryLastBlockTimeRequest is the request type for the Query/LastBlockTime RPC method.
+// QueryLastBlockTimeRequest is the request type for the Query/LastBlockTime RPC
+// method.
 message QueryLastBlockTimeRequest {}
 
-// QueryLastBlockTimeResponse is the response type for the Query/LastBlockTime RPC method.
+// QueryLastBlockTimeResponse is the response type for the Query/LastBlockTime
+// RPC method.
 message QueryLastBlockTimeResponse {
-  google.protobuf.Timestamp last_block_time = 1
-      [(gogoproto.stdtime) = true, (gogoproto.moretags) = "yaml:\"last_block_time\""];
+  google.protobuf.Timestamp last_block_time = 1 [
+    (gogoproto.stdtime) = true,
+    (gogoproto.moretags) = "yaml:\"last_block_time\""
+  ];
 }

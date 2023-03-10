@@ -1,6 +1,6 @@
 import { setPaginationParams } from "../../../helpers";
 import { LCDClient } from "@osmonauts/lcd";
-import { QueryLiquidityPoolsRequest, QueryLiquidityPoolsResponseSDKType, QueryLiquidityPoolRequest, QueryLiquidityPoolResponseSDKType, QueryLiquidityPoolByPoolCoinDenomRequest, QueryLiquidityPoolByReserveAccRequest, QueryPairsRequest, QueryPairsResponseSDKType, QueryPairRequest, QueryPairResponseSDKType, QueryDepositRequestsRequest, QueryDepositRequestsResponseSDKType, QueryDepositRequestRequest, QueryDepositRequestResponseSDKType, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponseSDKType, QueryWithdrawRequestRequest, QueryWithdrawRequestResponseSDKType, QueryOrdersRequest, QueryOrdersResponseSDKType, QueryOrderRequest, QueryOrderResponseSDKType, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponseSDKType, QueryParamsRequest, QueryParamsResponseSDKType } from "./query";
+import { QueryParamsRequest, QueryParamsResponseSDKType, QueryPoolsRequest, QueryPoolsResponseSDKType, QueryPoolRequest, QueryPoolResponseSDKType, QueryPoolByReserveAddressRequest, QueryPoolByPoolCoinDenomRequest, QueryPairsRequest, QueryPairsResponseSDKType, QueryPairRequest, QueryPairResponseSDKType, QueryDepositRequestsRequest, QueryDepositRequestsResponseSDKType, QueryDepositRequestRequest, QueryDepositRequestResponseSDKType, QueryWithdrawRequestsRequest, QueryWithdrawRequestsResponseSDKType, QueryWithdrawRequestRequest, QueryWithdrawRequestResponseSDKType, QueryOrdersRequest, QueryOrdersResponseSDKType, QueryOrderRequest, QueryOrderResponseSDKType, QueryOrdersByOrdererRequest, QueryOrderBooksRequest, QueryOrderBooksResponseSDKType, QueryNumMMOrdersRequest, QueryNumMMOrdersResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
 
@@ -10,10 +10,11 @@ export class LCDQueryClient {
     requestClient: LCDClient;
   }) {
     this.req = requestClient;
-    this.liquidityPools = this.liquidityPools.bind(this);
-    this.liquidityPool = this.liquidityPool.bind(this);
-    this.liquidityPoolByPoolCoinDenom = this.liquidityPoolByPoolCoinDenom.bind(this);
-    this.liquidityPoolByReserveAcc = this.liquidityPoolByReserveAcc.bind(this);
+    this.params = this.params.bind(this);
+    this.pools = this.pools.bind(this);
+    this.pool = this.pool.bind(this);
+    this.poolByReserveAddress = this.poolByReserveAddress.bind(this);
+    this.poolByPoolCoinDenom = this.poolByPoolCoinDenom.bind(this);
     this.pairs = this.pairs.bind(this);
     this.pair = this.pair.bind(this);
     this.depositRequests = this.depositRequests.bind(this);
@@ -24,12 +25,19 @@ export class LCDQueryClient {
     this.order = this.order.bind(this);
     this.ordersByOrderer = this.ordersByOrderer.bind(this);
     this.orderBooks = this.orderBooks.bind(this);
-    this.params = this.params.bind(this);
+    this.numMMOrders = this.numMMOrders.bind(this);
   }
-  /* "Returns a list of all liquidity pools with pagination */
+  /* Params returns parameters of the module. */
 
 
-  async liquidityPools(params: QueryLiquidityPoolsRequest): Promise<QueryLiquidityPoolsResponseSDKType> {
+  async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
+    const endpoint = `ollo/liquidity/v1/params`;
+    return await this.req.get<QueryParamsResponseSDKType>(endpoint);
+  }
+  /* Pools returns all liquidity pools. */
+
+
+  async pools(params: QueryPoolsRequest): Promise<QueryPoolsResponseSDKType> {
     const options: any = {
       params: {}
     };
@@ -38,8 +46,8 @@ export class LCDQueryClient {
       options.params.pair_id = params.pairId;
     }
 
-    if (typeof params?.inactive !== "undefined") {
-      options.params.inactive = params.inactive;
+    if (typeof params?.disabled !== "undefined") {
+      options.params.disabled = params.disabled;
     }
 
     if (typeof params?.pagination !== "undefined") {
@@ -47,28 +55,28 @@ export class LCDQueryClient {
     }
 
     const endpoint = `ollo/liquidity/v1/pools`;
-    return await this.req.get<QueryLiquidityPoolsResponseSDKType>(endpoint, options);
+    return await this.req.get<QueryPoolsResponseSDKType>(endpoint, options);
   }
-  /* Returns the liquidity pool that corresponds to the pool_id." */
+  /* Pool returns the specific liquidity pool. */
 
 
-  async liquidityPool(params: QueryLiquidityPoolRequest): Promise<QueryLiquidityPoolResponseSDKType> {
+  async pool(params: QueryPoolRequest): Promise<QueryPoolResponseSDKType> {
     const endpoint = `ollo/liquidity/v1/pools/${params.poolId}`;
-    return await this.req.get<QueryLiquidityPoolResponseSDKType>(endpoint);
+    return await this.req.get<QueryPoolResponseSDKType>(endpoint);
   }
-  /* Get specific liquidity pool corresponding to the pool_coin_denom. */
+  /* PoolByReserveAddress returns all pools that correspond to the reserve account. */
 
 
-  async liquidityPoolByPoolCoinDenom(params: QueryLiquidityPoolByPoolCoinDenomRequest): Promise<QueryLiquidityPoolResponseSDKType> {
-    const endpoint = `ollo/liquidity/v1/pools/denom/${params.poolCoinDenom}`;
-    return await this.req.get<QueryLiquidityPoolResponseSDKType>(endpoint);
+  async poolByReserveAddress(params: QueryPoolByReserveAddressRequest): Promise<QueryPoolResponseSDKType> {
+    const endpoint = `ollo/liquidity/v1/pools/reserve_address/${params.reserveAddress}`;
+    return await this.req.get<QueryPoolResponseSDKType>(endpoint);
   }
-  /* Get specific liquidity pool corresponding to the reserve account. */
+  /* PoolByPoolCoinDenom returns all pools that correspond to the pool coin denom. */
 
 
-  async liquidityPoolByReserveAcc(params: QueryLiquidityPoolByReserveAccRequest): Promise<QueryLiquidityPoolResponseSDKType> {
-    const endpoint = `ollo/liquidity/v1/pools/reserve/${params.reserveAcc}`;
-    return await this.req.get<QueryLiquidityPoolResponseSDKType>(endpoint);
+  async poolByPoolCoinDenom(params: QueryPoolByPoolCoinDenomRequest): Promise<QueryPoolResponseSDKType> {
+    const endpoint = `ollo/liquidity/v1/pools/pool_coin_denom/${params.poolCoinDenom}`;
+    return await this.req.get<QueryPoolResponseSDKType>(endpoint);
   }
   /* Pairs returns all liquidity pairs. */
 
@@ -178,10 +186,10 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `ollo/liquidity/orders/${params.orderer}`;
+    const endpoint = `ollo/liquidity/v1/orders/${params.orderer}`;
     return await this.req.get<QueryOrdersResponseSDKType>(endpoint, options);
   }
-  /* Get all order books of the liquidity module. */
+  /* OrderBooks returns an order book representation of orders. */
 
 
   async orderBooks(params: QueryOrderBooksRequest): Promise<QueryOrderBooksResponseSDKType> {
@@ -201,15 +209,15 @@ export class LCDQueryClient {
       options.params.num_ticks = params.numTicks;
     }
 
-    const endpoint = `ollo/liquidity/orderbooks`;
+    const endpoint = `ollo/liquidity/v1/order_books`;
     return await this.req.get<QueryOrderBooksResponseSDKType>(endpoint, options);
   }
-  /* Get all parameters of the liquidity module. */
+  /* NumMMOrders returns the number of active market making orders. */
 
 
-  async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
-    const endpoint = `ollo/liquidity/v1/params`;
-    return await this.req.get<QueryParamsResponseSDKType>(endpoint);
+  async numMMOrders(params: QueryNumMMOrdersRequest): Promise<QueryNumMMOrdersResponseSDKType> {
+    const endpoint = `ollo/liquidity/v1/num_mm_orders/${params.orderer}/${params.pairId}`;
+    return await this.req.get<QueryNumMMOrdersResponseSDKType>(endpoint);
   }
 
 }
