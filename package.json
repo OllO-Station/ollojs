@@ -1,6 +1,6 @@
 {
   "name": "ollojs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "OLLO Station transpiled protobuf files for use with cosmjs.",
   "author": "Chris P <chris@station8.zone>",
   "homepage": "https://github.com/OllO-Station/ollojs#readme",

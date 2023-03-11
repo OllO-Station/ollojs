@@ -1,4 +1,4 @@
-# @ollo/ollojs
+# ollojs
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/545047/188804067-28e67e5e-0214-4449-ab04-2e0c564a6885.svg" width="80"><br />
@@ -9,11 +9,11 @@
 ## install
 
 ```sh
-npm install @ollo/ollojs
+npm install ollojs
 ```
 ## Table of contents
 
-- [@ollo/ollojs](#@ollo/ollojs)
+- [ollojs](#ollojs)
   - [Install](#install)
   - [Table of contents](#table-of-contents)
 - [Usage](#usage)
@@ -35,10 +35,14 @@ npm install @ollo/ollojs
 ### RPC Clients
 
 ```js
-import { ollo } from '@ollo/ollojs';
+import { ollo } from 'ollojs';
 
-const { createRPCQueryClient } = ollo.ClientFactory; 
+const { createLCDClient, createRPCQueryClient } = ollo.ClientFactory; 
 const client = await createRPCQueryClient({ rpcEndpoint: RPC_ENDPOINT });
+const lcd = await createLCDClient({ restEndpoint: REST_ENDPOINT });
+
+// now you can query the ollo modules
+const pools = await lcd.ollo.liquidity.v1.pools({ });
 
 // now you can query the cosmos modules
 const balance = await client.cosmos.bank.v1beta1
@@ -51,22 +55,23 @@ const balances = await client.ollo.exchange.v1beta1
 
 ### Composing Messages
 
-Import the `ollo` object from `@ollo/ollojs`. 
+Import the `ollo` object from `ollojs`. 
 
 ```js
-import { ollo } from '@ollo/ollojs';
+import { ollo } from 'ollojs';
 
 const {
-    createSpotLimitOrder,
-    createSpotMarketOrder,
-    deposit
-} = ollo.exchange.v1beta1.MessageComposer.withTypeUrl;
+    deposit,
+    withdraw,
+    createPair,
+    createPool,
+} = ollo.liquidity.v1.MessageComposer.fromPartial;
 ```
 
 #### CosmWasm Messages
 
 ```js
-import { cosmwasm } from "@ollo/ollojs";
+import { cosmwasm } from "ollojs";
 
 const {
     clearAdmin,
@@ -81,7 +86,7 @@ const {
 #### IBC Messages
 
 ```js
-import { ibc } from '@ollo/ollojs';
+import { ibc } from 'ollojs';
 
 const {
     transfer
@@ -91,7 +96,7 @@ const {
 #### Cosmos Messages
 
 ```js
-import { cosmos } from '@ollo/ollojs';
+import { cosmos } from 'ollojs';
 
 const {
     fundCommunityPool,
@@ -132,7 +137,7 @@ Here are the docs on [creating signers](https://github.com/cosmology-tech/cosmos
 Use `getSigningolloClient` to get your `SigningStargateClient`, with the proto/amino messages full-loaded. No need to manually add amino types, just require and initialize the client:
 
 ```js
-import { getSigningolloClient } from '@ollo/ollojs';
+import { getSigningolloClient } from 'ollojs';
 
 const stargateClient = await getSigningolloClient({
   rpcEndpoint,
@@ -220,7 +225,7 @@ import {
     ibcAminoConverters,
     olloAminoConverters,
     olloProtoRegistry
-} from '@ollo/ollojs';
+} from 'ollojs';
 
 const signer: OfflineSigner = /* create your signer (see above)  */
 const rpcEndpint = 'https://rpc.cosmos.directory/ollo'; // or another URL
@@ -259,7 +264,7 @@ yarn build
 
 ### Codegen
 
-Contract schemas live in `./contracts`, and protos in `./proto`. Look inside of `scripts/codegen.js` and configure the settings for bundling your SDK and contracts into `@ollo/ollojs`:
+Contract schemas live in `./contracts`, and protos in `./proto`. Look inside of `scripts/codegen.js` and configure the settings for bundling your SDK and contracts into `ollojs`:
 
 ```
 yarn codegen

@@ -806,67 +806,6 @@ export declare const olloAminoConverters: {
             locker_id: string;
         }) => import("./lock/v1/tx").MsgCloseLockRequest;
     };
-    "/ollo.loan.v1.MsgRequestLoan": {
-        aminoType: string;
-        toAmino: ({ creator, amount, fee, collateral, deadline }: import("./loan/v1/tx").MsgRequestLoan) => {
-            creator: string;
-            amount: string;
-            fee: string;
-            collateral: string;
-            deadline: string;
-        };
-        fromAmino: ({ creator, amount, fee, collateral, deadline }: {
-            creator: string;
-            amount: string;
-            fee: string;
-            collateral: string;
-            deadline: string;
-        }) => import("./loan/v1/tx").MsgRequestLoan;
-    };
-    "/ollo.loan.v1.MsgApproveLoan": {
-        aminoType: string;
-        toAmino: ({ creator, id }: import("./loan/v1/tx").MsgApproveLoan) => {
-            creator: string;
-            id: string;
-        };
-        fromAmino: ({ creator, id }: {
-            creator: string;
-            id: string;
-        }) => import("./loan/v1/tx").MsgApproveLoan;
-    };
-    "/ollo.loan.v1.MsgRepayLoan": {
-        aminoType: string;
-        toAmino: ({ creator, id }: import("./loan/v1/tx").MsgRepayLoan) => {
-            creator: string;
-            id: string;
-        };
-        fromAmino: ({ creator, id }: {
-            creator: string;
-            id: string;
-        }) => import("./loan/v1/tx").MsgRepayLoan;
-    };
-    "/ollo.loan.v1.MsgLiquidateLoan": {
-        aminoType: string;
-        toAmino: ({ creator, id }: import("./loan/v1/tx").MsgLiquidateLoan) => {
-            creator: string;
-            id: string;
-        };
-        fromAmino: ({ creator, id }: {
-            creator: string;
-            id: string;
-        }) => import("./loan/v1/tx").MsgLiquidateLoan;
-    };
-    "/ollo.loan.v1.MsgCancelLoan": {
-        aminoType: string;
-        toAmino: ({ creator, id }: import("./loan/v1/tx").MsgCancelLoan) => {
-            creator: string;
-            id: string;
-        };
-        fromAmino: ({ creator, id }: {
-            creator: string;
-            id: string;
-        }) => import("./loan/v1/tx").MsgCancelLoan;
-    };
     "/ollo.liquidity.v1.MsgCreatePair": {
         aminoType: string;
         toAmino: ({ creator, baseCoinDenom, quoteCoinDenom }: import("./liquidity/v1/tx").MsgCreatePair) => {
@@ -1088,6 +1027,67 @@ export declare const olloAminoConverters: {
             orderer: string;
             pair_ids: string[];
         }) => import("./liquidity/v1/tx").MsgCancelAllOrders;
+    };
+    "/ollo.lend.v1.MsgRequestLoan": {
+        aminoType: string;
+        toAmino: ({ creator, amount, collateral, fee, deadline }: import("./lend/v1/tx").MsgRequestLoan) => {
+            creator: string;
+            amount: string;
+            collateral: string;
+            fee: string;
+            deadline: string;
+        };
+        fromAmino: ({ creator, amount, collateral, fee, deadline }: {
+            creator: string;
+            amount: string;
+            collateral: string;
+            fee: string;
+            deadline: string;
+        }) => import("./lend/v1/tx").MsgRequestLoan;
+    };
+    "/ollo.lend.v1.MsgApproveLoan": {
+        aminoType: string;
+        toAmino: ({ creator, id }: import("./lend/v1/tx").MsgApproveLoan) => {
+            creator: string;
+            id: string;
+        };
+        fromAmino: ({ creator, id }: {
+            creator: string;
+            id: string;
+        }) => import("./lend/v1/tx").MsgApproveLoan;
+    };
+    "/ollo.lend.v1.MsgRepayLoan": {
+        aminoType: string;
+        toAmino: ({ creator, id }: import("./lend/v1/tx").MsgRepayLoan) => {
+            creator: string;
+            id: string;
+        };
+        fromAmino: ({ creator, id }: {
+            creator: string;
+            id: string;
+        }) => import("./lend/v1/tx").MsgRepayLoan;
+    };
+    "/ollo.lend.v1.MsgLiquidateLoan": {
+        aminoType: string;
+        toAmino: ({ creator, id }: import("./lend/v1/tx").MsgLiquidateLoan) => {
+            creator: string;
+            id: string;
+        };
+        fromAmino: ({ creator, id }: {
+            creator: string;
+            id: string;
+        }) => import("./lend/v1/tx").MsgLiquidateLoan;
+    };
+    "/ollo.lend.v1.MsgCancelLoan": {
+        aminoType: string;
+        toAmino: ({ creator, id }: import("./lend/v1/tx").MsgCancelLoan) => {
+            creator: string;
+            id: string;
+        };
+        fromAmino: ({ creator, id }: {
+            creator: string;
+            id: string;
+        }) => import("./lend/v1/tx").MsgCancelLoan;
     };
     "/ollo.incentive.v1.MsgApplyMarketMaker": {
         aminoType: string;
@@ -1522,6 +1522,46 @@ export declare const olloAminoConverters: {
             claimer: string;
             goal_id: string;
         }) => import("./claim/v1/tx").MsgClaim;
+    };
+    "/ollo.auth.v1.MsgRegisterAccount": {
+        aminoType: string;
+        toAmino: ({ owner, connectionId, version }: import("./auth/v1/tx").MsgRegisterAccount) => {
+            owner: string;
+            connectionId: string;
+            version: string;
+        };
+        fromAmino: ({ owner, connectionId, version }: {
+            owner: string;
+            connectionId: string;
+            version: string;
+        }) => import("./auth/v1/tx").MsgRegisterAccount;
+    };
+    "/ollo.auth.v1.MsgSubmitTx": {
+        aminoType: string;
+        toAmino: ({ owner, connectionId, msgs, timeoutDuration }: import("./auth/v1/tx").MsgSubmitTx) => {
+            owner: string;
+            connectionId: string;
+            msgs: {
+                type_url: string;
+                value: Uint8Array;
+            }[];
+            timeoutDuration: {
+                seconds: string;
+                nanos: number;
+            };
+        };
+        fromAmino: ({ owner, connectionId, msgs, timeoutDuration }: {
+            owner: string;
+            connectionId: string;
+            msgs: {
+                type_url: string;
+                value: Uint8Array;
+            }[];
+            timeoutDuration: {
+                seconds: string;
+                nanos: number;
+            };
+        }) => import("./auth/v1/tx").MsgSubmitTx;
     };
 };
 export declare const olloProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

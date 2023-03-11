@@ -186,6 +186,12 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
         };
     };
     ollo: {
+        auth: {
+            v1: {
+                params(request?: import("./auth/v1/query").QueryParamsRequest): Promise<import("./auth/v1/query").QueryParamsResponse>;
+                interchainAccountAddress(request: import("./auth/v1/query").QueryInterchainAccountAddressRequest): Promise<import("./auth/v1/query").QueryInterchainAccountAddressResponse>;
+            };
+        };
         claim: {
             v1: {
                 params(request?: import("./claim/v1/query").QueryParamsRequest): Promise<import("./claim/v1/query").QueryParamsResponse>;
@@ -253,6 +259,13 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 incentive(request: import("./incentive/v1/query").QueryIncentiveRequest): Promise<import("./incentive/v1/query").QueryIncentiveResponse>;
             };
         };
+        lend: {
+            v1: {
+                params(request?: import("./lend/v1/query").QueryParamsRequest): Promise<import("./lend/v1/query").QueryParamsResponse>;
+                loan(request: import("./lend/v1/query").QueryGetLoanRequest): Promise<import("./lend/v1/query").QueryGetLoanResponse>;
+                loanAll(request?: import("./lend/v1/query").QueryAllLoanRequest): Promise<import("./lend/v1/query").QueryAllLoanResponse>;
+            };
+        };
         liquidity: {
             v1: {
                 params(request?: import("./liquidity/v1/query").QueryParamsRequest): Promise<import("./liquidity/v1/query").QueryParamsResponse>;
@@ -271,13 +284,6 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 ordersByOrderer(request: import("./liquidity/v1/query").QueryOrdersByOrdererRequest): Promise<import("./liquidity/v1/query").QueryOrdersResponse>;
                 orderBooks(request: import("./liquidity/v1/query").QueryOrderBooksRequest): Promise<import("./liquidity/v1/query").QueryOrderBooksResponse>;
                 numMMOrders(request: import("./liquidity/v1/query").QueryNumMMOrdersRequest): Promise<import("./liquidity/v1/query").QueryNumMMOrdersResponse>;
-            };
-        };
-        loan: {
-            v1: {
-                params(request?: import("./loan/v1/query").QueryParamsRequest): Promise<import("./loan/v1/query").QueryParamsResponse>;
-                loans(request: import("./loan/v1/query").QueryGetLoansRequest): Promise<import("./loan/v1/query").QueryGetLoansResponse>;
-                loansAll(request?: import("./loan/v1/query").QueryAllLoansRequest): Promise<import("./loan/v1/query").QueryAllLoansResponse>;
             };
         };
         lock: {

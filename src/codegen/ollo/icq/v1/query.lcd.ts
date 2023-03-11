@@ -15,7 +15,7 @@ export class LCDQueryClient {
 
 
   async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
-    const endpoint = `async-icq/v1/params`;
+    const endpoint = `ollo/icq/v1/params`;
     return await this.req.get<QueryParamsResponseSDKType>(endpoint);
   }
 

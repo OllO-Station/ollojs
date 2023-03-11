@@ -57,6 +57,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
         };
     };
     ollo: {
+        auth: {
+            v1: import("./auth/v1/query.lcd").LCDQueryClient;
+        };
         claim: {
             v1: import("./claim/v1/query.lcd").LCDQueryClient;
         };
@@ -81,11 +84,11 @@ export declare const createLCDClient: ({ restEndpoint }: {
         incentive: {
             v1: import("./incentive/v1/query.lcd").LCDQueryClient;
         };
+        lend: {
+            v1: import("./lend/v1/query.lcd").LCDQueryClient;
+        };
         liquidity: {
             v1: import("./liquidity/v1/query.lcd").LCDQueryClient;
-        };
-        loan: {
-            v1: import("./loan/v1/query.lcd").LCDQueryClient;
         };
         lock: {
             v1: import("./lock/v1/query.lcd").LCDQueryClient;

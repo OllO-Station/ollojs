@@ -50,6 +50,9 @@ export declare const createRPCMsgClient: ({ rpc }: {
         };
     };
     ollo: {
+        auth: {
+            v1: import("./auth/v1/tx.rpc.msg").MsgClientImpl;
+        };
         claim: {
             v1: import("./claim/v1/tx.rpc.msg").MsgClientImpl;
         };
@@ -65,11 +68,11 @@ export declare const createRPCMsgClient: ({ rpc }: {
         incentive: {
             v1: import("./incentive/v1/tx.rpc.msg").MsgClientImpl;
         };
+        lend: {
+            v1: import("./lend/v1/tx.rpc.msg").MsgClientImpl;
+        };
         liquidity: {
             v1: import("./liquidity/v1/tx.rpc.msg").MsgClientImpl;
-        };
-        loan: {
-            v1: import("./loan/v1/tx.rpc.msg").MsgClientImpl;
         };
         lock: {
             v1: import("./lock/v1/tx.rpc.msg").MsgClientImpl;
