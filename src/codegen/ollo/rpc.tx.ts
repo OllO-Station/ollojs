@@ -52,6 +52,9 @@ export const createRPCMsgClient = async ({
     }
   },
   ollo: {
+    auth: {
+      v1: new (await import("./auth/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
     claim: {
       v1: new (await import("./claim/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
@@ -67,11 +70,11 @@ export const createRPCMsgClient = async ({
     incentive: {
       v1: new (await import("./incentive/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
+    lend: {
+      v1: new (await import("./lend/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
     liquidity: {
       v1: new (await import("./liquidity/v1/tx.rpc.msg")).MsgClientImpl(rpc)
-    },
-    loan: {
-      v1: new (await import("./loan/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
     lock: {
       v1: new (await import("./lock/v1/tx.rpc.msg")).MsgClientImpl(rpc)

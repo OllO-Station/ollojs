@@ -98,6 +98,11 @@ export const createLCDClient = async ({
       }
     },
     ollo: {
+      auth: {
+        v1: new (await import("./auth/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       claim: {
         v1: new (await import("./claim/v1/query.lcd")).LCDQueryClient({
           requestClient
@@ -138,13 +143,13 @@ export const createLCDClient = async ({
           requestClient
         })
       },
-      liquidity: {
-        v1: new (await import("./liquidity/v1/query.lcd")).LCDQueryClient({
+      lend: {
+        v1: new (await import("./lend/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },
-      loan: {
-        v1: new (await import("./loan/v1/query.lcd")).LCDQueryClient({
+      liquidity: {
+        v1: new (await import("./liquidity/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },

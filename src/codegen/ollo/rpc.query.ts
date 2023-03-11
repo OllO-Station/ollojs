@@ -72,6 +72,9 @@ export const createRPCQueryClient = async ({
       }
     },
     ollo: {
+      auth: {
+        v1: (await import("./auth/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       claim: {
         v1: (await import("./claim/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
@@ -96,11 +99,11 @@ export const createRPCQueryClient = async ({
       incentive: {
         v1: (await import("./incentive/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
+      lend: {
+        v1: (await import("./lend/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       liquidity: {
         v1: (await import("./liquidity/v1/query.rpc.Query")).createRpcQueryExtension(client)
-      },
-      loan: {
-        v1: (await import("./loan/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       lock: {
         v1: (await import("./lock/v1/query.rpc.Query")).createRpcQueryExtension(client)

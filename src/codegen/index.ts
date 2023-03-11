@@ -18,5 +18,4 @@ export * from "./ibc/bundle";
 export * from "./ibc/client";
 export * from "./ollo/bundle";
 export * from "./ollo/client";
-export * from "./ollostation/bundle";
 export * from "./tendermint/bundle";

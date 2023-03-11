@@ -5,7 +5,7 @@ import { DeepPartial, Long } from "../../../helpers";
 /** MsgStoreCode submit Wasm code to the system */
 
 export interface MsgStoreCode {
-  /** Sender is the that actor that signed the messages */
+  /** Sender is the actor that signed the messages */
   sender: string;
   /** WASMByteCode can be raw or gzip compressed */
 
