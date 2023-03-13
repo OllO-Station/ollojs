@@ -57,9 +57,6 @@ export declare const createLCDClient: ({ restEndpoint }: {
         };
     };
     ollo: {
-        auth: {
-            v1: import("./auth/v1/query.lcd").LCDQueryClient;
-        };
         claim: {
             v1: import("./claim/v1/query.lcd").LCDQueryClient;
         };

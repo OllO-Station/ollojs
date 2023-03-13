@@ -5,8 +5,9 @@ import { QueryParamsRequest, QueryParamsResponse, QueryGetLoanRequest, QueryGetL
 export interface Query {
     /** Parameters queries the parameters of the module. */
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-    /** Queries a list of Loan items. */
+    /** Queries for loan info given its id */
     loan(request: QueryGetLoanRequest): Promise<QueryGetLoanResponse>;
+    /** Queries for a list of all loan info */
     loanAll(request?: QueryAllLoanRequest): Promise<QueryAllLoanResponse>;
 }
 export declare class QueryClientImpl implements Query {

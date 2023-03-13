@@ -52,9 +52,6 @@ export const createRPCMsgClient = async ({
     }
   },
   ollo: {
-    auth: {
-      v1: new (await import("./auth/v1/tx.rpc.msg")).MsgClientImpl(rpc)
-    },
     claim: {
       v1: new (await import("./claim/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },

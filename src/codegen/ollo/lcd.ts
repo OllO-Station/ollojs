@@ -98,11 +98,6 @@ export const createLCDClient = async ({
       }
     },
     ollo: {
-      auth: {
-        v1: new (await import("./auth/v1/query.lcd")).LCDQueryClient({
-          requestClient
-        })
-      },
       claim: {
         v1: new (await import("./claim/v1/query.lcd")).LCDQueryClient({
           requestClient

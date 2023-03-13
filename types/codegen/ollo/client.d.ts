@@ -1523,46 +1523,6 @@ export declare const olloAminoConverters: {
             goal_id: string;
         }) => import("./claim/v1/tx").MsgClaim;
     };
-    "/ollo.auth.v1.MsgRegisterAccount": {
-        aminoType: string;
-        toAmino: ({ owner, connectionId, version }: import("./auth/v1/tx").MsgRegisterAccount) => {
-            owner: string;
-            connectionId: string;
-            version: string;
-        };
-        fromAmino: ({ owner, connectionId, version }: {
-            owner: string;
-            connectionId: string;
-            version: string;
-        }) => import("./auth/v1/tx").MsgRegisterAccount;
-    };
-    "/ollo.auth.v1.MsgSubmitTx": {
-        aminoType: string;
-        toAmino: ({ owner, connectionId, msgs, timeoutDuration }: import("./auth/v1/tx").MsgSubmitTx) => {
-            owner: string;
-            connectionId: string;
-            msgs: {
-                type_url: string;
-                value: Uint8Array;
-            }[];
-            timeoutDuration: {
-                seconds: string;
-                nanos: number;
-            };
-        };
-        fromAmino: ({ owner, connectionId, msgs, timeoutDuration }: {
-            owner: string;
-            connectionId: string;
-            msgs: {
-                type_url: string;
-                value: Uint8Array;
-            }[];
-            timeoutDuration: {
-                seconds: string;
-                nanos: number;
-            };
-        }) => import("./auth/v1/tx").MsgSubmitTx;
-    };
 };
 export declare const olloProtoRegistry: ReadonlyArray<[string, GeneratedType]>;
 export declare const getSigningOlloClientOptions: ({ defaultTypes }?: {

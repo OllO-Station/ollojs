@@ -6,9 +6,11 @@ import "cosmos_proto/cosmos.proto";
 
 option go_package = "github.com/ollo-station/ollo/x/liquidity/types";
 option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
 
 //
-message BasicPool {
+message ConstantProductPool {
     //
     string pool_id = 1 [
         (gogoproto.moretags) = "yaml:\"pool_id\""

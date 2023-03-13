@@ -3,6 +3,7 @@ import * as _m0 from "protobufjs/minimal";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse } from "./query";
 export interface Query {
+  /** Params queries all parameters. */
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 export class QueryClientImpl implements Query {

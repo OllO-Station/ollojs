@@ -1,22 +1,22 @@
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../../helpers";
 export interface MsgCreateIcq {
-  index: string;
+  id: string;
 }
 export interface MsgCreateIcqSDKType {
-  index: string;
+  id: string;
 }
 
 function createBaseMsgCreateIcq(): MsgCreateIcq {
   return {
-    index: ""
+    id: ""
   };
 }
 
 export const MsgCreateIcq = {
   encode(message: MsgCreateIcq, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.index !== "") {
-      writer.uint32(18).string(message.index);
+    if (message.id !== "") {
+      writer.uint32(18).string(message.id);
     }
 
     return writer;
@@ -32,7 +32,7 @@ export const MsgCreateIcq = {
 
       switch (tag >>> 3) {
         case 2:
-          message.index = reader.string();
+          message.id = reader.string();
           break;
 
         default:
@@ -46,7 +46,7 @@ export const MsgCreateIcq = {
 
   fromPartial(object: DeepPartial<MsgCreateIcq>): MsgCreateIcq {
     const message = createBaseMsgCreateIcq();
-    message.index = object.index ?? "";
+    message.id = object.id ?? "";
     return message;
   }
 

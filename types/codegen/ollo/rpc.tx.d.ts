@@ -50,9 +50,6 @@ export declare const createRPCMsgClient: ({ rpc }: {
         };
     };
     ollo: {
-        auth: {
-            v1: import("./auth/v1/tx.rpc.msg").MsgClientImpl;
-        };
         claim: {
             v1: import("./claim/v1/tx.rpc.msg").MsgClientImpl;
         };

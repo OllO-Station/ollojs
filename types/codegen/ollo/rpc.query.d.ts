@@ -186,12 +186,6 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
         };
     };
     ollo: {
-        auth: {
-            v1: {
-                params(request?: import("./auth/v1/query").QueryParamsRequest): Promise<import("./auth/v1/query").QueryParamsResponse>;
-                interchainAccountAddress(request: import("./auth/v1/query").QueryInterchainAccountAddressRequest): Promise<import("./auth/v1/query").QueryInterchainAccountAddressResponse>;
-            };
-        };
         claim: {
             v1: {
                 params(request?: import("./claim/v1/query").QueryParamsRequest): Promise<import("./claim/v1/query").QueryParamsResponse>;

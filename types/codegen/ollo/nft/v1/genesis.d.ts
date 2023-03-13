@@ -3,12 +3,14 @@ import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the market module's genesis state. */
 export interface GenesisState {
-    /** string port_id = 2; */
+    /** Params params = 1 [(gogoproto.nullable) = false]; */
     collections: Collection[];
+    portId: string;
 }
 /** GenesisState defines the market module's genesis state. */
 export interface GenesisStateSDKType {
     collections: CollectionSDKType[];
+    port_id: string;
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: _m0.Writer): _m0.Writer;

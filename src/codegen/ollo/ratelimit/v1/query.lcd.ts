@@ -11,7 +11,7 @@ export class LCDQueryClient {
     this.req = requestClient;
     this.params = this.params.bind(this);
   }
-  /*  */
+  /* Params queries all parameters. */
 
 
   async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {

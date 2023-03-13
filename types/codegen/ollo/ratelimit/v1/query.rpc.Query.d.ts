@@ -2,6 +2,7 @@ import { Rpc } from "../../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse } from "./query";
 export interface Query {
+    /** Params queries all parameters. */
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 export declare class QueryClientImpl implements Query {

@@ -72,9 +72,6 @@ export const createRPCQueryClient = async ({
       }
     },
     ollo: {
-      auth: {
-        v1: (await import("./auth/v1/query.rpc.Query")).createRpcQueryExtension(client)
-      },
       claim: {
         v1: (await import("./claim/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },

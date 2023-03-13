@@ -1,10 +1,10 @@
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../../helpers";
 export interface MsgCreateIcq {
-    index: string;
+    id: string;
 }
 export interface MsgCreateIcqSDKType {
-    index: string;
+    id: string;
 }
 export declare const MsgCreateIcq: {
     encode(message: MsgCreateIcq, writer?: _m0.Writer): _m0.Writer;

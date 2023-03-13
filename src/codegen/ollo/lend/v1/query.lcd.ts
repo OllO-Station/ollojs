@@ -21,14 +21,14 @@ export class LCDQueryClient {
     const endpoint = `ollo/lend/v1/params`;
     return await this.req.get<QueryParamsResponseSDKType>(endpoint);
   }
-  /* Queries a list of Loan items. */
+  /* Queries for loan info given its id */
 
 
   async loan(params: QueryGetLoanRequest): Promise<QueryGetLoanResponseSDKType> {
     const endpoint = `ollo/lend/v1/loan/${params.id}`;
     return await this.req.get<QueryGetLoanResponseSDKType>(endpoint);
   }
-  /* LoanAll */
+  /* Queries for a list of all loan info */
 
 
   async loanAll(params: QueryAllLoanRequest = {

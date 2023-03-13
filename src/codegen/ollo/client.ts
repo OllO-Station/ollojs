@@ -1,7 +1,6 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as olloAuthV1TxRegistry from "./auth/v1/tx.registry";
 import * as olloClaimV1TxRegistry from "./claim/v1/tx.registry";
 import * as olloEmissionsV1TxRegistry from "./emissions/v1/tx.registry";
 import * as olloFarmingV1TxRegistry from "./farming/v1/tx.registry";
@@ -16,7 +15,6 @@ import * as olloPricesV1TxRegistry from "./prices/v1/tx.registry";
 import * as olloReserveV1TxRegistry from "./reserve/v1/tx.registry";
 import * as olloTokenV1TxRegistry from "./token/v1/tx.registry";
 import * as olloVaultV1TxRegistry from "./vault/v1/tx.registry";
-import * as olloAuthV1TxAmino from "./auth/v1/tx.amino";
 import * as olloClaimV1TxAmino from "./claim/v1/tx.amino";
 import * as olloEmissionsV1TxAmino from "./emissions/v1/tx.amino";
 import * as olloFarmingV1TxAmino from "./farming/v1/tx.amino";
@@ -31,8 +29,7 @@ import * as olloPricesV1TxAmino from "./prices/v1/tx.amino";
 import * as olloReserveV1TxAmino from "./reserve/v1/tx.amino";
 import * as olloTokenV1TxAmino from "./token/v1/tx.amino";
 import * as olloVaultV1TxAmino from "./vault/v1/tx.amino";
-export const olloAminoConverters = { ...olloAuthV1TxAmino.AminoConverter,
-  ...olloClaimV1TxAmino.AminoConverter,
+export const olloAminoConverters = { ...olloClaimV1TxAmino.AminoConverter,
   ...olloEmissionsV1TxAmino.AminoConverter,
   ...olloFarmingV1TxAmino.AminoConverter,
   ...olloGrantsV1TxAmino.AminoConverter,
@@ -47,7 +44,7 @@ export const olloAminoConverters = { ...olloAuthV1TxAmino.AminoConverter,
   ...olloTokenV1TxAmino.AminoConverter,
   ...olloVaultV1TxAmino.AminoConverter
 };
-export const olloProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...olloAuthV1TxRegistry.registry, ...olloClaimV1TxRegistry.registry, ...olloEmissionsV1TxRegistry.registry, ...olloFarmingV1TxRegistry.registry, ...olloGrantsV1TxRegistry.registry, ...olloIncentiveV1TxRegistry.registry, ...olloLendV1TxRegistry.registry, ...olloLiquidityV1TxRegistry.registry, ...olloLockV1TxRegistry.registry, ...olloNftV1TxRegistry.registry, ...olloOnsV1TxRegistry.registry, ...olloPricesV1TxRegistry.registry, ...olloReserveV1TxRegistry.registry, ...olloTokenV1TxRegistry.registry, ...olloVaultV1TxRegistry.registry];
+export const olloProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...olloClaimV1TxRegistry.registry, ...olloEmissionsV1TxRegistry.registry, ...olloFarmingV1TxRegistry.registry, ...olloGrantsV1TxRegistry.registry, ...olloIncentiveV1TxRegistry.registry, ...olloLendV1TxRegistry.registry, ...olloLiquidityV1TxRegistry.registry, ...olloLockV1TxRegistry.registry, ...olloNftV1TxRegistry.registry, ...olloOnsV1TxRegistry.registry, ...olloPricesV1TxRegistry.registry, ...olloReserveV1TxRegistry.registry, ...olloTokenV1TxRegistry.registry, ...olloVaultV1TxRegistry.registry];
 export const getSigningOlloClientOptions = ({
   defaultTypes = defaultRegistryTypes
 }: {
