@@ -1,23 +1,43 @@
 import { Params, ParamsSDKType } from "./params";
+import { NftListing, NftListingSDKType, NftAuction, NftAuctionSDKType, NftAuctionBid, NftAuctionBidSDKType } from "./market";
+import { Long, DeepPartial } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the market module's genesis state. */
-
 export interface GenesisState {
+  /** The params of the market module */
   params?: Params;
-  portId: string;
-}
-/** GenesisState defines the market module's genesis state. */
+  /** The listings length of the market module */
 
+  listingCount: Long;
+  /** The next auctions number of the market module */
+
+  nextAuctionNumber: Long;
+  /** The bids of the market module */
+
+  listings: NftListing[];
+  /** The nft auctions of the market module */
+
+  auctions: NftAuction[];
+  /** The nft bid auctions of the market module */
+
+  bids: NftAuctionBid[];
+}
 export interface GenesisStateSDKType {
   params?: ParamsSDKType;
-  port_id: string;
+  listing_count: Long;
+  next_auction_number: Long;
+  listings: NftListingSDKType[];
+  auctions: NftAuctionSDKType[];
+  bids: NftAuctionBidSDKType[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
-    portId: ""
+    listingCount: Long.UZERO,
+    nextAuctionNumber: Long.UZERO,
+    listings: [],
+    auctions: [],
+    bids: []
   };
 }
 
@@ -27,8 +47,24 @@ export const GenesisState = {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
 
-    if (message.portId !== "") {
-      writer.uint32(18).string(message.portId);
+    if (!message.listingCount.isZero()) {
+      writer.uint32(16).uint64(message.listingCount);
+    }
+
+    if (!message.nextAuctionNumber.isZero()) {
+      writer.uint32(24).uint64(message.nextAuctionNumber);
+    }
+
+    for (const v of message.listings) {
+      NftListing.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+
+    for (const v of message.auctions) {
+      NftAuction.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+
+    for (const v of message.bids) {
+      NftAuctionBid.encode(v!, writer.uint32(50).fork()).ldelim();
     }
 
     return writer;
@@ -48,7 +84,23 @@ export const GenesisState = {
           break;
 
         case 2:
-          message.portId = reader.string();
+          message.listingCount = (reader.uint64() as Long);
+          break;
+
+        case 3:
+          message.nextAuctionNumber = (reader.uint64() as Long);
+          break;
+
+        case 4:
+          message.listings.push(NftListing.decode(reader, reader.uint32()));
+          break;
+
+        case 5:
+          message.auctions.push(NftAuction.decode(reader, reader.uint32()));
+          break;
+
+        case 6:
+          message.bids.push(NftAuctionBid.decode(reader, reader.uint32()));
           break;
 
         default:
@@ -63,7 +115,11 @@ export const GenesisState = {
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
-    message.portId = object.portId ?? "";
+    message.listingCount = object.listingCount !== undefined && object.listingCount !== null ? Long.fromValue(object.listingCount) : Long.UZERO;
+    message.nextAuctionNumber = object.nextAuctionNumber !== undefined && object.nextAuctionNumber !== null ? Long.fromValue(object.nextAuctionNumber) : Long.UZERO;
+    message.listings = object.listings?.map(e => NftListing.fromPartial(e)) || [];
+    message.auctions = object.auctions?.map(e => NftAuction.fromPartial(e)) || [];
+    message.bids = object.bids?.map(e => NftAuctionBid.fromPartial(e)) || [];
     return message;
   }
 

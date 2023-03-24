@@ -55,9 +55,6 @@ export const createRPCMsgClient = async ({
     claim: {
       v1: new (await import("./claim/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
-    emissions: {
-      v1: new (await import("./emissions/v1/tx.rpc.msg")).MsgClientImpl(rpc)
-    },
     farming: {
       v1: new (await import("./farming/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
@@ -76,11 +73,14 @@ export const createRPCMsgClient = async ({
     lock: {
       v1: new (await import("./lock/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
+    lstaking: {
+      v1: new (await import("./lstaking/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    market: {
+      v1: new (await import("./market/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
     nft: {
       v1: new (await import("./nft/v1/tx.rpc.msg")).MsgClientImpl(rpc)
-    },
-    ons: {
-      v1: new (await import("./ons/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
     prices: {
       v1: new (await import("./prices/v1/tx.rpc.msg")).MsgClientImpl(rpc)
@@ -90,9 +90,6 @@ export const createRPCMsgClient = async ({
     },
     token: {
       v1: new (await import("./token/v1/tx.rpc.msg")).MsgClientImpl(rpc)
-    },
-    vault: {
-      v1: new (await import("./vault/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     }
   }
 });

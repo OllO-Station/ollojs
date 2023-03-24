@@ -1,7 +1,7 @@
 import { MarketMakerIncl, MarketMakerInclSDKType } from "./mm";
 import { IncentiveDistribution, IncentiveDistributionSDKType } from "./incentive";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial } from "../../../helpers";
+import { DeepPartial, Long } from "../../../helpers";
 export interface MarketMakerProposal {
   title: string;
   description: string;
@@ -17,6 +17,14 @@ export interface MarketMakerProposalSDKType {
   exclusions: MarketMakerInclSDKType[];
   rejections: MarketMakerInclSDKType[];
   distributions: IncentiveDistributionSDKType[];
+}
+export interface MarketMakerHandle {
+  address: string;
+  pairId: Long;
+}
+export interface MarketMakerHandleSDKType {
+  address: string;
+  pair_id: Long;
 }
 
 function createBaseMarketMakerProposal(): MarketMakerProposal {
@@ -109,6 +117,61 @@ export const MarketMakerProposal = {
     message.exclusions = object.exclusions?.map(e => MarketMakerIncl.fromPartial(e)) || [];
     message.rejections = object.rejections?.map(e => MarketMakerIncl.fromPartial(e)) || [];
     message.distributions = object.distributions?.map(e => IncentiveDistribution.fromPartial(e)) || [];
+    return message;
+  }
+
+};
+
+function createBaseMarketMakerHandle(): MarketMakerHandle {
+  return {
+    address: "",
+    pairId: Long.UZERO
+  };
+}
+
+export const MarketMakerHandle = {
+  encode(message: MarketMakerHandle, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+
+    if (!message.pairId.isZero()) {
+      writer.uint32(16).uint64(message.pairId);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MarketMakerHandle {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMarketMakerHandle();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+
+        case 2:
+          message.pairId = (reader.uint64() as Long);
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MarketMakerHandle>): MarketMakerHandle {
+    const message = createBaseMarketMakerHandle();
+    message.address = object.address ?? "";
+    message.pairId = object.pairId !== undefined && object.pairId !== null ? Long.fromValue(object.pairId) : Long.UZERO;
     return message;
   }
 

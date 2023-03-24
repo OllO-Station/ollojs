@@ -72,11 +72,17 @@ export const createRPCQueryClient = async ({
       }
     },
     ollo: {
+      automation: {
+        v1: (await import("./automation/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       claim: {
         v1: (await import("./claim/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       emissions: {
         v1: (await import("./emissions/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      engine: {
+        v1: (await import("./engine/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       epoch: {
         v1: (await import("./epoch/v1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -89,6 +95,9 @@ export const createRPCQueryClient = async ({
       },
       grants: {
         v1: (await import("./grants/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      hooks: {
+        v1: (await import("./hooks/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       icq: {
         v1: (await import("./icq/v1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -105,6 +114,9 @@ export const createRPCQueryClient = async ({
       lock: {
         v1: (await import("./lock/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
+      lstaking: {
+        v1: (await import("./lstaking/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       market: {
         v1: (await import("./market/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
@@ -113,6 +125,9 @@ export const createRPCQueryClient = async ({
       },
       nft: {
         v1: (await import("./nft/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      ollo: {
+        v1: (await import("./ollo/query.rpc.Query")).createRpcQueryExtension(client)
       },
       ons: {
         v1: (await import("./ons/v1/query.rpc.Query")).createRpcQueryExtension(client)

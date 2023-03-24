@@ -1,5 +1,6 @@
+import { Timestamp } from "../../../google/protobuf/timestamp";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial } from "../../../helpers";
+import { toTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
 /** BaseNFT defines a non-fungible token */
 
 export interface BaseNFT {
@@ -9,6 +10,10 @@ export interface BaseNFT {
   data: string;
   owner: string;
   uriHash: string;
+  createdAt?: Date;
+  royaltyShare: string;
+  transferable: boolean;
+  denomId: string;
 }
 /** BaseNFT defines a non-fungible token */
 
@@ -19,6 +24,10 @@ export interface BaseNFTSDKType {
   data: string;
   owner: string;
   uri_hash: string;
+  created_at?: Date;
+  royalty_share: string;
+  transferable: boolean;
+  denom_id: string;
 }
 export interface NFTMetadata {
   name: string;
@@ -116,7 +125,11 @@ function createBaseBaseNFT(): BaseNFT {
     uri: "",
     data: "",
     owner: "",
-    uriHash: ""
+    uriHash: "",
+    createdAt: undefined,
+    royaltyShare: "",
+    transferable: false,
+    denomId: ""
   };
 }
 
@@ -144,6 +157,22 @@ export const BaseNFT = {
 
     if (message.uriHash !== "") {
       writer.uint32(50).string(message.uriHash);
+    }
+
+    if (message.createdAt !== undefined) {
+      Timestamp.encode(toTimestamp(message.createdAt), writer.uint32(58).fork()).ldelim();
+    }
+
+    if (message.royaltyShare !== "") {
+      writer.uint32(66).string(message.royaltyShare);
+    }
+
+    if (message.transferable === true) {
+      writer.uint32(72).bool(message.transferable);
+    }
+
+    if (message.denomId !== "") {
+      writer.uint32(82).string(message.denomId);
     }
 
     return writer;
@@ -182,6 +211,22 @@ export const BaseNFT = {
           message.uriHash = reader.string();
           break;
 
+        case 7:
+          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+
+        case 8:
+          message.royaltyShare = reader.string();
+          break;
+
+        case 9:
+          message.transferable = reader.bool();
+          break;
+
+        case 10:
+          message.denomId = reader.string();
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -199,6 +244,10 @@ export const BaseNFT = {
     message.data = object.data ?? "";
     message.owner = object.owner ?? "";
     message.uriHash = object.uriHash ?? "";
+    message.createdAt = object.createdAt ?? undefined;
+    message.royaltyShare = object.royaltyShare ?? "";
+    message.transferable = object.transferable ?? false;
+    message.denomId = object.denomId ?? "";
     return message;
   }
 

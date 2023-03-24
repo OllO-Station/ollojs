@@ -98,6 +98,11 @@ export const createLCDClient = async ({
       }
     },
     ollo: {
+      automation: {
+        v1: new (await import("./automation/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       claim: {
         v1: new (await import("./claim/v1/query.lcd")).LCDQueryClient({
           requestClient
@@ -105,6 +110,11 @@ export const createLCDClient = async ({
       },
       emissions: {
         v1: new (await import("./emissions/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      engine: {
+        v1: new (await import("./engine/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },
@@ -125,6 +135,11 @@ export const createLCDClient = async ({
       },
       grants: {
         v1: new (await import("./grants/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      hooks: {
+        v1: new (await import("./hooks/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },
@@ -150,6 +165,11 @@ export const createLCDClient = async ({
       },
       lock: {
         v1: new (await import("./lock/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      lstaking: {
+        v1: new (await import("./lstaking/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },

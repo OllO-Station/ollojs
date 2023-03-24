@@ -1,30 +1,27 @@
-import { Vault, VaultSDKType, EmissionsVault, EmissionsVaultSDKType } from "./vault";
+import { Params, ParamsSDKType } from "./params";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../../helpers";
+/** GenesisState defines the vault module's genesis state. */
+
 export interface GenesisState {
-  vaults: Vault[];
-  emissionsVault: EmissionsVault[];
+  params?: Params;
 }
+/** GenesisState defines the vault module's genesis state. */
+
 export interface GenesisStateSDKType {
-  vaults: VaultSDKType[];
-  emissions_vault: EmissionsVaultSDKType[];
+  params?: ParamsSDKType;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    vaults: [],
-    emissionsVault: []
+    params: undefined
   };
 }
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.vaults) {
-      Vault.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-
-    for (const v of message.emissionsVault) {
-      EmissionsVault.encode(v!, writer.uint32(18).fork()).ldelim();
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
 
     return writer;
@@ -40,11 +37,7 @@ export const GenesisState = {
 
       switch (tag >>> 3) {
         case 1:
-          message.vaults.push(Vault.decode(reader, reader.uint32()));
-          break;
-
-        case 2:
-          message.emissionsVault.push(EmissionsVault.decode(reader, reader.uint32()));
+          message.params = Params.decode(reader, reader.uint32());
           break;
 
         default:
@@ -58,8 +51,7 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
-    message.vaults = object.vaults?.map(e => Vault.fromPartial(e)) || [];
-    message.emissionsVault = object.emissionsVault?.map(e => EmissionsVault.fromPartial(e)) || [];
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   }
 

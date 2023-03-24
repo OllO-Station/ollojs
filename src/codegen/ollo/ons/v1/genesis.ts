@@ -1,26 +1,22 @@
 import { Params, ParamsSDKType } from "./params";
-import { Whois, WhoisSDKType } from "./whois";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the ons module's genesis state. */
 
 export interface GenesisState {
   params?: Params;
-  whoisList: Whois[];
   portId: string;
 }
 /** GenesisState defines the ons module's genesis state. */
 
 export interface GenesisStateSDKType {
   params?: ParamsSDKType;
-  whoisList: WhoisSDKType[];
   port_id: string;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
-    whoisList: [],
     portId: ""
   };
 }
@@ -31,12 +27,8 @@ export const GenesisState = {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
 
-    for (const v of message.whoisList) {
-      Whois.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
-
     if (message.portId !== "") {
-      writer.uint32(26).string(message.portId);
+      writer.uint32(18).string(message.portId);
     }
 
     return writer;
@@ -56,10 +48,6 @@ export const GenesisState = {
           break;
 
         case 2:
-          message.whoisList.push(Whois.decode(reader, reader.uint32()));
-          break;
-
-        case 3:
           message.portId = reader.string();
           break;
 
@@ -75,7 +63,6 @@ export const GenesisState = {
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
-    message.whoisList = object.whoisList?.map(e => Whois.fromPartial(e)) || [];
     message.portId = object.portId ?? "";
     return message;
   }

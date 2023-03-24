@@ -1,6 +1,10 @@
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../../helpers";
+/** Params defines the parameters for the module. */
+
 export interface Params {}
+/** Params defines the parameters for the module. */
+
 export interface ParamsSDKType {}
 
 function createBaseParams(): Params {

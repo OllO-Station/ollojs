@@ -19,12 +19,14 @@ export interface EventListNft {
   nftId: string;
   denomId: string;
   creator: string;
+  price: string;
 }
 export interface EventListNftSDKType {
   id: string;
   nft_id: string;
   denom_id: string;
   creator: string;
+  price: string;
 }
 export interface EventEditNftListing {
   id: string;
@@ -181,7 +183,8 @@ function createBaseEventListNft(): EventListNft {
     id: "",
     nftId: "",
     denomId: "",
-    creator: ""
+    creator: "",
+    price: ""
   };
 }
 
@@ -201,6 +204,10 @@ export const EventListNft = {
 
     if (message.creator !== "") {
       writer.uint32(34).string(message.creator);
+    }
+
+    if (message.price !== "") {
+      writer.uint32(42).string(message.price);
     }
 
     return writer;
@@ -231,6 +238,10 @@ export const EventListNft = {
           message.creator = reader.string();
           break;
 
+        case 5:
+          message.price = reader.string();
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -246,6 +257,7 @@ export const EventListNft = {
     message.nftId = object.nftId ?? "";
     message.denomId = object.denomId ?? "";
     message.creator = object.creator ?? "";
+    message.price = object.price ?? "";
     return message;
   }
 
